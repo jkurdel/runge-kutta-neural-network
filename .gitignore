@@ -1,0 +1,5 @@
+*.aux
+*.gz
+
+runge-kutta-neural-network.pdf
+runge-kutta-neural-network.log
