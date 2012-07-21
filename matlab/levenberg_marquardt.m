@@ -22,6 +22,7 @@ y = Theta(1) * gaussmf(x, [Theta(2), Theta(3)]);
 
 plot(x, y, 'r');
 
+% TODO: change the stop condition of gradient descent
 N = 1000;
 for i = 1:N
     dy_dw = gaussmf(x, [Theta(2), Theta(3)]);

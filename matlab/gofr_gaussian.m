@@ -1,5 +1,5 @@
 % Neural network with radial basis functions (RBF) approximating gaussian-based function 
-% using Orthogonal Forward Regression (OFR)
+% using Generalized Orthogonal Forward Regression (GOFR)
 
 close all;
 clear all;
@@ -99,8 +99,50 @@ for k = 1:K
     [E_k(k) selected_rbfs(k)] = max(E);
     B_k(k) = B(selected_rbfs(k));
     A_k(:,k) = A{selected_rbfs(k)}(:,k);
-    Q_k(:,k) = Q(:,selected_rbfs(k));
-    E = zeros(size(E));    
+    W = A_k\B_k';
+    
+    % ------ Levenberg-Marquardt -----
+    Theta = [W(k); sigmas(selected_rbfs(k)); centers(selected_rbfs(k))];
+
+    % TODO: change the stop condition of gradient descent
+    for i = 1:1000
+        y_rbf = 0;
+        for j = 1:k
+            y_rbf = y_rbf + W(j) * gaussmf(x, [sigmas(selected_rbfs(j)) centers(selected_rbfs(j))]);
+        end
+
+        y_tmp = Theta(1) * gaussmf(x, [Theta(2), Theta(3)]);
+
+        dy_dw = gaussmf(x, [Theta(2), Theta(3)]);
+        dy_dsigma = Theta(1) * (x - Theta(3)).^2 / (Theta(2)^3) .* y_tmp;
+        dy_dc = Theta(1) * (x - Theta(3)) / (Theta(2)^2) .* y_tmp;
+
+        Z = [dy_dw' dy_dsigma' dy_dc'];
+        e = y' - y_rbf';
+
+        Theta = Theta + pinv(Z'*Z + 0.1*eye(3))*Z'*e;
+        
+        W(k) = Theta(1);
+        sigmas(selected_rbfs(k)) = Theta(2);
+        centers(selected_rbfs(k)) = Theta(3);
+    end;
+    
+    % Gram-Schmidt orthogonalization for modified RBF
+    i = selected_rbfs(k);
+    G(:,i) = gaussmf(x, [Theta(2), Theta(3)]);
+    Q(:,i) = G(:,i);
+       
+    for j=1:k-1
+        A{i}(j,k) = Q_k(:,j)'*G(:,i) / (Q_k(:,j)'*Q_k(:,j));
+        Q(:,i) = Q(:,i) - A{i}(j,k)*Q_k(:,j);
+    end
+  
+    E_k(k) = B(i)^2*Q(:,i)'*Q(:,i) / (D'*D);   
+    B_k(k) = Q(:,i)'*D / (Q(:,i)'*Q(:,i));
+    A_k(:,k) = A{i}(:,k);
+    Q_k(:,k) = Q(:,i);
+
+    E = zeros(size(E));
 end
 
 W = A_k\B_k';
