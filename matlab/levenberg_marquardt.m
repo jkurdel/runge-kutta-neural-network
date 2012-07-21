@@ -25,8 +25,8 @@ plot(x, y, 'r');
 N = 1000;
 for i = 1:N
     dy_dw = gaussmf(x, [Theta(2), Theta(3)]);
-    dy_dsigma = Theta(1) * (x - c).^2 / (sigma^3) .* y;
-    dy_dc = Theta(1) * (x - c) / (sigma^2) .* y;
+    dy_dsigma = Theta(1) * (x - Theta(3)).^2 / (Theta(2)^3) .* y;
+    dy_dc = Theta(1) * (x - Theta(3)) / (Theta(2)^2) .* y;
     
     Z = [dy_dw' dy_dsigma' dy_dc'];
     e = f' - y';
