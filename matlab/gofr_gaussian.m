@@ -15,7 +15,7 @@ c3 = 15;
 y1 = gaussmf(x, [sigma c1]);
 y2 = gaussmf(x, [sigma c2]);
 y3 = gaussmf(x, [sigma c3]);
-y = 2.5*y1 + 1.6*y2 + 7*y3;
+y = 2.5*y1 + 1.6*y2 - 7*y3;
 
 % add noise to signal
 y = y + randn(size(y)) * 0.05 * max(y);
@@ -39,23 +39,23 @@ for i = 1:N
     iter_rbf_count = 2^i+1;  % number of RBFs in current iteration
     sigma = sqrt(max(x) - min(x)) / 2^(i-1);
     
-    figure(i+1)
-    title({sprintf('%d level of RBF functions',i);
-           sprintf('sigma = %f',sigma);
-           sprintf('Functions count = %d',iter_rbf_count)})
-    hold on
+%     figure(i+1)
+%     title({sprintf('%d level of RBF functions',i);
+%            sprintf('sigma = %f',sigma);
+%            sprintf('Functions count = %d',iter_rbf_count)})
+%     hold on
     
     for j = 1:iter_rbf_count
         sigmas(k) = sigma;
         % generating centers for rbf functions
         centers(k) = min(x) + (max(x) - min(x)) / (iter_rbf_count-1) * (j-1);
         G(:,k) = gaussmf(x, [sigma centers(k)]); 
-        plot(x, G(:,k));
-        plot(centers(k),0,'r*');
+%         plot(x, G(:,k));
+%         plot(centers(k),0,'r*');
         k = k + 1;
     end    
     
-    hold off;
+%     hold off;
 end
 
 % TODO: comment these variables
@@ -75,7 +75,7 @@ for i = 1:rbf_number
 end
 
 % ----- selection of the most significant functions -----
-K = 4;  % number of RBF selections
+K = 8;  % number of RBF selections
 for k = 1:K
     % Gram-Schmidt orthogonalization
     for i = 1:rbf_number
@@ -104,8 +104,12 @@ for k = 1:K
     % ------ Levenberg-Marquardt -----
     Theta = [W(k); sigmas(selected_rbfs(k)); centers(selected_rbfs(k))];
 
-    % TODO: change the stop condition of gradient descent
-    for i = 1:1000
+    N = 1000;
+    n = 1;
+    e_old = 1;
+    e = 0;
+
+    while (abs(sum(e_old.^2 - e.^2)) > 0.001) && (n < N)
         y_rbf = 0;
         for j = 1:k
             y_rbf = y_rbf + W(j) * gaussmf(x, [sigmas(selected_rbfs(j)) centers(selected_rbfs(j))]);
@@ -113,11 +117,16 @@ for k = 1:K
 
         y_tmp = Theta(1) * gaussmf(x, [Theta(2), Theta(3)]);
 
-        dy_dw = gaussmf(x, [Theta(2), Theta(3)]);
-        dy_dsigma = Theta(1) * (x - Theta(3)).^2 / (Theta(2)^3) .* y_tmp;
-        dy_dc = Theta(1) * (x - Theta(3)) / (Theta(2)^2) .* y_tmp;
+%         dy_dw = gaussmf(x, [Theta(2), Theta(3)]);
+%         dy_dsigma = Theta(1) * (x - Theta(3)).^2 / (Theta(2)^3) .* y_tmp;
+%         dy_dc = Theta(1) * (x - Theta(3)) / (Theta(2)^2) .* y_tmp;
+        dy_dw = 1 ./ exp((Theta(3) - x).^2 / (2*Theta(2)^2));
+        dy_dsigma = (Theta(1)*(Theta(3) - x).^2) ./ (Theta(2)^3*exp((Theta(3) - x).^2 / (2*Theta(2)^2)));
+        dy_dc = -(Theta(1)*(2*Theta(3) - 2*x)) ./ (2*Theta(2)^2*exp((Theta(3) - x).^2 / (2*Theta(2)^2)));
+
 
         Z = [dy_dw' dy_dsigma' dy_dc'];
+        e_old = e;
         e = y' - y_rbf';
 
         Theta = Theta + pinv(Z'*Z + 0.1*eye(3))*Z'*e;
@@ -125,6 +134,7 @@ for k = 1:K
         W(k) = Theta(1);
         sigmas(selected_rbfs(k)) = Theta(2);
         centers(selected_rbfs(k)) = Theta(3);
+        n = n + 1;
     end;
     
     % Gram-Schmidt orthogonalization for modified RBF
