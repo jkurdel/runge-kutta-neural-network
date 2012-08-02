@@ -2,6 +2,9 @@ resources/*
 
 *.aux
 *.gz
+*.out
+*.dvi
+*.asv
 
 runge-kutta-neural-network.pdf
 runge-kutta-neural-network.log
