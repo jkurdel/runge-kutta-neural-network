@@ -1,0 +1,74 @@
+% Great thanks for Cezary Sałbut (this latex file is mainly based on his work)
+
+\documentclass[a4paper,12pt,fleqn]{article}
+
+
+\usepackage[utf8]{inputenc} 
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[pdftex]{color,graphicx}
+\usepackage{subfig}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{pdflscape}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{appendix}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=blue
+}
+
+\usepackage{listings}
+\lstset{
+	numbers=left, 
+	stepnumber=1, 
+	basicstyle={\footnotesize \ttfamily},
+	language=C, 
+	captionpos=b,
+	xleftmargin=6mm,
+	aboveskip=\medskipamount,
+	belowskip=\bigskipamount,
+	tabsize=4
+}
+
+\usepackage{title-page}
+
+\usepackage[top=28mm, bottom=30mm, left=21mm, right=21mm]{geometry}
+
+\linespread{1.1}		%interlinia
+
+\usepackage{boxedminipage} 
+%% change the below lengths to suit your needs: 
+\setlength{\fboxrule}{1pt} 
+\setlength{\fboxsep}{5pt}
+
+
+
+\renewcommand{\appendixtocname}{Dodatki}
+\renewcommand{\appendixpagename}{Dodatki}
+
+
+\widowpenalty=10000
+\clubpenalty=10000
+
+
+\newcommand{\autor}{Jan Kurdel}
+\newcommand{\tytulpl}{Identyfikacja dynamiki obiektu latającego metodą najmniejszych kwadratów z ortogonalizacją}
+%\newcommand{\tytulen}{Switched--mode power supply with programmable output voltage}
+\newcommand{\uczelnia}{POLITECHNIKA WARSZAWSKA}
+\newcommand{\wydzial}{Wydział Elektroniki i Technik Informacyjnych}
+\newcommand{\instytut}{Instytut Systemów Elektronicznych}
+\newcommand{\promotor}{dr inż. Stanisława Jankowskiego}
+\newcommand{\praca}{Praca inżynierska}
+\newcommand{\miejscerok}{Warszawa, 2012}
+\newcommand{\indeks}{214460}
+
+\title{\tytulpl}
+\author{\autor}
