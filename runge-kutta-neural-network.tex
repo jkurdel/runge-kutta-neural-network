@@ -116,6 +116,57 @@ $$y_1(a) = \alpha_0, y_2(a) = \alpha_1, \hdots, y_n(a) = \alpha_{n-1}$$
 
 Dzięki takiemu zabiegowi możliwe jest rozwiązanie równania różniczkowego wyższego rzędu metodami służącymi do rozwiązywania równań różniczkowych rzędu pierwszego.
 
+
+
+\newpage
+\section{Metody gradientowe}
+Do najbardziej skutecznych metod uczenia sieci neuronowych należą metody gradientowe. Algorytmy te bazują na rozwinięciu w szereg Taylora funkcji celu $E(W)$ w najbliższym sąsiedztwie znanego rozwiązania\cite[str. 54]{Osowski}.
+\begin{equation}
+	\label{wzor:metoda_gradientowa}
+	E(w + p) = E(w) + [(g(w)]^Tp + \frac{1}{2}p^TH(w)p + \hdots
+\end{equation}
+gdzie
+$$g(w) = \nabla E = [\frac{\partial E}{\partial w_1}, \frac{\partial E}{\partial w_2}, \hdots, \frac{\partial E}{\partial w_n}]^T$$
+$$H(w) = \begin{bmatrix}
+\frac{\partial^2 E}{\partial w_1 \partial w_2} & \hdots & \frac{\partial^2 E}{\partial w_1 \partial w_n}\\
+\vdots & & \vdots \\
+\frac{\partial^2 E}{\partial w_n \partial w_1} & \hdots & \frac{\partial^2 E}{\partial w_n \partial w_n}
+\end{bmatrix}$$
+$\nabla E$ jest wektorem pierwszych pochodnych - gradientem, natomiast $H(w)$ jest macierzą drugich pochodnych - hesjanem. W praktyce są używane co najwyżej 3 pierwsze elementy równania~\ref{wzor:metoda_gradientowa}. W metodzie gradientowej poszukuje się minimum funkcji celu poprzez taką aktualizację wektora kierunkowego $p$ oraz kroku $\eta$ aby prawdziwa była nierówność $E(w_{k+1}) < E(w_k)$.
+
+\subsection*{Algorytm Levenberga-Marquardta}
+Podczas gdy wcześniej nie została określona konkretna funkcji celu, tak w przypadku algorytmu Levenberga-Marquardta funkcją celu jest błąd średniokwadratowy (sum-of squares error, Mean Squared Error, MSE)\cite[str. 290]{Bishop}.
+\begin{equation}
+	\label{wzor:mse}
+	E = \frac{1}{2} \sum_1^n(e_n)^2 = \frac{1}{2} \sum_1^n(y_n - \tilde{y_n})^2
+\end{equation}
+gdzie $e_n$ jest błędem n-tego wzorca, $y_n$ n-tym wzorcem, $\tilde{y_n}$ wyjściem sieci dla n-tego wzorca.
+
+Zakładając, że aktualnie jesteśmy w punkcie $w_{old}$ i chcemy przemieścić się do punktu $w_{new}$, który jest niedaleko oddalony od $w_{old}$ w celu obliczenia nowej wartości $e$ możemy skorzystać z rozwinięcia w szereg Taylora:
+\begin{equation}
+	\label{wzor:blad_lm}
+	e(w_{new}) = e(w_{old}) + Z(w_{new} - w_{old})
+\end{equation}
+gdzie $Z \equiv \nabla e$. Po podstawieniu równania \ref{wzor:blad_lm} do równania \ref{wzor:mse} wzór na błąd średniokwadratowy może zostać zapisany jako:
+\begin{equation}
+	\label{wzor:mse2}
+	E = \frac{1}{2}(e(w_{old}) + Z(w_{new} - w_{old}))^2
+\end{equation}
+Chcą zminimalizować równanie \ref{wzor:mse2} ze względu na zmienną $w_{new}$ otrzymujemy wzór na $w_{new}$:
+\begin{equation}
+	w_{new} = w_{old} - (Z^TZ)^{-1}Z^Te(w_{old})
+\end{equation}
+Jednak taki sposób obliczania $w_{new}$ może powodować, że krok $w_{new} - w_{old}$ będzie duży a wtedy liniowa aproksymacja szeregiem Taylora może stać się niedokładna. Z tego powodu algorytm Levenberga-Marquardta korzysta ze zmodyfikowanej funkcji celu w postaci:
+\begin{equation}
+	\label{wzor:mse_lm}
+	E = \frac{1}{2}(e(w_{old}) + Z(w_{new} - w_{old}))^2 + \lambda (w_{new} - w_{old})^2
+\end{equation}
+Chcą zminimalizować równanie \ref{wzor:mse_lm} ze względu na zmienną $w_{new}$ otrzymujemy ostatecznie równanie opisujące sposób obliczania wag w kolejnych iteracjach dla algorytmu Levenberga-Marquardta:
+\begin{equation}
+	w_{new} = w_{old} -(Z^TZ + \lambda I)^{-1}Z^Te(w_{old})
+\end{equation}
+gdzie $I$ jest macierzą jednostkową. \textbf{Opisać $\lambda$}
+
 % -------------------------- bibliografia ----------------------------
 \newpage
 
@@ -123,7 +174,10 @@ Dzięki takiemu zabiegowi możliwe jest rozwiązanie równania różniczkowego w
 \bibitem{AK_RBG2002}Kharab A., Ronald B. Guenther, An introduction to numerical methods : a MATLAB approach, 2002, Chapman \& Hall/CRC
 
 \bibitem{BCh_2001}Bogdan Choczewski (red.), Równania różniczkowe zwyczajne i cząstkowe. Zadania z matematyki, Kraków 2001, Wydawnictwa AGH
-\end{thebibliography}
 
+\bibitem{Osowski}Osowski S., Sieci neuronowe do przetwarzania informacji, Warszawa 2006, Oficyna Wydawnicza Politechniki Warszawskiej
+
+\bibitem{Bishop}Bishop C. M., Neural Networks for Pattern Recognition, Oxford University Press, 1995 Oxford
+\end{thebibliography}
 
 \end{document}
