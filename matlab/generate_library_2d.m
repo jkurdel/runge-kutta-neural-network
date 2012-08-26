@@ -38,8 +38,8 @@ function [G,centers,sigmas] = generate_library_2d(X, N)
                 centers(2, k) = min_x + (max_x - min_x) / (iter_rbf_count-1) * (l-1);
                 G(:,k) = gaussian_2d(X, sigma, centers(:,k)'); 
     %             plot(centers(1,k),centers(2,k),'r*');
-                k = k + 1;
                 sigmas(k) = sigma;
+                k = k + 1;
             end
         end    
 
