@@ -1,6 +1,6 @@
-function [selected_rbfs, W, E_k, A_k, Q_k, B_k] =  ofr(y, G, centers, K)
+function [selected_rbfs, W, E_k, A_k, Q_k, B_k] =  ofr(y, G, K)
 
-    rbf_number = length(centers);
+    rbf_number = size(G,2);
 
     % TODO: comment these variables
     D = y;

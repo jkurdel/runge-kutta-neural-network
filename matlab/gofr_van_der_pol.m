@@ -1,5 +1,5 @@
-% Neural network with radial basis functions (RBF) approximating first derivative 
-% of Van der Pol equation using Generalized Orthogonal Forward Regression (GOFR)
+% Neural network with radial basis functions (RBF) approximating 
+% Van der Pol equation using Generalized Orthogonal Forward Regression (GOFR)
 
 close all;
 clear all;
