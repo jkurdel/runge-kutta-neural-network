@@ -23,8 +23,8 @@ function [t,y] = rk_van_der_pol(t_end, h, y0)
     
     % Van der Pol equation 
     % y''(t) - (1 - y^2(t)) * y'(t) + y(t) = 0;
-    % y''(t) = y(2)
-    % y'(t) = (1-y(1)^2)*y(2)-y(1)
+    % y'(t)  = y(2)
+    % y''(t) = (1-y(1)^2)*y(2)-y(1)
 
     for i = 1:n-1
         k1 = h*(y(i,2));
