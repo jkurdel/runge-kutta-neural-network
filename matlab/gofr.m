@@ -9,7 +9,7 @@ function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas] =  gofr(X, y, G
     B = zeros(1,rbf_number);
     B_k = zeros(1,rbf_number);
     E = zeros(1,rbf_number);
-    E_k = zeros(1,rbf_number);
+    E_k = zeros(1,K);
     selected_rbfs = zeros(1,rbf_number);      % indexes of selected rbfs order by decreasing energy 
 
     A = cell(1,rbf_number);
@@ -52,17 +52,11 @@ function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas] =  gofr(X, y, G
         e_old = 1;
         e = 0;
 
-        
-        centers(1,selected_rbfs(k))
-        centers(2,selected_rbfs(k))
-        
         while (abs(sum(e_old.^2 - e.^2)) > 0.001) && (n < N)
             y_rbf = 0;
             for j = 1:k
                 y_rbf = y_rbf + W(j) * gaussian_2D(X, sigmas(selected_rbfs(j)), centers(:,selected_rbfs(j))');
             end
-
-            y_tmp = Theta(1) * gaussian_2D(X, Theta(2), [Theta(3) Theta(4)]);
 
             dy_dw = 1 ./ exp(((Theta(3) - X(:,1)).^2 + (Theta(4) - X(:,2)).^2) / (2*Theta(2)^2));
             dy_dsigma = Theta(1)*((Theta(3) - X(:,1)).^2 + (Theta(4) - X(:,2)).^2) ./ (Theta(2)^3*exp(((Theta(3) - X(:,1)).^2 + (Theta(4) - X(:,2)).^2)/(2*Theta(2)^2)));
@@ -82,9 +76,6 @@ function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas] =  gofr(X, y, G
 
             n = n + 1;
         end;
-
-        centers(1,selected_rbfs(k))
-        centers(2,selected_rbfs(k))
                 
         % Gram-Schmidt orthogonalization for modified RBF
         i = selected_rbfs(k);
@@ -97,7 +88,7 @@ function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas] =  gofr(X, y, G
         end
 
 
-        E_k(k) = B(i)^2*Q(:,i)'*Q(:,i) / (D'*D); 
+        E_k(k) = B(i)^2*Q(:,i)'*Q(:,i) / (D'*D);
         B_k(k) = Q(:,i)'*D / (Q(:,i)'*Q(:,i));
         A_k(:,k) = A{i}(:,k);
         Q_k(:,k) = Q(:,i);
