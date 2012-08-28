@@ -116,6 +116,29 @@ $$y_1(a) = \alpha_0, y_2(a) = \alpha_1, \hdots, y_n(a) = \alpha_{n-1}$$
 
 Dzięki takiemu zabiegowi możliwe jest rozwiązanie równania różniczkowego wyższego rzędu metodami służącymi do rozwiązywania równań różniczkowych rzędu pierwszego.
 
+\newpage
+\section{Sieci neuronowe}
+Sieci neuronowe powstały \textbf{opisać jak powstały}. Podstawą budowy sieci neuronowych są neurony. Budowa pojedynczego neuronu jest przedstawiona na rysunku \ref{fig:neuron}. Neuron taki sumuje sygnał podany na jego wejścia $x_i$ z odpowiednimi wagami $w_i$, dając na wyjście wynik $y$ sumy przeprowadzonej przez funkcję aktywacji $f(x)$.
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.8]{images/single_neuron.png}
+	\caption{Budowa pojedynczego neuronu}
+	\label{fig:neuron}
+\end{figure}
+
+Sieć neuronową budują grupy połączonych ze sobą neuronów. Strukturę sieci wielowarstwowej przedstawia rysunek \ref{fig:neuron} \textbf{ZMienić rysunek}. Pierwsza warstwa nosi nazwę warstwy wejściowej, ostatnia warstwa sieci nosi nazwę warstwy wyjściowej. Wszystkie pozostałe warstwy noszą nazwę warstwy ukrytej.
+
+\subsection*{Sieć RBF}
+Sieć RBF (Radial Basis Function) jest sztuczną siecią neuronową o radialnych funkcjach bazowych. Sieć taka składa się zazwyczaj z jednej warstwy ukrytej, gdzie funkcja aktywacji jest radialną funkcją bazową oraz 
+warstwy wyjściowej w postaci neuronu liniowego. Radialna funkcja bazowa jest określona w sposób następujący\cite[str. 1]{Bartkowiak}
+\begin{equation}
+	G(x,c) = G(r(x,c))
+\end{equation}
+gdzie $r(x,c)$ jest odległością między punktami $r$ i $c$ a centrum $c$ jest ustalone i pełni rolę parametru funkcji. Jedną z bardziej popularnych radialnych funkcji bazowych jest funkcja Gaussa:
+\begin{equation}
+	G(x,\sigma,c) = e^{\frac{-(x-c)^2}{2\sigma^2}}
+\end{equation}
+\textbf{Dlaczego taka sieć jest fajna i kiedy się ją stosuję}
 
 
 \newpage
@@ -167,6 +190,45 @@ Chcą zminimalizować równanie \ref{wzor:mse_lm} ze względu na zmienną $w_{ne
 \end{equation}
 gdzie $I$ jest macierzą jednostkową. \textbf{Opisać $\lambda$}
 
+
+
+\newpage
+\section{Selekcja funkcji bazowych oparta o Orthogonal Least Square}
+Jedną z metod selekcji najbardziej znaczących funkcji bazowych jest metoda oparta o metodę najmniejszych kwadratów oraz ortogonalizację \cite{Chen}. Metoda ta umożliwia określenie wkładu każdej funkcji bazowej i wybranie tych najbardziej istotnych. Mając dany wektor wag sieci $w = [w_0, w_1, \hdots, w_K]^T$ oraz wektor danych uczących $d = [d_1, d_2, \hdots, d_p]^T$ można zapisać macierz G w postaci:
+
+\begin{equation}
+G = \begin{bmatrix}
+\phi_{11} & \phi_{21} & \hdots & \phi_{K1} \\
+\phi_{12} & \phi_{22} & \hdots & \phi_{K2} \\
+\hdots    & \hdots    & \hdots & \hdots    \\
+\phi_{1p} & \phi_{2p} & \hdots & \phi_{Kp}
+\end{bmatrix}
+\end{equation}
+
+gdzie $\phi_{ji}$ oznacza odpowiedź i-tej funkcji radialnej na j-ty wzorzec uczący. Oznaczając przez $g_i = [g_{i1}, g_{i2}, \hdots, g_{ip}]^T$ odpowiedź i-tej funkcji radialnej na wszystkie wzorce uczące można macierz G przedstawić w postaci:
+
+\begin{equation}G = [g_1, g_2, \hdots, g_K] \end{equation}
+
+Wprowadzając takie oznaczenia można zapisać następujące równanie:
+\begin{equation}d = Gw + e\end{equation}
+
+gdzie $e$ jest błędem niedopasowania sieci.
+\begin{equation}G = QA\end{equation}
+
+\begin{equation}
+A = \begin{bmatrix}
+1      & a{12}  & a{13}  & \hdots & a_{1K} \\
+0      & 1      & a{23}  & \hdots & a_{2K} \\
+\hdots & \hdots & \hdots & \hdots & \hdots \\
+0      & 0      & 0      & 0      & 1     
+\end{bmatrix}
+\end{equation}
+
+No a teraz ortogonalizacja. I ortogonalizacja może być dokonana różnymi metodami z czego jedną z nich jest ortogonalizacja Gramma-Schmidta.
+
+Ortogonalizacji macierzy G można dokonać różnymi metodami z czego jedną z nich jest ortogonalizacja Gramma-Schmidta. \textbf{Opisać teraz metodę Gramma-Schmidta}.
+
+
 % -------------------------- bibliografia ----------------------------
 \newpage
 
@@ -178,6 +240,11 @@ gdzie $I$ jest macierzą jednostkową. \textbf{Opisać $\lambda$}
 \bibitem{Osowski}Osowski S., Sieci neuronowe do przetwarzania informacji, Warszawa 2006, Oficyna Wydawnicza Politechniki Warszawskiej
 
 \bibitem{Bishop}Bishop C. M., Neural Networks for Pattern Recognition, Oxford University Press, 1995 Oxford
+
+\bibitem{Bartkowiak} Bartkowiak A., (Notatki do wykładu Sieci Neuronowe), Sieci RBF - o radialnych funkcjach bazowych, https://www.ii.uni.wroc.pl/~aba/teach/NN/w9rbf.pdf
+
+\bibitem{Chen} Chen S., Cowan C. F. N., Grant P. M., Orthogonal Least Squares Learning Algorithm for Radial Basis Function Networks, IEEE, 1991
+
 \end{thebibliography}
 
 \end{document}

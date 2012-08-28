@@ -96,14 +96,6 @@ function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas] =  gofr(X, y, G
         W = A_k\B_k';
 
         E = zeros(size(E));
-
-        y_rbf = 0;
-        for ij = 1:k
-            y_rbf = y_rbf + W(ij) * gaussian_2D(X, sigmas(selected_rbfs(ij)), centers(:,selected_rbfs(ij))');
-        end
-
-        'blad sredniokwadratowy'
-        err = sum((y - y_rbf).^2) / length(y)
     end
 
     W = A_k\B_k';
