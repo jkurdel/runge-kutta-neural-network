@@ -47,36 +47,63 @@ function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas] =  gofr(X, y, G
         % ------ Levenberg-Marquardt -----
         Theta = [W(k); sigmas(selected_rbfs(k)); centers(1, selected_rbfs(k)); centers(2, selected_rbfs(k))];
 
-        N = 1000;   % maximum iterations of gradient method
-        n = 1;
-        e_old = 1;
-        e = 0;
+        y_rbf = 0;
+        for j = 1:k
+            y_rbf = y_rbf + W(j) * gaussian_2D(X, sigmas(selected_rbfs(j)), centers(:,selected_rbfs(j))');
+        end
+        
 
-        while (abs(sum(e_old.^2 - e.^2)) > 0.001) && (n < N)
+        lambda = 0.1;
+        Theta_old = Theta;
+        N = 100;   % maximum iterations of gradient method
+        n = 1;
+        err = zeros(N,1);
+        err(1) = abs(sum((y - y_rbf).^2)) / length(y);
+        err_old = err(1);
+        while (n < N)
+            n = n + 1;
+          
+            dy_dw = gaussian_2d(X, Theta(2), [Theta(3) Theta(4)]);
+            dy_dsigma = Theta(1) * ((Theta(3) - X(:,1)).^2 + (Theta(4) - X(:,2)).^2) ./ (Theta(2)^3) .* gaussian_2d(X, Theta(2), [Theta(3) Theta(4)]);
+            dy_dc1 = (Theta(1)*(X(:,1) - Theta(3))) ./ (Theta(2)^2) .* gaussian_2d(X, Theta(2), [Theta(3) Theta(4)]);
+            dy_dc2 = (Theta(1)*(X(:,2) - Theta(4))) ./ (Theta(2)^2) .* gaussian_2d(X, Theta(2), [Theta(3) Theta(4)]);
+            
+            Z = [dy_dw dy_dsigma dy_dc1 dy_dc2];
+            e = y - y_rbf;
+
+            Theta = Theta + pinv(Z'*Z + lambda*eye(4))*Z'*e;            
+            W(k) = Theta(1);
+            sigmas(selected_rbfs(k)) = Theta(2);
+            centers(1,selected_rbfs(k)) = Theta(3);
+            centers(2,selected_rbfs(k)) = Theta(4);
+            
             y_rbf = 0;
             for j = 1:k
                 y_rbf = y_rbf + W(j) * gaussian_2D(X, sigmas(selected_rbfs(j)), centers(:,selected_rbfs(j))');
             end
 
-            dy_dw = 1 ./ exp(((Theta(3) - X(:,1)).^2 + (Theta(4) - X(:,2)).^2) / (2*Theta(2)^2));
-            dy_dsigma = Theta(1)*((Theta(3) - X(:,1)).^2 + (Theta(4) - X(:,2)).^2) ./ (Theta(2)^3*exp(((Theta(3) - X(:,1)).^2 + (Theta(4) - X(:,2)).^2)/(2*Theta(2)^2)));
-            dy_dc1 = -(Theta(1)*(2*Theta(3) - 2*X(:,1))) ./ (2*Theta(2)^2*exp(((Theta(3) - X(:,1)).^2 + (Theta(4) - X(:,2)).^2)/(2*Theta(2)^2)));
-            dy_dc2 = -(Theta(1)*(2*Theta(4) - 2*X(:,1))) ./ (2*Theta(2)^2*exp(((Theta(3) - X(:,1)).^2 + (Theta(4) - X(:,2)).^2)/(2*Theta(2)^2)));
+            err(n) = sum((y - y_rbf).^2) / length(y);
+            if (err(n) >= err_old)
+                Theta = Theta_old;
+                lambda = lambda * 10;
+            else
+                Theta_old = Theta;
+                err_old = err(n);
+                lambda = lambda / 10;                
+            end
 
-            Z = [dy_dw dy_dsigma dy_dc1 dy_dc2];
-            e_old = e;
-            e = y - y_rbf;
-
-            Theta = Theta + pinv(Z'*Z + 0.1*eye(4))*Z'*e;
-
-            W(k) = Theta(1);
-            sigmas(selected_rbfs(k)) = Theta(2);
-            centers(1,selected_rbfs(k)) = Theta(3);
-            centers(2,selected_rbfs(k)) = Theta(4);
-
-            n = n + 1;
+            % if lambda is too big or too small stop
+            if (lambda > 1000000 || lambda < 0.000001)
+                break;
+            end;            
         end;
-                
+        
+        % set the optimal parameters
+        W(k) = Theta_old(1);
+        sigmas(selected_rbfs(k)) = Theta_old(2);
+        centers(1,selected_rbfs(k)) = Theta_old(3);
+        centers(2,selected_rbfs(k)) = Theta_old(4);
+
         % Gram-Schmidt orthogonalization for modified RBF
         i = selected_rbfs(k);
         G(:,i) = gaussian_2D(X, Theta(2), [Theta(3) Theta(4)]);
@@ -87,9 +114,9 @@ function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas] =  gofr(X, y, G
             Q(:,i) = Q(:,i) - A{i}(j,k)*Q_k(:,j);
         end
 
-
+        B(i) = Q(:,i)'*D / (Q(:,i)'*Q(:,i));
+        B_k(k) = B(i);
         E_k(k) = B(i)^2*Q(:,i)'*Q(:,i) / (D'*D);
-        B_k(k) = Q(:,i)'*D / (Q(:,i)'*Q(:,i));
         A_k(:,k) = A{i}(:,k);
         Q_k(:,k) = Q(:,i);
 
