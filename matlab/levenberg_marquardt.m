@@ -44,7 +44,11 @@ while (abs(sum(e_old.^2 - e.^2)) > 0.001) && (n < 10000)
     Theta = Theta + pinv(Z'*Z + 0.1*eye(3))*Z'*e;
     y = Theta(1) * gaussmf(x, [Theta(2), Theta(3)]);
     
+    err(n) = sum((f - y).^2);
     n = n + 1;
 end
 
 plot(x, y, 'g');
+
+figure(2)
+plot(err);

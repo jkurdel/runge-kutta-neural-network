@@ -1,4 +1,4 @@
-function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas] =  gofr(X, y, G, centers, sigmas, K)
+function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas, G] =  gofr(X, y, G, centers, sigmas, K)
 
     rbf_number = length(centers);
 
@@ -56,12 +56,10 @@ function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas] =  gofr(X, y, G
         lambda = 0.1;
         Theta_old = Theta;
         N = 100;   % maximum iterations of gradient method
-        n = 1;
         err = zeros(N,1);
         err(1) = abs(sum((y - y_rbf).^2)) / length(y);
         err_old = err(1);
-        while (n < N)
-            n = n + 1;
+        for n = 2:N
           
             dy_dw = gaussian_2d(X, Theta(2), [Theta(3) Theta(4)]);
             dy_dsigma = Theta(1) * ((Theta(3) - X(:,1)).^2 + (Theta(4) - X(:,2)).^2) ./ (Theta(2)^3) .* gaussian_2d(X, Theta(2), [Theta(3) Theta(4)]);
@@ -93,9 +91,13 @@ function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas] =  gofr(X, y, G
             end
 
             % if lambda is too big or too small stop
-            if (lambda > 1000000 || lambda < 0.000001)
+            if (lambda > 1e6 || lambda < 1e-6)
                 break;
-            end;            
+            end;
+            
+            if (err(n) < 1e-6)
+                break;
+            end
         end;
         
         % set the optimal parameters
