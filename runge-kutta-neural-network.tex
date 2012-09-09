@@ -25,7 +25,11 @@ The object of the thesis is identification of nonlinear dynamical objects based 
 \pagestyle{plain}
 
 \section{Cel pracy}
-Praca ma na celu identyfikację nieliniowych obiektów dynamicznych z wykorzystaniem metody GOFR. W pracy zostanie przestawiona próba predykcji modelu opisanego równaniem różniczkowym Van der Pola na minimum kilka kroków w przód. Następnie zostania ocenione jakość predykcji jak również sama metoda uogólnionej postępującej regresji ortogonalnej.  Taka predykcja może mieć zastosowanie w wielu zagadnieniach rzeczywistych. 
+	W dzisiejszych czasach częstą koniecznością jest tworzenie modeli matematycznych rzeczywistych obiektów. Model matematyczny obiektu opisuje związek między sygnałem podawanym na wejście (sterowaniem) oraz sygnałem wyjściowym. Modelowanie takie wykorzystuje się pracując nad silnikami, robotami przemysłowymi, klimatyzacją, systemami hamulcowymi\cite{Isermann}. Oprócz szerokiego spektrum dziedzin, w których ma zastosowanie tworzenie modeli istnieje szereg różnych metod tworzenia tych modeli na postawie danych doświadczalnych, czyli identyfikacji obiektów.
+	
+	Wśród metod identyfikacji można spotkać się metodą charakterystyk czasowych, w której badane są stany przejściowe po podaniu na wejście obiektu określonego wymuszenia, np. odpowiedzi na skok jednostkowy. Inna metodą jest metoda charakterystyk częstotliwościowych gdzie na wejście podaje się sygnał sinusoidalny o zadanej amplitudzie i częstotliwości a badany jest sygnał wyjściowy - jego amplituda oraz przesunięcie fazowe względem sygnału wejściowego\cite{Czemplik}.
+	
+	W pracy zdecydowano się na inną metodę identyfikacji dynamiki obiektu - wykorzystano w tym celu sieć neuronową. Można spotkać się z wieloma przykładami zastosowania sieci neuronowych w zadaniu identyfikacji dynamiki jednak struktura oraz algorytmy trenowania takiej sieci  mogą znacznie się różnić. W pracy zostanie przedstawiona metoda uogólnionej regresji postępującej z ortogonalizacją (Generalized Orthogonal Forward Regressoin - GOFR) oraz jej wykorzystanie do identyfikacji nieliniowego obiektu dynamicznego opisanego równanie różniczkowym Van der Pola. Następnie zostanie dokonana ocena jakości modelowania z wykorzystaniem zaproponowanego rozwiązania. Równanie Van der Pola ma zastosowanie między innymi w dziedzinie układów elektronicznych\cite{Palczewski}. Należy jednak zaznaczyć, że zaproponowany algorytm może mieć zastosowanie również do obiektów opisanych innymi równaniami różniczkowymi.  
 
 \newpage
 \section{Dynamika obiektów}
@@ -40,8 +44,7 @@ $F$ - odwzorowanie $F:U \rightarrow R^n$,
 $r$ - zbiór parametrów kontrolnych układu,
 $U$ – podzbiór $R^n$ określający przestrzeń fazową układu.
 
-Przestrzeń fazowa jest przestrzenią wszystkich możliwych stanów w jakich może znajdować się badany układ. Każdy stan układu jest pojedynczym punktem tej przestrzeni.
-Aby określić ewolucję czasową układu należy scałkować równania ruch układu w pewnym przedziale czasu $\delta t$. Otrzymana w ten sposób rodzina funkcji $\phi_i(t,r)$ jest nazywana strumieniem. Konkretne rozwiązanie układu równań ruchu $\phi_i(t_0,r)$ - dla danych wartości parametrów $r$ i warunków początkowych zwane jest orbitą (trajektorią).
+Przestrzeń fazowa jest przestrzenią wszystkich możliwych stanów w jakich może znajdować się badany układ. Każdy stan układu jest pojedynczym punktem tej przestrzeni. Konkretne rozwiązanie układu równań ruchu $\phi_i(t_0,r)$ - dla danych wartości parametrów $r$ i warunków początkowych zwane jest orbitą (trajektorią).
 
 Jeśli odwzorowanie $F$ jest odwzorowaniem liniowym to układ dynamiczny jest układem liniowym, natomiast jeśli $F$ jest odwzorowaniem nieliniowym to układ dynamiczny nazywamy układem nieliniowym.
 
@@ -148,9 +151,17 @@ $$y_1(a) = \alpha_0, y_2(a) = \alpha_1, \hdots, y_n(a) = \alpha_{n-1}$$
 
 Dzięki takiemu zabiegowi możliwe jest rozwiązanie równania różniczkowego wyższego rzędu metodami służącymi do rozwiązywania równań różniczkowych rzędu pierwszego.
 
+Należy zaznaczyć, że wymienione metody rozwiązywania równań różniczkowych mogą mieć zastosowanie jedynie w przypadku znajomości postaci równania różniczkowego.
+ 
 \newpage
 \section{Sieci neuronowe} 
 
+\textbf{Sieć neuronowa to jest bla bla bla}. Sieci neuronowe w dzisiejszych czasach mają bardzo szerokie zastosowanie. Wykorzystywane są m. in do:
+\begin{itemize}
+	\item klasyfikacji,
+	\item aproksymacji,
+	\item predykcji.
+\end{itemize}
 \subsection{Struktura sieci neuronowych}
 Podstawą budowy sieci neuronowych są neurony. Budowa pojedynczego neuronu jest przedstawiona na rysunku \ref{fig:neuron}. Neuron taki sumuje sygnał podany na jego wejścia $x_i$ z odpowiednimi wagami $w_i$, dając na wyjście wynik $y$ sumy przeprowadzonej przez funkcję aktywacji $f(x)$.
 \begin{figure}[ht!]
@@ -171,17 +182,21 @@ Sieć neuronową budują grupy połączonych ze sobą neuronów. Uproszczoną st
 
 \pagebreak
 \subsubsection*{Sieć RBF}
-Sieć RBF (Radial Basis Function) jest sztuczną siecią neuronową o radialnych funkcjach bazowych. Sieć taka składa się zazwyczaj z jednej warstwy ukrytej, gdzie funkcja aktywacji jest radialną funkcją bazową oraz 
-warstwy wyjściowej w postaci neuronu liniowego. Radialna funkcja bazowa jest określona w sposób następujący\cite[str. 1]{Bartkowiak}
+Sieć RBF (Radial Basis Function) jest sztuczną siecią neuronową o radialnych funkcjach bazowych. Sieć ta ma szerokie zastosowanie i jest wykorzystywana do szeregu problemów m.in: modelowania 3D, rozpoznawania mowy, identyfikacji systemów, modelowania parametrów urządzeń elektronicznych\cite{Bors}. Sieć taka składa się zazwyczaj z jednej warstwy ukrytej, gdzie funkcja aktywacji jest radialną funkcją bazową oraz warstwy wyjściowej w postaci neuronu liniowego. Radialna funkcja bazowa jest określona w sposób następujący\cite[str. 1]{Bartkowiak}
 \begin{equation}
 	G(x,c) = G(r(x,c))
 \end{equation}
 gdzie $r(x,c)$ jest odległością między punktami $r$ i $c$ a centrum $c$ jest ustalone i pełni rolę parametru funkcji. Jedną z bardziej popularnych radialnych funkcji bazowych jest funkcja Gaussa:
 \begin{equation}
-	G(x,\sigma,c) = e^{\frac{-(x-c)^2}{2\sigma^2}}
+	G(r) = e^{\frac{-r^2}{2\sigma^2}}
 \end{equation}
-
-\newpage
+Często w sieciach RBF stosowane są również następujące funkcje bazowe\cite{Chen}: \\
+$\begin{array}{l}
+ G(r) = r^2 log(r)\\
+ G(r) = (r^2 + \sigma^2)^{\frac{1}{2}} \\
+ G(r) = (r^2 + \sigma^2)^{-\frac{1}{2}}
+\end{array}
+$
 \subsection{Metody gradientowe uczenia sieci}
 Do najbardziej skutecznych metod uczenia sieci neuronowych należą metody gradientowe. Algorytmy te bazują na rozwinięciu w szereg Taylora funkcji celu $E(W)$ w najbliższym sąsiedztwie znanego rozwiązania\cite[str. 54]{Osowski}.
 \begin{equation}
@@ -234,10 +249,10 @@ gdzie $I$ jest macierzą jednostkową. Wartość $\lambda$ zmienia się w trakci
 
 \newpage
 \section{Selekcja funkcji bazowych oparta o metodę GOFR}
+W przypadku sieci RBF problem może stanowić wybór odpowiednich funkcji bazowych oraz odpowiedniej ich ilości. Zbyt mała ilość funkcji nie pozwoli na wystarczające zminimalizowanie błędu sieci na zbiorze uczącym. Z kolei zbyt duża ilość funkcji może doprowadzić do problemu nadmiernego dopasowania a co za tym idzie sieć traci zdolność do generalizacji. Jedną z metod rozwiązania tego problemu jest zastosowanie metody GOFR opartej o metodę OLS (Orthogonal Least Square). 
 
 \subsection{Selekcja oparta o ortogonalizację oraz metodę najmniejszych kwadratów}
-Jedną z metod selekcji najbardziej znaczących funkcji bazowych jest metoda oparta o metodę najmniejszych kwadratów oraz ortogonalizację \cite{Chen}. Metoda ta umożliwia określenie wkładu każdej funkcji bazowej i wybranie tych najbardziej istotnych. Mając dany wektor wag sieci $w = [w_0, w_1, \hdots, w_K]^T$ oraz wektor danych uczących $d = [d_1, d_2, \hdots, d_p]^T$ można zapisać macierz G w postaci:
-
+Jedną z metod selekcji najbardziej znaczących funkcji bazowych jest metoda oparta o metodę najmniejszych kwadratów oraz ortogonalizację (OLS)\cite{Chen}. Metoda ta umożliwia określenie wkładu każdej funkcji bazowej i wybranie tych najbardziej istotnych. Mając dany wektor wag sieci $w = [w_0, w_1, \hdots, w_K]^T$ oraz wektor danych uczących $d = [d_1, d_2, \hdots, d_p]^T$ można zapisać macierz G w postaci:
 \begin{equation}
 G = \begin{bmatrix}
 \phi_{11} & \phi_{21} & \hdots & \phi_{K1} \\
@@ -246,7 +261,6 @@ G = \begin{bmatrix}
 \phi_{1p} & \phi_{2p} & \hdots & \phi_{Kp}
 \end{bmatrix}
 \end{equation}
-
 gdzie $\phi_{ji}$ oznacza odpowiedź i-tej funkcji radialnej na j-ty wzorzec uczący. Oznaczając przez $g_i = [g_{i1}, g_{i2}, \hdots, g_{ip}]^T$ odpowiedź i-tej funkcji radialnej na wszystkie wzorce uczące można macierz G przedstawić w postaci:
 \begin{equation}G = [g_1, g_2, \hdots, g_K] \end{equation}
 Dla takich oznaczeń, dla sieci RBF można zapisać następujące równanie:
@@ -254,7 +268,7 @@ Dla takich oznaczeń, dla sieci RBF można zapisać następujące równanie:
 \label{wzor:ofr_rbf}
 d = Gw + e\end
 {equation}
-gdzie $e$ jest błędem niedopasowania sieci. Ortogonalizacja macierzy G pozwala na określenie osobno wpływu każdej funkcji $g_i$ na wartość części pożądanej energii zdefiniowanej jako $(Gw)^2$ \cite{Osowski}. Dzięki temu możliwa jest selekcja najbardziej istotnych funkcji bazowych oraz znaczne ograniczenie ilości funkcji tworzących sieć. Sama ortogonalizacja może zostać dokonana różnymi metodami z czego często stosowaną jest metoda Grama-Schmidta, gdzie w procesie ortogonalizacji macierzy $G$ powstaje macierz ortogonalna $Q$ oraz macierz trójkątna $A$.
+gdzie $e$ jest błędem niedopasowania sieci. Ortogonalizacja macierzy G pozwala na określenie osobno wpływu każdej funkcji $g_i$ na wartość części pożądanej energii zdefiniowanej jako $(Gw)^2$ \cite{Osowski}. Dzięki temu możliwa jest selekcja najbardziej istotnych funkcji bazowych oraz znaczne ograniczenie ilości funkcji tworzących sieć. Sama ortogonalizacja może zostać dokonana różnymi metodami z czego często stosowaną jest metoda Grama-Schmidta, gdzie w procesie ortogonalizacji macierzy $G$ powstaje macierz ortogonalna $Q$ oraz macierz górnotrójkątna $A$.
 \begin{equation}G = QA\end{equation}
 \begin{equation}
 A = \begin{bmatrix}
@@ -274,13 +288,42 @@ Rozwiązując równanie \ref{wzor:ofr_rbf2} metodą najmniejszych kwadratów otr
 	b = (QQ^T)^{-1}Q^Td
 \end{equation}
 Mając dane $b$ oraz $A$ jesteśmy wstanie określić wektor wag $w = A^{-1}b$.
-Jak wspomniano wcześniej wartość pożądana energii jest określona jako $(G^w)^2$. Na tej podstawie można zdefiniować wzór określający udział danej funkcji w ogólnym bilansie energii jako:
+Jak wspomniano wcześniej wartość pożądana energii jest określona jako $(Gw)^2$. Na tej podstawie można zdefiniować wzór określający udział danej funkcji w ogólnym bilansie energii jako:
 \begin{equation}
 	\epsilon_i = \frac{b_i^2q_i^Tq_i}{d^Td}
 \end{equation}
 
-\subsection{Generalized Orthogonal Forward Regression (GOFR)}
-Metoda GOFR jest metodą opartą o metodę OLS \cite{Duboisa}. Modyfikację w stosunku do metody GOFR stanowi optymalizacja dokonywana na etapie selekcji każdej funkcji bazowej. \textbf{Optymalizacja ta polega na minimalizacji...} Porównanie obu metod przedstawia schemat z rysunku \ref{ofr_and_gofr}. Linią przerywaną zaznoczony jest krok specyficzny dla metody GOFR.
+Warunek stopu metody może zostać określony m. in. poprzez doprowadzenie do sytuacji gdzie wartość sumaryczna energii wnoszonej przez wszystkie funkcje będzie bliska jedności, czyli:
+\begin{equation}
+	1 - \sum_{i=1}^N \epsilon_i < \delta
+\end{equation}
+gdzie $\delta$ jest z góry ustaloną wielkością warunkując koniec algorytmu.
+
+Jak wspomniano wcześniej ortogonalizacja może zostać wykonana różnymi metodami jednak omówiona zostanie metoda ortogonalizacji Grama-Schmidta ze względu na jej popularność. Stosując algorytm ortogonalizacji Grama-Schmidta można dokonać rozkładu QR macierzy A, gdzie macierz Q jest macierzą ortogonalną zaś macierz jest macierzą górnotrójkątną z jedynkami na diagonali. Algorytm takiego rozkładu można przedstawić w sposób następujący\cite{Bernardelli}:
+\begin{equation}
+	\begin{array}{l}
+	q_1 = a_1 \\
+	q_k = a_k - \sum_{j=1}^{k-1} r_{jk}q_j = a_k - \sum_{j=1}^{k-1} \frac{<a_k,q_j>}{<q_j,q_j>} q_j, \quad 2 \leq l  \leq n 
+\end{array}
+\end{equation}
+$\frac{<a_k,q_j>}{<q_j,q_j>} q_j$ jest rzutowaniem ortogonalnym wektora $a_k$ na wektor $q_j$.
+
+Graficzna reprezentacja procesu ortogonalizacji dla dwóch pierwszych kroków przedstawiona jest na rysunku \ref{fig:gram}. Mając wybrany wektor $u_1$ (literą $e$ oznaczono znormalizowany wektor $u$) należy dokonać projekcji (rzutu ortogonalnego) kolejnego wektora na przestrzeń rozpięta przez wszystkiego ortogonalne wektory (w tym przypadku tylko wektor $u_1$). Różnica wektora ortogonalizowanego oraz projekcji wektora ortogonalizowanego ($proj_{u_1}v_2$)na przestrzeń rozpiętą przez wektory ortogonalne pozwala uzyskać nam kolejny wektor ortogonalny ($u_2$).
+\begin{figure}[ht!]
+	\centering
+	
+	\includegraphics[scale=0.7]{images/GramSchmidt.png}
+	\caption{Proces ortogonalizacji dla dwóch pierwszych kroków}
+	\label{fig:gram}	
+
+\end{figure}
+
+Funkcje wybiera się spośród wcześniej wygenerowanej biblioteki funkcji. Metoda ta zapewnia wybór najbardziej optymalnego zbioru funkcji z biblioteki. Jednak aby wybór ten był optymalny konieczne jest wygenerowanie odpowiedniej biblioteki, która może zawierać znaczną ilość funkcji bazowych przez co proces uczenia się sieci może stać się nieefektywny. Rozwiązaniem w tym przypadku jest zastosowanie metody GOFR
+
+\subsection{Selekcja oparta o uogólnioną regresję postępującą z ortogonalizacją (GOFR)}
+Metoda GOFR oparta jest metodą bazującą na metodzie OLS\cite{Duboisa}. Modyfikację w stosunku do metody OLS stanowi optymalizacja dokonywana na etapie selekcji każdej funkcji bazowej. Optymalizacja ta polega na minimalizacji błędu sieci na zbiorze uczącym (np. zdefiniowanego przez błąd średniokwadratowy wyrażony wzorem \ref{wzor:mse}) poprzez odpowiedni dobór parametrów każdej wybranej funkcji. Optymalizacja taka może zostać przeprowadzona np. jedną z metod gradientowych.
+
+Porównanie obu metod przedstawia schemat z rysunku \ref{ofr_and_gofr}. Linią przerywaną zaznaczony jest krok specyficzny dla metody GOFR. Optymalizacja pozwala na zmniejszenie ilości funkcji tworzących bibliotekę. Dzieje się tak dzięki temu, że po wyborze odpowiedniej funkcji algorytm zmodyfikuje parametry wybranej funkcji tak aby zminimalizować błąd. W przypadku algorytmu opartego o OLS parametry funkcji były stałe a ilość funkcji tworzących bibliotekę musiała być duża w celu zapewnienia odpowiednio wysokiego prawdopodobieństwa wyboru optymalnych funkcji bazowych.
 
 \begin{figure}[ht!]
 	\centering
@@ -297,9 +340,23 @@ Metoda GOFR jest metodą opartą o metodę OLS \cite{Duboisa}. Modyfikację w st
 Równanie Van der Pola to równanie różniczkowe wyrażone wzorem:
 \begin{equation}
 	\label{wzor:van_der_pol}
-	y''(t) - (1 - y^2(t))y'(t) + y(t) = 0
+	y''(t) - \mu(1 - y^2(t))y'(t) + y(t) = 0
 \end{equation}
-Identyfikację systemu opisanego równaniem \ref{wzor:van_der_pol} oparto o metodę GOFR. W tym celu wygenerowano zbiór danych uczących sieć neuronową rozwiązując równanie metodą Runge-Kutty czwartego rzędu dla warunków początkowych [$y(0)=0,y'(0)=2$], kroku $h=0.1$ w przedziale $t \in [0,50]$. Równanie \ref{wzor:van_der_pol} zapisano w postaci układu dwóch równań różniczkowych pierwszego rzędu:
+
+Równanie Van der Pola aktualnie jest często brane pod uwagę jako podstawowy model procesu oscylacji w fizyce, elektronice, biologii, neurologii, socjologii i ekonomii. Równanie to zostało wykorzystane m. in. w sejsmologii do ...\textbf{In seismology, the van der Pol equation has been used in the development a model of the interaction of two plates in a geological fault}\cite{Tsatsos}.
+
+Identyfikację systemu opisanego równaniem \ref{wzor:van_der_pol} ($\mu = 1$) oparto o sieć RBF i metodę selekcji funkcji GOFR. Strukturę zaproponowanej sieci przedstawia rysunek \ref{fig:rbf}.
+\begin{figure}[ht!]
+	\centering
+	
+	\includegraphics[width = \textwidth]{images/rbf.png}
+	\caption{Schemat zaprojektowanej sieci RBF}
+	\label{fig:rbf}	
+
+\end{figure}
+Wejście sieci stanowią $x_1 = y(t)$ oraz $x_2 = y'(t)$, czyli aktualny stan obiektu. Wyjściem sieci jest stan obiektu w kolejnym kroku. Jak można zauważyć sieć została podzielona na dwie częściowo niezależne części - każde z wejść posiada oddzielny zestaw funkcji RBF. W związku z tym każda z części sieci była uczona oddzielnie (dla tych samych danych uczących). 
+
+Zbiór danych uczących sieć neuronową wygenerowano rozwiązując równanie metodą Runge-Kutty czwartego rzędu dla warunków początkowych [$y(0)=0,y'(0)=2$], kroku metody $h=0.1$, w przedziale $t \in [0,40]$. Równanie różniczkowe \ref{wzor:van_der_pol} drugiego rzędu zapisano w postaci układu dwóch równań różniczkowych pierwszego rzędu:
 \begin{equation}
 	\begin{array}{l}
     y'(t)  = y_1 \\
@@ -307,7 +364,7 @@ Identyfikację systemu opisanego równaniem \ref{wzor:van_der_pol} oparto o meto
     \end{array}
 \end{equation}
 
-Powstała w wyniku rozwiązania równania Van der Pola trajektoria, wykres funkcji $y(t)$ oraz jej pierwszej pochodnej $y'(t)$ przedstawione są odpowiednio na rysunkach \ref{img:traj}, \ref{img:func} oraz \ref{img:first_deriv}. Rozwiązanie równania dla przedziału $t \in [0,10]$ zostało odrzucone w celu pominięcia stanów nieustalonych. Rozwiązanie w przedziale $t \in [10,50]$ zostało użyte jako zbiór danych uczących.
+Powstała w wyniku rozwiązania równania Van der Pola trajektoria, wykres funkcji $y(t)$ oraz jej pierwszej pochodnej $y'(t)$ przedstawione są odpowiednio na rysunkach \ref{img:traj}, \ref{img:func} oraz \ref{img:first_deriv}. Dane powstałe w wyniku rozwiązania równania zostały użyte jako zbiór danych uczących.
 
 \begin{figure}[ht!]
 	\centering
@@ -329,15 +386,15 @@ Powstała w wyniku rozwiązania równania Van der Pola trajektoria, wykres funkc
 	\caption{Wykresy powstałe w wyniku rozwiązania równania różniczkowego Van der Pola dla warunków początkowych [$y(0)=0,y'(0)=2$]}
 \end{figure}
 
-Kolejnym etapem było stworzenie odpowiedniej biblioteki radialnych funkcji bazowych. W tym celu najpierw wygenerowano bibliotekę 115 funkcji RBF postaci:
+Kolejnym etapem było stworzenie odpowiedniej biblioteki funkcji RBF. W tym celu najpierw wygenerowano bibliotekę 115 funkcji RBF postaci:
 \begin{equation}
 	\label{wzor:rbf_2d}
 	f(x_1(t),x_2(t),c_1,c_2,\sigma) = e^{-\frac{(x_1(t)-c_1)^2 + (x_2(t)-c_2)^2}{2 \sigma^2}}\
 \end{equation} gdzie: \\
-$x_1(t) = y'(t - \Delta t)$ \\
+$x_1(t) = y(t)$ \\
 $x_2(t) = y'(t)$ \\
 
-Generowanie biblioteki odbywało się poprzez równomierne dzielenie przestrzeni dwuwymiarowej $D = [min(x_1),max(x_1)] \times [min(x_2),max(x_2)]$. Dla każdego kolejnego poziomu generowania biblioteki funkcji, nowe centra $c_1$ oraz $c_2$ były wybierane poprzez dwukrotnie zagęszczenie punktów w każdej z osi oraz zmniejszanie szerokości funkcji gaussa $\sigma$ o połowę. Centra dla tak wygenerowanych funkcji przedstawia rysunek \ref{img:rbf_centers}.
+Generowanie biblioteki odbywało się poprzez wybór równomiernie rozłożonych w przestrzeni dwuwymiarowej $D = [min(x_1),max(x_1)] \times [min(x_2),max(x_2)]$ centrów. Dla każdego kolejnego poziomu generowania biblioteki funkcji, nowe centra $c_1$ oraz $c_2$ były wybierane poprzez dwukrotnie zagęszczenie punktów w każdej z osi oraz zmniejszanie szerokości funkcji gaussa $\sigma$ o połowę. Centra dla tak wygenerowanych funkcji przedstawia rysunek \ref{img:rbf_centers}. Ilość poziomów ograniczono do trzech generując w ten sposób 115 funkcji RBF.
 
 \begin{figure}[ht!]
 	\centering	
@@ -360,7 +417,7 @@ Następnie dokonano selekcji najbardziej istotnych funkcji z biblioteki wykorzys
 \begin{equation}
 	\tilde{y} = \sum_{i=1}^N w_i f_i(x_1,x_2,c_1,c_2,\sigma_i)
 \end{equation}
-Optymalizowano następujące parametry sieci RBF: $c_1$, $c_2$, $\sigma$ oraz $w$. Zgodnie z omówioną w rodziale \ref{rozdzial:l-m} konieczne jest określenie gradientu funkcji błędu $e = y - \tilde{y}$. Funkcja błędu $e$ jest wyrażona wzorem:
+Optymalizowano następujące parametry sieci RBF: $c_1$, $c_2$, $\sigma$ oraz $w$. W celu skorzystania z metody Leveberga-Marquardta konieczne jest określenie gradientu funkcji błędu $e = y - \tilde{y}$ oraz jej pochodnych cząstkowych. Funkcja błędu $e$ jest wyrażona wzorem:
 \begin{equation}
 	e = y - \tilde{y} = y - w f(x_1,x_2,c_1,c_2,\sigma) = y - w e^{-\frac{(x_1-c_1)^2 + (x_2-c_2)^2}{2 \sigma^2}} 
 \end{equation}
@@ -380,51 +437,15 @@ Gradient $e$ wynosi zatem:
 \end{bmatrix}
 \end{equation}
 
-W przypadku zwiększania się błędu $\lambda$ ze wzoru \ref{wzor:mse_lm} była zwiększana 10-krotnie, w przypadku zmniejszania się błędu $\lambda$ była zmniejszana 10-krotnie. Warunek stopu został ustalony tak aby błąd średniokwadratowy dla każdego z wyjść z sieci był mniejszy od 1e-5. Schemat sieci użytej do rozwiązania równania Van der Pola przedstawia rysunek \ref{fig:rbf}.
+W przypadku zwiększania się błędu na zbiorze uczącym $\lambda$ ze wzoru \ref{wzor:mse_lm} była zwiększana 10-krotnie, w przypadku zmniejszania się błędu $\lambda$ była zmniejszana 10-krotnie. Warunek stopu został ustalony tak aby błąd średniokwadratowy dla każdego z wyjść z sieci był mniejszy od 1e-6. 
 
-\begin{figure}[ht!]
-	\centering
-	
-	\includegraphics[width = \textwidth]{images/rbf.png}
-	\caption{Schemat zaprojektowanej sieci RBF}
-	\label{fig:rbf}	
 
-\end{figure}
 
 
 \clearpage
-\section{Wyniki identyfikacji systemu opisanego równaniem Van der Pola}
+\section{Wyniki identyfikacji obiektu opisanego równaniem Van der Pola}
 
-Osiągnięcie błędu średniokwadratowego poniżej 1e-5 udało się osiągnąć dla 13 funkcji bazowych dla funkcji $y(t)$ (błąd równy = 1.7227e-6) oraz 18 funkcji bazowych dla pochodnej $y'(t)$ (błąd równy = 8.9721e-6). Na rysunku \ref{fig:aproksymacja_x1} oraz rysunku \ref{fig:aproksymacja_x2} zostały przedstawione odpowiednio: aproksymacja w kolejnych iteracjach funkcji $y(t)$ równania Van der Pola oraz aproksymacja pierwszej pochodnej $y'(t)$ dla pierwszych sześciu iteracji. Na rysunku \ref{img:approximated} została przedstawiona aproksymacja równania Van der Pola przez wytrenowaną sieć.
-
-\begin{figure}[ht!]
-	\centering
-	
-	\subfloat
-	{\includegraphics[width=0.5\textwidth]
-	{images/deriv_iter1.png}}
-	\subfloat
-	{\includegraphics[width=0.5\textwidth]
-	{images/deriv_iter2.png}}
-	
-	\subfloat
-	{\includegraphics[width=0.5\textwidth]
-	{images/deriv_iter3.png}}
-	\subfloat
-	{\includegraphics[width=0.5\textwidth]
-	{images/deriv_iter4.png}}
-
-	\subfloat
-	{\includegraphics[width=0.5\textwidth]
-	{images/deriv_iter5.png}}
-	\subfloat
-	{\includegraphics[width=0.5\textwidth]
-	{images/deriv_iter6.png}}	
-	
-	\caption{Aproksymacja funkcji y(t)}		
-	\label{fig:aproksymacja_x1}
-\end{figure}
-
+Osiągnięcie błędu średniokwadratowego poniżej 1e-6 udało się osiągnąć dla 24 funkcji bazowych dla $y(t)$ (błąd równy = 6.8925e-7) oraz 25 funkcji bazowych dla $y'(t)$ (błąd równy = 7.2683e-7). Na rysunkach \ref{fig:signal_approx_a}, \ref{fig:signal_approx_b} oraz rysunkach \ref{fig:deriv_approx_a}, \ref{fig:deriv_approx_b} zostały przedstawione odpowiednio: aproksymacja funkcji $y(t)$ oraz aproksymacja pierwszej pochodnej $y'(t)$ w kolejnych iteracjach  równania Van der Pola  dla pierwszych sześciu iteracji. Jak można zauważyć kształt funkcji $y(t)$ oraz pochodnej $y'(t)$ jest dokładnie odwzorowany już po selekcji kilku pierwszych funkcji. Dzieje się tak ze względu na to, że algorytm selekcji funkcji bazowych GOFR wybiera funkcje wnoszące największy wkład energii w kolejnych iteracjach. Kolejne wybrane funkcję mają coraz mniejsze znaczenie w odwzorowywaniu obiektu opisanego równaniem Van der Pola.
 
 \begin{figure}[ht!]
 	\centering
@@ -443,6 +464,13 @@ Osiągnięcie błędu średniokwadratowego poniżej 1e-5 udało się osiągnąć
 	{\includegraphics[width=0.5\textwidth]
 	{images/signal_iter4.png}}
 
+	\caption{Aproksymacja funkcji y(t) po selekcji funkcji numer 1-4}		
+	\label{fig:signal_approx_a}		
+\end{figure}
+
+\begin{figure}[ht!]
+	\centering
+
 	\subfloat
 	{\includegraphics[width=0.5\textwidth]
 	{images/signal_iter5.png}}
@@ -450,10 +478,46 @@ Osiągnięcie błędu średniokwadratowego poniżej 1e-5 udało się osiągnąć
 	{\includegraphics[width=0.5\textwidth]
 	{images/signal_iter6.png}}	
 
-	\caption{Aproksymacja funkcji y'(t)}		
-	\label{fig:aproksymacja_x2}		
+	\caption{Aproksymacja funkcji y(t) po selekcji funkcji numer 5-6}		
+	\label{fig:signal_approx_b}		
 \end{figure}
 
+\begin{figure}[ht!]
+	\centering
+	
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/deriv_iter1.png}}
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/deriv_iter2.png}}
+	
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/deriv_iter3.png}}
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/deriv_iter4.png}}
+
+	\caption{Aproksymacja funkcji y'(t)  po selekcji funkcji numer 1-4}		
+	\label{fig:deriv_approx_a}
+\end{figure}
+
+\begin{figure}[ht!]
+	\centering
+	
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/deriv_iter5.png}}
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/deriv_iter6.png}}	
+	
+	\caption{Aproksymacja funkcji y'(t) po selekcji funkcji numer 5-6}		
+	\label{fig:deriv_approx_b}
+\end{figure}
+
+Rysunek \ref{img:approximated} przedstawia aproksymację równania Van der Pola przez wytrenowaną sieć.
 
 \begin{figure}[ht!]
 	\centering
@@ -469,7 +533,7 @@ Osiągnięcie błędu średniokwadratowego poniżej 1e-5 udało się osiągnąć
 	{\includegraphics[width=0.5\textwidth]
 	{images/trajectory_approx.png}}
 
-	\caption{Sygnał zadany oraz aproksymowany przez wytrenowaną sieć RBF $t \in [0,50]$}
+	\caption{Sygnał zadany oraz aproksymowany przez wytrenowaną sieć RBF $t \in [0,40]$}
 	\label{img:approximated}
 \end{figure}
 
@@ -478,23 +542,34 @@ W tabeli \ref{tab:rbf_tabela_x1} zostały zebrane dane na temat wybranych funkcj
 \begin{table}[ht!]
 \centering
 
-\begin{tabular}{ |c| c| c| c| c| c| }
+\begin{tabular}{ | c| c| c| c| c| c| c| }
 \hline
-Indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE \\ \hline    
+number & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE \\ \hline    
 	
-	12     &  -3.1410  & -0.7327   &  1.5642            & 4.9705e-001  & 1.4668e+000 \\
-     8     &   5.4244  &  0.9766   &  2.5508            & 4.7447e-001  & 8.3072e-002 \\
-     2     &  -7.7925  & -1.6129   &  4.0497            & 1.5925e-002  & 3.6628e-002 \\
-    98     &   2.2304  & -3.0565   &  0.7112            & 6.0098e-003  & 1.9101e-002 \\
-    29     &   1.0666  &  3.0337   &  1.0207            & 4.9036e-003  & 4.8007e-003 \\
-     7     &   1.7472  & -1.5353   &  1.9623            & 9.6393e-004  & 1.9895e-003 \\
-     9     &   3.8354  &  3.6792   &  2.7580            & 4.2284e-004  & 7.5638e-004 \\
-    41     &  -2.4850  &  0.9208   &  0.6385            & 1.3605e-004  & 3.5963e-004 \\
-    27     &   1.2187  &  0.1897   &  1.0115            & 8.3280e-005  & 1.1675e-004 \\
-    30     &   2.6590  & -2.6077   &  1.1867            & 2.6429e-005  & 3.9676e-005 \\
-    36     &  -2.8032  & -2.0897   &  0.6533            & 6.0339e-006  & 2.2079e-005 \\
-    88     &   0.7563  &  2.3091   &  0.4725            & 3.3734e-006  & 1.2241e-005 \\
-    76	   &   0.1031  &  0.7697   &  0.5688            & 3.6066e-006  & 1.7227e-006 \\
+ 1 &  32  &  2.9948  &  0.7222  &  1.5295  &  4.7410e-1 & 1.5872e+0 \\
+ 2 &   2  & -5.8209  & -1.0474  &  2.6805  &  4.9905e-1 & 8.1038e-2 \\
+ 3 &   8  &  7.0671  &  1.4665  &  3.8568  &  1.5418e-2 & 3.4504e-2 \\
+ 4 &  52  & -2.2270  &  3.0342  &  0.7155  &  5.3306e-3 & 1.8416e-2 \\
+ 5 &  15  & -1.0761  & -3.1178  &  1.0496  &  4.5295e-3 & 4.7450e-3 \\
+ 6 &  60  & -1.3884  &  2.1498  &  0.5889  &  7.8749e-4 & 2.3682e-3 \\
+ 7 & 103  &  2.0854  &  0.7488  &  0.6221  &  4.1060e-4 & 1.1290e-3 \\
+ 8 &  47  & -1.9902  & -0.6401  &  0.5865  &  1.0880e-4 & 8.0058e-4 \\
+ 9 & 106  &  1.9631  &  3.4429  &  0.4688  &  1.1553e-4 & 4.5188e-4 \\
+10 &  20  &  0.6923  & -3.9854  &  1.3350  &  4.7597e-5 & 3.0823e-4 \\
+11 &  68  & -0.4170  &  1.0838  &  0.6116  &  3.8596e-5 & 1.9174e-4 \\
+12 & 109  &  2.7940  & -1.5663  &  0.5293  &  1.5792e-5 & 1.4408e-4 \\
+13 &  62  & -0.7083  & -2.5993  &  0.5065  &  8.2334e-6 & 1.1923e-4 \\
+14 &  79  &  0.5131  &  2.2032  &  0.2673  &  1.8315e-5 & 6.3952e-5 \\
+15 &   5  & -0.0016  &  0.0540  &  2.3580  &  4.6821e-6 & 4.9821e-5 \\
+16 &   4  &  0.0067  & -2.7505  &  2.3463  &  5.5652e-6 & 3.3024e-5 \\
+17 &  92  &  1.4041  & -0.7927  &  0.5950  &  4.2814e-6 & 2.0102e-5 \\
+18 &   6  & -0.0072  &  2.7806  &  2.3611  &  1.4043e-6 & 1.5864e-5 \\
+19 &  14  & -2.7163  &  2.7149  &  1.1521  &  1.0246e-6 & 1.2771e-5 \\
+20 & 102  &  1.9456  &  0.0229  &  0.5151  &  2.3885e-6 & 5.5625e-6 \\
+21 &  94  &  1.3554  &  0.6871  &  0.5818  &  4.3525e-7 & 4.2489e-6 \\
+22 & 115  &  2.9594  &  2.8968  &  0.5772  &  5.1100e-7 & 2.7066e-6 \\
+23 &  28  &  1.3478  &  1.3509  &  1.1561  &  4.2283e-7 & 1.4304e-6 \\
+24 &  35  & -2.7401  & -2.7393  &  0.5862  &  2.4558e-7 & 6.8925e-7 \\
     \hline
 \end{tabular}
 
@@ -507,27 +582,34 @@ W tabeli \ref{tab:rbf_tabela_x2} zostały zebrane dane na temat wybranych funkcj
 \begin{table}[ht!]
 \centering
 
-\begin{tabular}{ |c| c| c| c| c| c| }
+\begin{tabular}{ |c| c| c| c| c| c| c| }
 \hline
-Indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE    \\ \hline    
-    20     &  1.1527   &  -5.6961  &       2.0452       &  4.8649e-001 & 9.7293e-001 \\
-    24     & -0.6262   &   5.0882  &       2.1711       &  4.9361e-001 & 3.7704e-002 \\
-    71     &  0.4140   &  -3.5549  &       0.8248       &  1.1321e-002 & 1.6255e-002 \\
-    55     & -1.4563   &  -1.3841  &       0.6117       &  4.7338e-003 & 7.2860e-003 \\
-   105     &  2.8298   &   2.3938  &       0.7238       &  1.9506e-003 & 3.5903e-003 \\
-    87     &  0.4339   &   2.4652  &       0.6929       &  9.2016e-004 & 1.8469e-003 \\
-    31     &  2.7273   &  -1.5110  &       1.1974       &  5.1159e-004 & 8.7764e-004 \\
-    35     & -2.4111   &  -2.8130  &       0.3998       &  1.7996e-004 & 5.3668e-004 \\
-    37     & -3.3572   &  -1.5420  &       0.7056       &  8.9771e-005 & 3.6660e-004 \\
-    62     & -0.6001   &  -3.3387  &       0.4237       &  7.7115e-005 & 2.2049e-004 \\
-    72     & -0.0875   &  -1.9432  &       0.5984       &  2.3360e-005 & 1.7624e-004 \\
-    34     &  2.2615   &   2.2518  &       1.0292       &  1.7416e-005 & 1.4324e-004 \\
-   108     &  2.8108   &  -2.1227  &       0.5800       &  1.4040e-005 & 1.1664e-004 \\
-    79     &  0.1036   &   2.5772  &       0.5447       &  2.3562e-005 & 7.1994e-005 \\
-    46     & -1.9407   &  -1.3306  &       0.5779       &  1.3514e-005 & 4.6389e-005 \\
-    39     & -3.6363   &   0.1453  &       0.7197       &  1.4067e-005 & 1.9737e-005 \\
-     8     &  2.7351   &   0.0047  &       2.3403       &  4.4026e-006 & 1.1395e-005 \\
-    73     & -0.0697   &  -1.2975  &       0.5822       &  1.2790e-006 & 8.9721e-006 \\
+numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE    \\ \hline    
+    1 &  20 &   1.1446 &  -5.7343  &  2.0595 &   4.9501e-1 & 9.4653e-1 \\
+    2 &  24 &  -0.5846 &   5.1218  &  2.1860 &   4.8488e-1 & 3.7690e-2 \\
+    3 &  71 &   0.3756 &  -3.5358  &  0.8221 &   1.1585e-2 & 1.5975e-2 \\
+    4 &  55 &  -1.3838 &  -1.3455  &  0.5934 &   4.5029e-3 & 7.5351e-3 \\
+    5 & 105 &   2.6435 &   2.2556  &  0.6908 &   1.9649e-3 & 3.8522e-3 \\
+    6 &  18 &  -1.7286 &   1.9662  &  0.9173 &   9.8872e-4 & 1.9989e-3 \\
+    7 &  31 &   2.7142 &  -1.5228  &  1.1111 &   4.3126e-4 & 1.1906e-3 \\
+    8 &  35 &  -2.4433 &  -2.8083  &  0.4078 &   1.8653e-4 & 8.4097e-4 \\
+    9 &  34 &   2.4846 &   2.5536  &  1.0744 &   1.3652e-4 & 5.8508e-4 \\
+   10 &   4 &  -0.0373 &  -2.1985  &  2.0320 &   8.6977e-5 & 4.2205e-4 \\
+   11 &  51 &  -2.0368 &   2.1029  &  0.5648 &   1.0665e-4 & 2.2215e-4 \\
+   12 &  44 &  -2.3244 &  -3.0361  &  0.5831 &   4.1302e-5 & 1.4473e-4 \\
+   13 &  87 &   0.6683 &   2.1058  &  0.5772 &   2.7287e-5 & 9.3585e-5 \\
+   14 & 108 &   2.5990 &  -1.9039  &  0.5283 &   1.8039e-5 & 5.9773e-5 \\
+   15 &   5 &  -0.0008 &   0.0006  &  2.3321 &   1.0989e-5 & 3.9175e-5 \\
+   16 &  66 &  -0.8763 &   0.2859  &  0.5596 &   4.5942e-6 & 3.0564e-5 \\
+   17 &  56 &  -1.2921 &  -0.5707  &  0.4300 &   4.8491e-6 & 2.1475e-5 \\
+   18 & 112 &   2.9438 &   0.5975  &  0.4572 &   3.6241e-6 & 1.4682e-5 \\
+   19 &  54 &  -1.3559 &  -2.0394  &  0.5777 &   2.9742e-6 & 9.1075e-6 \\
+   20 &  97 &   1.6974 &   3.4300  &  0.7467 &   1.8032e-6 & 5.7277e-6 \\
+   21 &  86 &   0.7040 &   1.3515  &  0.5634 &   8.1315e-7 & 4.2035e-6 \\
+   22 &  63 &  -0.6910 &  -2.0473  &  0.5768 &   6.0731e-7 & 3.0652e-6 \\
+   23 &  39 &  -3.3163 &   0.0390  &  0.6737 &   3.4036e-7 & 2.4273e-6 \\
+   24 & 111 &   2.3400 &   0.0310  &  0.4559 &   7.2918e-7 & 1.0605e-6 \\
+   25 &  53 &  -1.3701 &  -2.7398  &  0.5851 &   1.7802e-7 & 7.2683e-7 \\
     \hline
 \end{tabular}
 
@@ -537,7 +619,30 @@ Indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błą
 
 \clearpage
 
-Po etapie trenowania sieci RBF sprawdzono zdolność tej sieci do predykcji. Predykcja na 100 kroków do przodu została przedstawiona na rysunku~\ref{img:predicted}. Jak można zauważyć sieć jest zdolna do predykcji równania Van der Pola. Błąd średniokwadratowy dla wyznaczania $y(t)$ wyniósł 0.0085, natomiast błąd predykcji wyznaczania $y'(t)$ wyniósł  4.9856.
+Błąd średniokwadratowy w funkcji wybranych funkcji RBF przedstawia rysunek \ref{img:prediction_error} natomiast rysunek \ref{img:energy} przedstawia energię jaką wnosi każda kolejna wybrana funkcja. Jak można zauważyć główny wpływ na wartość błędu oraz energii mają dwie pierwsze wybrane funkcje. Wraz z wyborem kolejnych funkcji błąd oraz energie wnoszona przez wybraną funkcję spadają w przybliżeniu logarytmicznie. Zieloną linią na wykresie \ref{img:prediction_error} została oznaczona wartość MSE, która jest warunkiem stopu uczenia sieci.
+
+\begin{figure}[ht!]
+	\centering
+
+	{\includegraphics[width=\textwidth]
+	{images/prediction_error.png}}
+
+	\caption{Błąd MSE w funkcji wybranych funkcji RBF}
+	\label{img:prediction_error}
+\end{figure}
+
+
+\begin{figure}[ht!]
+	\centering
+
+	{\includegraphics[width=1.1\textwidth]
+	{images/rbfs_energy.png}}
+
+	\caption{Błąd MSE w funkcji wybranych funkcji RBF}
+	\label{img:energy}
+\end{figure}
+
+Po etapie trenowania sieci RBF sprawdzono zdolność tej sieci do predykcji. Predykcja na 100 kroków do przodu została przedstawiona na rysunku~\ref{img:predicted}. Jak można zauważyć sieć dobrze modeluje obiekt opisany równaniem Van der Pola. Błąd średniokwadratowy dla wyznaczania $y(t)$ wyniósł  5.6108e-5, natomiast błąd predykcji wyznaczania $y'(t)$ wyniósł 9.4761e-5.
 
 \begin{figure}[ht!]
 	\centering
@@ -557,8 +662,7 @@ Po etapie trenowania sieci RBF sprawdzono zdolność tej sieci do predykcji. Pre
 	\label{img:predicted}
 \end{figure}
 
-
-Na rysunku \ref{img:err} został przedstawiony błąd w funkcji $t$.
+Trudno jest jednak dokładniej określić jakość predykcji na podstawie rysunku \ref{img:predicted} ze względu na nieznaczne różnice w wartości zadanej oraz wartości przewidywanej przez sieć w wyniku czego sygnał zadany oraz przewidywany pokrywają się. Aby można było dokładnie określić odstępstwo wartość przewidywanej od wartości rzeczywistej na rysunku \ref{img:err} został przedstawiony błąd predykcji w funkcji w kolejnych krokach. Wartość bezwzględna błędu wyznaczenia $y(t)$ nie przekracza wartości 0.02. Maksymalny błąd wyznaczenia $y'(t)$ jest nieznacznie większy i nie przekracza wartości 0.03. Na tej podstawie można stwierdzić, że dla 100 kroków w przód sieć spełnia swoje zadanie. 
 
 \begin{figure}[ht!]
 	\centering
@@ -576,7 +680,7 @@ Na rysunku \ref{img:err} został przedstawiony błąd w funkcji $t$.
 \end{figure}
 
 
-Na rysunku \ref{img:predicted2} została przedstawiana predykcja w szerszym przedziale czasu. Jak można zauważyć predykcja z biegiem czasu zaczyna coraz bardziej odstępować od wartości oczekiwanej.
+Następnie zdecydowana się na sprawdzenie jakości predykcji w 5-krotnie dłuższym przedziale czasu $t \in [0, 50]$. Na rysunku \ref{img:predicted2} został przedstawiany sygnał rzeczywisty oraz przewidywany. Jak można zauważyć jakość predykcji jest nadal dobra ale podobnie jak wcześniej trudno jest określić dokładnie błąd między wartością przewidywaną a rzeczywistą. Nieznaczną rozbieżność można zauważyć na wykresie trajektorii. Błąd średniokwadratowy dla wyznaczania $y(t)$ wyniósł  1.9873e-4, natomiast błąd predykcji wyznaczania $y'(t)$ wyniósł 3.0130e-4, czyli kilkukrotnie wzrósł w stosunku do błędu dla 5-kronie krótszego okresu predykcji.
 
 \begin{figure}[ht!]
 	\centering
@@ -592,16 +696,178 @@ Na rysunku \ref{img:predicted2} została przedstawiana predykcja w szerszym prze
 	{\includegraphics[width=0.5\textwidth]
 	{images/trajectory_pred400.png}}
 
-	\caption{Sygnał zadany oraz przewidywany przez wytrenowaną sieć RBF $t \in [0,40]$}
+	\caption{Sygnał zadany oraz przewidywany przez wytrenowaną sieć RBF $t \in [0,50]$}
 	\label{img:predicted2}
 \end{figure}
 
+Aby dokładniej określić jakość predykcji w przedziale czasu $t \in [0 50]$ ponownie skorzystano z wykresu błędu predykcji dla kolejnych kroków. Jak można zauważyć wraz z oddalaniem się od punktu początkowego błąd predykcji rośnie. Dzieje się tak ze względu na akumulację błędu. Należy zaznaczyć jednak, że odchylenie od wartości zadanej dla 500 kroków dla $y(t)$ nie przekracza wartości 0.04 natomiast dla $y'(t)$ nie przekracza wartości 0.07 co pozwala stwierdzić, że nawet dla tak długiego okresu czasu sieć spełnia swoje zadanie.
 
+\begin{figure}[ht!]
+	\centering
+
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/err1000_x1.png}}
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/err1000_x2.png}}	
+	
+
+	\caption{Błąd predykcji w funkcji czasu $t \in [0,50]$}
+	\label{img:err}
+\end{figure}
+
+Do tej pory badana była jedynie predykcja dla tych samych warunków początkowych dla jakich sieć została wytrenowana. Jednak aby model był dobrze odwzorowany należałoby sprawdzić czy sieć jest zdolna do predykcji dla szerszego zakresu warunków początkowych. W tym celu została przeprowadzona predykcja dla 440 różnych wartości początkowych równomiernie rozłożonych w przestrzeni $[-2,2] \times [-2,2]$ dla 100 kroków w przód. Jakość predykcji została oceniona na podstawie błędu średniokwadratowego. Wykres obrazujący jakość predykcji w zależności od warunków początkowych przedstawia rysunek \ref{img:err_initial}.
+
+\begin{figure}[ht!]
+	\centering
+
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/figure_signal.png}}
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/figure_deriv.png}}	
+	
+
+	\caption{Błąd predykcji w zależności od warunków początkowych $t \in [0,50]$}
+	\label{img:err_initial}
+\end{figure}
+
+Jak można zauważyć sieć dobrze modeluje obiekt nie tylko dla wcześniej wybranego warunku początkowego ale również dla warunków początkowych położonych w pobliżu trajektorii powstałej w wyniku rozwiązania równania Van der Pola z warunkiem początkowym jaki został wybrany w celu stworzenia zbioru uczącego. Rysunek \ref{img:err_initial} może być mylący ze względu na skalę barw jaka została użyta dla określenia błędu pochodnej - zakres błędu dla różnych warunków początkowych jest zdecydowanie większy dla $y'(t)$ niż dla $y(t)$ (maksymalny błąd mse dla $y(t)$ wynosi 13.6417 natomiast dla $y'(t)$ wynosi 40.6341). Po analizie okazało się, że istnieje 16 (na 440) warunków początkowych dla których błąd średniokwadratowy jest większy od 10 . Z tego względu dla lepszego zobrazowania rozkładu błędu zastąpiono wszystkie 16 wartości błędu większe od 10 błędem = 10 i ponownie wykreślono rozkład błędu mse $y'(t)$ w zależności od warunków początkowych. Przedstawiony jest on na rysunku \ref{img:err_initial_new}.
+
+\begin{figure}[ht!]
+	\centering
+
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/figure_signal.png}}
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/figure_deriv_new.png}}	
+	
+
+	\caption{Błąd predykcji w zależności od warunków początkowych $t \in [0,50]$ po odrzuceniu wartości skrajnych błedu mse $y'(t)$}
+	\label{img:err_initial_new}
+\end{figure}
+
+Po odrzuceniu skrajnych wartości wykres rozkładu błędu $y'(t)$ znacznie bardziej przypomina wykres rozkładu błędu $y(t)$. Dla większości warunków początkowych sieć jednak nie jest wstanie dobrze modelować obiektu. Stworzony model zatem jest odpowiedni jedynie dla określonego zbioru warunków początkowych co może być akceptowalne jeśli jesteśmy w stanie założyć, że modelowany obiekt będzie działa jedynie dla takich warunków początkowych. Aby sieć neuronowa była wstanie modelować równanie w szerszym zakresie warunków początkowym potrzebne są kolejne dane. W tym celu wygenerowano 80 trajektorii powstałych w wyniku rozwiązania równania Van der Pola dla warunków początkowych równomiernie rozłożonych w przestrzeni $[-2,2] \times [-2,2]$ w przedziale czasu $t \in [0 40]$ z krokiem $h=0.1$. Zdecydowano się na zmodyfikowanie warunku stopu do postaci $mse < 1e-5$ ze względu na znaczne zwiększenie się zbioru uczącego a co za tym idzie znacznie wydłużenie uczenia się sieci.
+Osiągnięcie błędu średniokwadratowego poniżej 1e-5 udało się osiągnąć dla 25 funkcji bazowych dla funkcji $y(t)$ (błąd równy = 9.5037e-6) oraz 26 funkcji bazowych dla pochodnej $y'(t)$ (błąd równy = 7.9001e-6), czyli wykorzystując jedynie jedną funkcję bazową więcej dla każdej z części sieci. Należy jednak w tym miejscu przypomnieć, że warunkiem stopu było uzyskanie błędu średniokwadratowego 10-krotnie większego niż miało to miejsce w przypadku wcześniejszym. 
+
+W tabeli \ref{tab:rbf_tabela2_x1} zostały zebrane dane na temat wybranych funkcji RBF oraz błąd średniokwadratowy aproksymacji $y(t)$ po selekcji kolejnych funkcji RBF.
+
+\begin{table}[ht!]
+\centering
+
+\begin{tabular}{ |c| c| c| c| c| c| c| }
+\hline
+numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE    \\ \hline    
+    1 &  12 &  -4.8953 &  -0.9105 &   2.0586  &  4.7050e-1 & 1.5515e+0 \\
+    2 &   8 &   5.4193 &   0.9971 &   2.5798  &  5.0360e-1 & 7.5903e-2 \\
+    3 &   2 &  -4.6034 &  -0.8540 &   3.0277  &  1.4313e-2 & 3.3965e-2 \\
+    4 &   5 &   0.0222 &  -0.2106 &   3.2317  &  9.8758e-3 & 5.0279e-3 \\
+    5 &  97 &   2.0527 &   3.4549 &   0.7361  &  1.0031e-3 & 2.0888e-3 \\
+    6 &  77 &   0.1850 &   1.2900 &   0.6728  &  3.6159e-4 & 1.0293e-3 \\
+    7 &  84 &   0.8268 &  -0.0171 &   0.6789  &  9.3702e-5 & 7.5471e-4 \\
+    8 & 103 &   2.0429 &   0.6027 &   0.5178  &  8.7412e-5 & 4.9858e-4 \\
+    9 &  53 &  -1.4953 &  -3.9012 &   0.6884  &  5.9932e-5 & 3.2298e-4 \\
+   10 &  56 &  -1.5088 &  -0.7513 &   0.6456  &  4.0396e-5 & 2.0461e-4 \\
+   11 &  60 &  -1.6142 &   2.5627 &   0.6911  &  2.5830e-5 & 1.2893e-4 \\
+   12 & 108 &   3.2889 &  -1.8451 &   0.4369  &  8.0323e-6 & 1.0539e-4 \\
+   13 &  57 &  -1.7669 &   0.1593 &   0.3909  &  6.2747e-6 & 8.7008e-5 \\
+   14 &  69 &  -0.7720 &   2.5602 &   0.7003  &  4.4067e-6 & 7.4096e-5 \\
+   15 &  11 &  -2.7698 &  -1.4594 &   1.1633  &  3.9520e-6 & 6.2516e-5 \\
+   16 &  27 &   1.5564 &   0.1463 &   1.2159  &  3.2820e-6 & 5.2899e-5 \\
+   17 &  30 &   3.2537 &  -3.1569 &   1.1834  &  3.6829e-6 & 4.2108e-5 \\
+   18 &  88 &   0.7869 &   3.5360 &   0.4310  &  4.5237e-6 & 2.8853e-5 \\
+   19 & 105 &   2.6917 &   2.6612 &   0.5780  &  1.8611e-6 & 2.3400e-5 \\
+   20 &  40 &  -3.9490 &   1.0595 &   0.7024  &  1.0632e-6 & 2.0285e-5 \\
+   21 & 109 &   3.3322 &  -1.6728 &   0.6157  &  6.1811e-7 & 1.8474e-5 \\
+   22 &  38 &  -4.0090 &  -0.9720 &   0.7012  &  7.5296e-7 & 1.6267e-5 \\
+   23 &  36 &  -3.8224 &  -2.8683 &   0.7438  &  1.0858e-6 & 1.3086e-5 \\
+   24 &  65 &  -0.8844 &  -0.9351 &   0.6755  &  6.7549e-7 & 1.1107e-5 \\
+   25 &  58 &  -1.5267 &   0.4323 &   0.5790  &  5.4706e-7 & 9.5037e-6 \\    \hline
+\end{tabular}
+
+\caption{Wybrane funkcje RBF dla y(t)}
+\label{tab:rbf_tabela2_x1}
+\end{table}
+
+
+W tabeli \ref{tab:rbf_tabela2_x2} zostały zebrane dane na temat wybranych funkcji RBF oraz błąd średniokwadratowy aproksymacji $y'(t)$ po selekcji kolejnych funkcji RBF.
+
+\begin{table}[ht!]
+\centering
+
+\begin{tabular}{ |c| c| c| c| c| c| c| }
+\hline
+numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE    \\ \hline    
+    1 &  24 &  -1.1250  &  5.6516  &  2.0361  &  4.7516e-1 & 9.8511e-1   \\
+    2 &  20 &   0.5488  & -4.9698  &  2.1518  &  5.0392e-1 & 3.9276e-2   \\
+    3 &  78 &  -0.3925  &  3.5349  &  0.8580  &  1.2219e-2 & 1.6341e-2   \\
+    4 & 104 &   1.8566  &  1.5269  &  0.6389  &  4.4165e-3 & 8.0511e-3   \\
+    5 &  55 &  -2.6142  & -2.2752  &  0.7069  &  1.9361e-3 & 4.4172e-3   \\
+    6 &  26 &   1.6316  & -1.7819  &  0.9866  &  1.0335e-3 & 2.4773e-3   \\
+    7 &  13 &  -2.6461  &  0.9889  &  1.0006  &  3.2912e-4 & 1.8596e-3   \\
+    8 &  71 &   0.4828  & -3.7540  &  0.7487  &  2.0188e-4 & 1.4807e-3   \\
+    9 &  86 &   0.7849  &  1.5639  &  0.7424  &  1.9636e-4 & 1.1121e-3   \\
+   10 & 115 &   2.9828  &  3.1229  &  0.5308  &  8.5215e-5 & 9.5215e-4   \\
+   11 &  67 &  -0.6655  &  0.4598  &  0.6018  &  1.2760e-4 & 7.1264e-4   \\
+   12 & 112 &   2.5479  &  0.7001  &  0.3633  &  7.6301e-5 & 5.6943e-4   \\
+   13 & 105 &   2.8729  &  2.8243  &  0.7434  &  7.0644e-5 & 4.3683e-4   \\
+   14 &  16 &  -1.4468  & -1.5020  &  1.1100  &  3.6943e-5 & 3.6749e-4   \\
+   15 &  51 &  -2.5600  &  2.5033  &  0.6451  &  3.9223e-5 & 2.9387e-4   \\
+   16 &  95 &   1.7201  &  1.7280  &  0.6390  &  2.2062e-5 & 2.5246e-4   \\
+   17 & 109 &   2.9319  & -1.0482  &  0.4542  &  1.8539e-5 & 2.1767e-4   \\
+   18 &  44 &  -2.0737  & -2.9877  &  0.4729  &  1.4993e-5 & 1.8953e-4   \\
+   19 &   6 &  -0.0106  &  3.5027  &  2.6365  &  1.3682e-5 & 1.6385e-4   \\
+   20 &   5 &   0.0097  &  0.0031  &  2.6574  &  2.0389e-5 & 1.2558e-4   \\
+   21 &  32 &   3.3282  & -0.0031  &  1.2907  &  2.1197e-5 & 8.5791e-5   \\
+   22 &  25 &   2.0450  & -3.8439  &  1.3209  &  1.6687e-5 & 5.4470e-5   \\
+   23 &  50 &  -2.7665  &  1.9171  &  0.7318  &  1.5010e-5 & 2.6296e-5   \\
+   24 &  97 &   2.0519  &  4.1067  &  0.7983  &  4.8446e-6 & 1.7203e-5   \\
+   25 &  63 &  -0.8497  & -2.6336  &  0.6773  &  3.5100e-6 & 1.0615e-5   \\
+   26 &  83 &   0.7341  & -0.7148  &  0.6868  &  1.4466e-6 & 7.9001e-6   \\
+   \hline
+\end{tabular}
+
+\caption{Wybrane funkcje RBF dla y'(t)}
+\label{tab:rbf_tabela2_x2}
+\end{table}
+
+ Następnie dokonano sprawdzenia czy sieć po zwiększeniu zbioru uczącego jest wstanie dobrze modelować układ dla różnych warunków początkowych. Wykres obrazujący jakość predykcji w zależności od warunków początkowych przedstawia rysunek \ref{img:err_initial2}.
+
+
+\begin{figure}[ht!]
+	\centering
+
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/figure_signal2.png}}
+	\subfloat
+	{\includegraphics[width=0.5\textwidth]
+	{images/figure_deriv2.png}}	
+	
+
+	\caption{Błąd predykcji w zależności od warunków początkowych $t \in [0,10]$}
+	\label{img:err_initial2}
+\end{figure}
+
+Jak można zauważyć dla większości warunków początkowych sieć dobrze modeluje układ. Największa wartość błędu wynosiła odpowiednio 0.5292 dla $y(t)$ oraz 0.7508 dla $y'(t)$. W porównaniu do wartości maksymalnej wartości błędu dla sieci uczonej na podstawie danych z jednej trajektorii (maksymalny błąd mse dla $y(t)$ wynosił 13.6417 natomiast dla $y'(t)$ wynosił 40.6341) błąd średniokwadratowy zmalał kilkadziesiąt razy.
+
+\textbf{Określić ile funkcji ma błąd mse poniżej 0.01}
 
 \clearpage
 \section{Podsumowanie oraz wnioski}
-Celem pracy była próba identyfikacji nieliniowych obiektów dynamicznych z wykorzystaniem metody GOFR. Cel udało się zrealizować identyfikując obiekt dynamiczny opisany równaniem Van der Pola. Predykcja działała na ponad kilkadziesiąt kroków w przód. Można jednak zauważyć, że predykcja wraz ze wzrostem czasu pogarszała się. Dzieje się tak ze względu na akumulacje błędów predykcji wraz ze wzrostem czasu. Kolejną wadą zidentyfikowanego modelu jest fakt identyfikacji tylko dla wcześniej określonego kroku. Należy jednak podkreślić, że pomimo tych wad model dobrze spełnia swoje zadanie.
 
+Celem pracy była próba identyfikacji nieliniowych obiektów dynamicznych z wykorzystaniem metody GOFR. Cel udało się zrealizować identyfikując obiekt dynamiczny opisany równaniem Van der Pola. Posiadając dane tylko z jednej trajektorii sieć była wstanie dobrze modelować obiekt dla różnych warunków początkowych. Predykcja na 500 kroków w przód skutkowała błędem średniokwadratowym w wyznaczeniu $y(t)$ równym 1.9873e-4, oraz błędem wyznaczania $y'(t)$ równym 3.0130e-4. Następnie aby zwiększyć jakość odwzorowania modelu obiektu dla szerszego zakresu punktów początkowych zwiększono zbiór danych uczących do 80 trajektorii. Po ponowny wytrenowaniu sieci okazało się, że jakość odwzorowania modelu dla szerokiego zakresu warunków początkowych uległa znacznemu polepszeniu.
+Określając jako akceptowalną predykcje taką, dla której błąd mse < 0.01 dla $y(t)$ oraz $y'(t)$ jednocześnie, udało się uzyskać poprawną predykcję dla 348 na 440 warunków początkowych.
+
+Czas uczenia sieci uległ jednak znacznemu wydłużeniu a ilość funkcji bazowych uległa zwiększeniu pomimo ustalania jako warunku stopu uzyskania błędu mse dziesięciokrotnie mniejszego. Pomimo zwiększenia zbioru uczącego dla części warunków początkowych sieć nadal nie najlepiej odwzorowywała obiekt dynamiczny.  Wartości początkowe dla których błąd był większy od gwarantującego poprawną predykcję były zgrupowane. Dalszą poprawę wyników mogłoby przynieść zwiększenie zbioru uczącego bądź zmniejszenie wartości mse jako warunku stopu. Jednym z ograniczeń takiej identyfikacji jest modelowanie obiektu dla z góry określonego kroku (dla identyfikowanego obiektu h = 0.1). Rozwiązanie takiego problemu zostało jednak zaproponowane w pracy Yi-Jen Wanga i Chin-Teng Lina\cite{Wang}. Wykorzystane w tym celu zostało połączenie metody Runge-Kutty oraz radialnej sieci neuronowej. Sieć przedstawioną w pracy można wykorzystać w tej metodzie tak aby umożliwić swobodny dobór kroku metody.
+
+W pracy ''Structure-unknown non-linear dynamic systems: identification through neural networks''\cite{Masri} została podjęta próba identyfikacji dynamiki obiektu opisanego równaniem Van der Pola. Zastosowano tam sieć jednokierunkową, trzywarstową oraz algorytm propagacji wstecznej błędu. Nie zostały tam zamieszczone konkretne dane liczbowe ale oceniając identyfikację obiektu na podstawie zamieszczonych tam wykresów można ocenić jakościowo, że zaproponowany w pracy dyplomowej sposób identyfikacji oparty o sieć neuronową i metodę GOFR zdecydowanie lepiej spełnił swoje zadanie. 
+
+Przedstawiona w pracy metoda sprawdziła się w identyfikacji dynamiki obiektu nieliniowego opisanego równaniem Van der Pola. W dalszych pracach można wykorzystać metodę GOFR do identyfikacji innych nieliniowych obiektów dynamicznych oraz zastosować ją w połączeniu z metodą Runge-Kutty.
 
 % -------------------------- bibliografia ----------------------------
 \clearpage
@@ -626,6 +892,30 @@ Celem pracy była próba identyfikacji nieliniowych obiektów dynamicznych z wyk
 \bibitem{Gutenbaum} J. Gutenbaum, Modelowanie systemów,
 
 \bibitem{Kosinski} R. A. Kosiński, Sztuczne sieci neuronowe, Warszawa 2007, WNT
+
+\bibitem{Bors} Bors Adrian G., Introduction of the Radial Basis Function (RBF) Networks, http://www-users.cs.york.ac.uk/adrian/Papers/Others/OSEE01.pdf
+
+\bibitem{Bernardelli} http://akson.sgh.waw.pl/~mbernard/Dydaktyka/Rok\_2010\_11/WprowadzenieD oMetodNumerycznychLic\_1011\_let/Zajecia06.pdf
+
+\bibitem{Palczewski} Palczewski A., Równania różniczkowe zwyczajne
+Teoria i metody numeryczne z wykorzystaniem komputerowego systemu obliczeń symbolicznych, WNT 2004 Warszawa wyd. 2
+
+\bibitem{Czemplik} Czemplik. A, Modele dynamiki układów fizycznych dla inżynierów
+Zasady i przykłady konstrukcji modeli dynamicznych obiektów automatyki, 2008 WNT, Warszawa
+
+\bibitem{Isermann} Rolf Isermann, Marco Münchhof, Identification of Dynamic Systems: An Introduction with Applications, Springer 2010
+
+\bibitem{Wang} Wang, Runge–Kutta Neural Network for Identification
+of Dynamical Systems in High Accuracy
+
+\bibitem{Masri} Masri, Structure-unknown non-linear dynamic
+systems: identification through neural
+networks
+
+\bibitem{Tsatsos} Marios Tsatsos, Dissertation: Theoretical and Numerical Study of
+the Van der Pol equation, Thessaloniki, July 2006, Aristotle University of Thessaloniki
+School of Sciences
+
 \end{thebibliography}
 
 \clearpage
