@@ -73,7 +73,7 @@ Stopień pochodnej w równaniu \ref{wzor:rownanie_roz_N_stopnia} decyduje o rzę
 	y' = f(x,y)
 \end{equation}
 
-Rozwiązanie równania \ref{wzor:rownanie_roz_I_stopnia} w sposób numeryczny może zostać rozwiązane z wykorzystaniem wielu sposobów. Można wyróżnić podział na metody jednokrokowe, które wymagają jedynie informacji z poprzedniego kroku (zatem warunek początkowy jest wystarczający do obliczenia równania różniczkowego dla kolejnego punktu) oraz metody wielokrokowe, w których rozwiązanie jest dokonowywane z wykorzystaniem znajomości kilku poprzednich kroków. Wśród metod jednokrokowych znajdują się m.in. metody Eulera oraz Rungego-Kutty.
+Równanie \ref{wzor:rownanie_roz_I_stopnia} może zostać rozwiązane numerycznie na wiele sposobów. Można wyróżnić podział na metody jednokrokowe, które wymagają jedynie informacji z poprzedniego kroku (zatem warunek początkowy jest wystarczający do obliczenia równania różniczkowego dla kolejnego punktu) oraz metody wielokrokowe, w których rozwiązanie jest dokonowywane z wykorzystaniem znajomości kilku poprzednich kroków. Wśród metod jednokrokowych znajdują się m.in. metody Eulera oraz Rungego-Kutty.
 
 \subsection{Metody rozwiązywania równań różniczkowych}
 
@@ -153,7 +153,7 @@ Należy zaznaczyć, że wymienione metody rozwiązywania równań różniczkowyc
 \newpage
 \section{Sieci neuronowe} 
 
-Sieci neuronowe w dzisiejszych czasach mają bardzo szerokie zastosowanie. Wykorzystywane są m. in do zadań klasyfikacji, aproksymacji, predykcji, sterowania w wielu różnych dziedzinach życia. Sama definicja czym jest sieć neuronowa nie została sprecyzowana ale sieci neuronowe można określić jako adaptacyjne metody tworzenia modeli nieliniowych na podstawie danych eksperymentalnych bądź też formalne modele statystyczne zbudowane na podstawie danych eksperymentalnych\cite{Jankowski}.
+Sieci neuronowe w dzisiejszych czasach mają bardzo szerokie zastosowanie. Wykorzystywane są m. in do zadań klasyfikacji, aproksymacji, predykcji, sterowania w wielu różnych dziedzinach życia. Definicja sieci neuronowej nie została dokładnie sprecyzowana ale sieci neuronowe można określić jako adaptacyjne metody tworzenia modeli nieliniowych na podstawie danych eksperymentalnych bądź też formalne modele statystyczne zbudowane na podstawie danych eksperymentalnych\cite{Jankowski}.
  
 \subsection{Struktura sieci neuronowych}
 Podstawą budowy sieci neuronowych są neurony. Budowa pojedynczego neuronu jest przedstawiona na rysunku \ref{fig:neuron}. Neuron taki sumuje sygnał podany na jego wejścia $x_i$ z odpowiednimi wagami $w_i$, dając na wyjście wynik $y$ sumy przeprowadzonej przez funkcję aktywacji $f(x)$.
@@ -175,14 +175,14 @@ Sieć neuronową budują grupy połączonych ze sobą neuronów. Uproszczoną st
 \end{figure}
 
 \subsubsection*{Perceptron wielowarstwowy}
-Często wykorzystywany typem sieci jest perceptron wielowarstwowy, którą stanowi jednokierunkowa wielowarstwowa sieć o neuronach typu sigmoidalnego (z sigmoidalną funkcją aktywacji)\cite{Osowski}. Funkcja aktywacji często przyjmuje postać $f(x) = \frac{1}{1 + exp(-\beta x)}$ określanej mianem funkcji unipolarnej, bądź też $f(x) = tgh(\beta x)$ określanej mianej funkcji bipolarnej.
+Często wykorzystywanym typem sieci jest perceptron wielowarstwowy, którą stanowi jednokierunkowa wielowarstwowa sieć o neuronach typu sigmoidalnego (z sigmoidalną funkcją aktywacji)\cite{Osowski}. Funkcja aktywacji często przyjmuje postać $f(x) = \frac{1}{1 + exp(-\beta x)}$ określanej mianem funkcji unipolarnej, bądź też $f(x) = tgh(\beta x)$ określanej mianej funkcji bipolarnej.
  
 \subsubsection*{Sieć RBF}
 Sieć RBF (Radial Basis Function) jest sztuczną siecią neuronową o radialnych funkcjach bazowych. Sieć ta ma szerokie zastosowanie i jest wykorzystywana do szeregu problemów m.in: modelowania 3D, rozpoznawania mowy, identyfikacji systemów, modelowania parametrów urządzeń elektronicznych\cite{Bors}. Sieć taka składa się zazwyczaj z jednej warstwy ukrytej, gdzie funkcja aktywacji jest radialną funkcją bazową oraz warstwy wyjściowej w postaci neuronu liniowego. Radialna funkcja bazowa jest określona w sposób następujący\cite{Bartkowiak}
 \begin{equation}
 	G(x,c) = G(r(x,c))
 \end{equation}
-gdzie $r(x,c)$ jest odległością między punktami $r$ i $c$ a centrum $c$ jest ustalone i pełni rolę parametru funkcji. Jedną z bardziej popularnych radialnych funkcji bazowych jest funkcja Gaussa:
+gdzie $r(x,c)$ jest odległością między punktami $r$ i $c$, a centrum $c$ jest ustalone i pełni rolę parametru funkcji. Jedną z bardziej popularnych radialnych funkcji bazowych jest funkcja Gaussa:
 \begin{equation}
 	G(r) = e^{\frac{-r^2}{2\sigma^2}}
 \end{equation}
@@ -213,7 +213,7 @@ Metoda największego spadku chociaż jest metodą wolno zbieżną to warto ją o
 \begin{equation}
 	E(w_{k+1}) = E(w) + [(g(w)]^Tp
 \end{equation} 
-Aby był spełniona nierówność $E(w_{k+1}) < E(w_k)$ wystarczy zapewnić aby $[(g(w)]^Tp < 0$. Wektor kierunkowy spełniający nierówność wynosi $p = -[g(w)]^T$. Graficznie działanie algorytmu przedstawia rysunek \ref{fig:gradient}. Czerwoną linią została przedstawiona funkcja kosztu $E(w)$ jako funkcja jednej zmiennej $w$. Zieloną linią została oznaczona styczna do wykresu w punkcie $w_k$ gdzie pochodna jest mniejsza od zera. W tym przypadku należy przemieścić się w stronę dodatnich wartości $w$ czyli zgodnie z kierunkiem $-\frac{dE}{dw}$. Niebieską linią została oznaczona styczna do wykresu w punkcie $w_k$ gdzie pochodna jest większa od zera. W tym przypadku należy przemieścić się w stronę ujemnych wartości $w$ czyli również zgodnie z kierunkiem $-\frac{dE}{dw}$.
+Aby była spełniona nierówność $E(w_{k+1}) < E(w_k)$ wystarczy spełnić warunek $[(g(w)]^Tp < 0$. Wektor kierunkowy spełniający nierówność wynosi $p = -[g(w)]^T$. Graficznie działanie algorytmu przedstawia rysunek \ref{fig:gradient}. Czerwoną linią została przedstawiona funkcja kosztu $E(w)$ jako funkcja jednej zmiennej $w$. Zieloną linią została oznaczona styczna do wykresu w punkcie $w_k$ gdzie pochodna jest mniejsza od zera. W tym przypadku należy przemieścić się w stronę dodatnich wartości $w$ czyli zgodnie z kierunkiem $-\frac{dE}{dw}$. Niebieską linią została oznaczona styczna do wykresu w punkcie $w_k$ gdzie pochodna jest większa od zera. W tym przypadku należy przemieścić się w stronę ujemnych wartości $w$ czyli również zgodnie z kierunkiem $-\frac{dE}{dw}$.
 
 \begin{figure}
 	\centering
@@ -400,12 +400,12 @@ Powstała w wyniku rozwiązania równania Van der Pola trajektoria, wykres funkc
 Kolejnym etapem było stworzenie odpowiedniej biblioteki funkcji RBF. W tym celu najpierw wygenerowano bibliotekę 115 funkcji RBF postaci:
 \begin{equation}
 	\label{wzor:rbf_2d}
-	f(x_1(t),x_2(t),c_1,c_2,\sigma) = e^{-\frac{(x_1(t)-c_1)^2 + (x_2(t)-c_2)^2}{2 \sigma^2}}\
+	f(x_1(t),x_2(t),c_1,c_2,\sigma) = \exp(-\frac{(x_1(t)-c_1)^2 + (x_2(t)-c_2)^2}{2 \sigma^2})\
 \end{equation} gdzie: \\
 $x_1(t) = y(t)$ \\
 $x_2(t) = y'(t)$ \\
 
-Generowanie biblioteki odbywało się poprzez wybór równomiernie rozłożonych w przestrzeni dwuwymiarowej $D = [min(x_1),max(x_1)] \times [min(x_2),max(x_2)]$ centrów. Dla każdego kolejnego poziomu generowania biblioteki funkcji, nowe centra $c_1$ oraz $c_2$ były wybierane poprzez dwukrotnie zagęszczenie punktów w każdej z osi oraz zmniejszanie szerokości funkcji gaussa $\sigma$ o połowę. Centra dla tak wygenerowanych funkcji przedstawia rysunek \ref{img:rbf_centers}. Ilość poziomów ograniczono do trzech generując w ten sposób 115 funkcji RBF.
+Generowanie biblioteki odbywało się poprzez wybór równomiernie rozłożonych w przestrzeni dwuwymiarowej $D = [min(x_1),max(x_1)] \times [min(x_2),max(x_2)]$ centrów. Dla każdego kolejnego poziomu generowania biblioteki funkcji, nowe centra $c_1$ oraz $c_2$ były wybierane poprzez dwukrotnie zagęszczenie punktów w każdej z osi oraz zmniejszanie szerokości funkcji gaussa $\sigma$ o połowę. Centra dla tak wygenerowanych funkcji przedstawia rysunek \ref{img:rbf_centers}. Ilość poziomów ograniczono do trzech, generując w ten sposób 115 funkcji RBF.
 
 \begin{figure}[ht!]
 	\centering	
@@ -430,7 +430,7 @@ Następnie dokonano selekcji najbardziej istotnych funkcji z biblioteki wykorzys
 \end{equation}
 Optymalizowano następujące parametry sieci RBF: $c_1$, $c_2$, $\sigma$ oraz $w$. W celu skorzystania z~metody Leveberga-Marquardta konieczne jest określenie gradientu funkcji błędu $e = y - \tilde{y}$ oraz jej pochodnych cząstkowych. Funkcja błędu $e$ jest wyrażona wzorem:
 \begin{equation}
-	e = y - \tilde{y} = y - w f(x_1,x_2,c_1,c_2,\sigma) = y - w e^{-\frac{(x_1-c_1)^2 + (x_2-c_2)^2}{2 \sigma^2}} 
+	e = y - \tilde{y} = y - w f(x_1,x_2,c_1,c_2,\sigma) = y - w \exp(-\frac{(x_1-c_1)^2 + (x_2-c_2)^2}{2 \sigma^2}) 
 \end{equation}
 Gradient $e$ wynosi zatem:
 \begin{equation}
@@ -546,7 +546,7 @@ Rysunek \ref{img:approximated} przedstawia aproksymację równania Van der Pola 
 	{\includegraphics[width=0.5\textwidth]
 	{images/trajectory_approx.png}}
 
-	\caption{Sygnał zadany oraz aproksymowany przez wytrenowaną sieć RBF $t \in [0,40]$}
+	\caption{Sygnał zadany oraz aproksymowany przez wytrenowaną sieć RBF}
 	\label{img:approximated}
 \end{figure}
 
@@ -675,7 +675,7 @@ Po etapie trenowania sieci RBF sprawdzono zdolność tej sieci do predykcji. Pre
 	\label{img:predicted}
 \end{figure}
 
-Trudno jest jednak dokładniej określić jakość predykcji na podstawie rysunku \ref{img:predicted} ze względu na nieznaczne różnice w wartości zadanej oraz wartości przewidywanej przez sieć w wyniku czego sygnał zadany oraz przewidywany pokrywają się. Aby można było dokładnie określić odstępstwo wartość przewidywanej od wartości rzeczywistej na rysunku \ref{img:err100_x} został przedstawiony błąd predykcji w funkcji w kolejnych krokach. Wartość bezwzględna błędu wyznaczenia $y(t)$ nie przekracza wartości 0.02. Maksymalny błąd wyznaczenia $y'(t)$ jest nieznacznie większy i nie przekracza wartości 0.03. Na tej podstawie można stwierdzić, że dla 100 kroków w przód sieć spełnia swoje zadanie. 
+Trudno jest jednak dokładniej określić jakość predykcji na podstawie rysunku \ref{img:predicted} ze względu na nieznaczne różnice w wartości zadanej oraz wartości przewidywanej przez sieć w wyniku czego sygnał zadany oraz przewidywany pokrywają się. Aby można było dokładnie określić odstępstwo wartość przewidywanej od wartości rzeczywistej na rysunku \ref{img:err100_x} został przedstawiony błąd predykcji w kolejnych krokach. Wartość bezwzględna błędu wyznaczenia $y(t)$ nie przekracza wartości 0.02. Maksymalny błąd wyznaczenia $y'(t)$ jest nieznacznie większy i nie przekracza wartości 0.03. Na tej podstawie można stwierdzić, że dla 100 kroków w przód sieć spełnia swoje zadanie. 
 
 \begin{figure}[ht!]
 	\centering
@@ -735,36 +735,36 @@ Do tej pory badana była jedynie predykcja dla tych samych warunków początkowy
 \begin{figure}[ht!]
 	\centering
 
-	\subfloat
+	\subfloat[y(t)]
 	{\includegraphics[width=0.5\textwidth]
 	{images/figure_signal.png}}
-	\subfloat
+	\subfloat[y'(t)]
 	{\includegraphics[width=0.5\textwidth]
 	{images/figure_deriv.png}}	
 	
 
-	\caption{Błąd predykcji w zależności od warunków początkowych $t \in [0,50]$}
+	\caption{Błąd predykcji w zależności od warunków początkowych $t \in [0,10]$}
 	\label{img:err_initial}
 \end{figure}
 
-Jak można zauważyć sieć dobrze modeluje obiekt nie tylko dla wcześniej wybranego warunku początkowego ale również dla warunków początkowych położonych w pobliżu trajektorii powstałej w wyniku rozwiązania równania Van der Pola z warunkiem początkowym jaki został wybrany w celu stworzenia zbioru uczącego. Rysunek \ref{img:err_initial} może być mylący ze względu na skalę barw jaka została użyta dla określenia błędu pochodnej - zakres błędu dla różnych warunków początkowych jest zdecydowanie większy dla $y'(t)$ niż dla $y(t)$ (maksymalny błąd MSE dla $y(t)$ wynosi 13.6417 natomiast dla $y'(t)$ wynosi 40.6341). Po analizie okazało się, że istnieje 16 (na 440) warunków początkowych dla których błąd średniokwadratowy jest większy od 10 . Z tego względu dla lepszego zobrazowania rozkładu błędu zastąpiono wszystkie 16 wartości błędu większe od 10 błędem = 10 i ponownie wykreślono rozkład błędu MSE $y'(t)$ w zależności od warunków początkowych. Przedstawiony jest on na rysunku \ref{img:err_initial_new}.
+Jak można zauważyć sieć dobrze modeluje obiekt nie tylko dla wcześniej wybranego warunku początkowego ale również dla warunków początkowych położonych w pobliżu trajektorii powstałej w wyniku rozwiązania równania Van der Pola z warunkiem początkowym jaki został wybrany w celu stworzenia zbioru uczącego. Rysunek \ref{img:err_initial} może być mylący ze względu na skalę barw jaka została użyta dla określenia błędu pochodnej - zakres błędu dla różnych warunków początkowych jest zdecydowanie większy dla $y'(t)$ niż dla $y(t)$ (maksymalny błąd MSE dla $y(t)$ wynosi 13.6417 natomiast dla $y'(t)$ wynosi 40.6341). Po analizie okazało się, że istnieje 16 (na 440) warunków początkowych dla których błąd średniokwadratowy jest większy od 10. Z tego względu dla lepszego zobrazowania rozkładu błędu zastąpiono wszystkie 16 wartości błędu większe od 10 błędem = 10 i ponownie wykreślono rozkład błędu MSE $y'(t)$ w zależności od warunków początkowych. Przedstawiony jest on na rysunku \ref{img:err_initial_new}.
 
 \begin{figure}[ht!]
 	\centering
 
-	\subfloat
+	\subfloat[y(t)]
 	{\includegraphics[width=0.5\textwidth]
 	{images/figure_signal.png}}
-	\subfloat
+	\subfloat[y'(t)]
 	{\includegraphics[width=0.5\textwidth]
 	{images/figure_deriv_new.png}}	
 	
 
-	\caption{Błąd predykcji w zależności od warunków początkowych $t \in [0,50]$ po odrzuceniu wartości skrajnych błedu mse $y'(t)$}
+	\caption{Błąd predykcji w zależności od warunków początkowych dla $t \in [0,10]$ po odrzuceniu wartości skrajnych błedu MSE dla $y'(t)$}
 	\label{img:err_initial_new}
 \end{figure}
 
-Po odrzuceniu skrajnych wartości wykres rozkładu błędu $y'(t)$ znacznie bardziej przypomina wykres rozkładu błędu $y(t)$. Dla większości warunków początkowych sieć jednak nie jest wstanie dobrze modelować obiektu. Ustalając akceptowalność predykcji, dla której błąd MSE był mniejszy niż 0.01, sieć była wstanie poprawnie modelować obiekt dla 51 z 440 warunków początkowych. Stworzony model zatem jest odpowiedni jedynie dla określonego zbioru warunków początkowych co może być akceptowalne jeśli jesteśmy w stanie założyć, że modelowany obiekt będzie działał jedynie dla takich warunków początkowych. Aby sieć neuronowa była wstanie modelować równanie w szerszym zakresie warunków początkowym potrzebne są kolejne dane. W tym celu wygenerowano 80 trajektorii powstałych w wyniku rozwiązania równania Van der Pola dla warunków początkowych równomiernie rozłożonych w przestrzeni $[-2,2] \times [-2,2]$ w przedziale czasu $t \in [0, 40]$ z krokiem $h=0.1$. Zdecydowano się na zmodyfikowanie warunku stopu do postaci $mse < 1e-5$ ze względu na znaczne zwiększenie się zbioru uczącego a co za tym idzie znacznie wydłużenie uczenia się sieci.
+Po odrzuceniu skrajnych wartości wykres rozkładu błędu $y'(t)$ znacznie bardziej przypomina wykres rozkładu błędu $y(t)$. Dla większości warunków początkowych sieć jednak nie jest wstanie dobrze modelować obiektu. Ustalając akceptowalność predykcji, dla której błąd MSE był mniejszy niż 0.01, sieć była wstanie poprawnie modelować obiekt dla 51 z 440 warunków początkowych. Stworzony model zatem jest odpowiedni jedynie dla określonego zbioru warunków początkowych co może być akceptowalne jeśli jesteśmy w stanie założyć, że modelowany obiekt będzie działał jedynie dla takich warunków początkowych. Aby sieć neuronowa była wstanie modelować równanie w szerszym zakresie warunków początkowym potrzebne są kolejne dane. W tym celu wygenerowano 80 trajektorii powstałych w wyniku rozwiązania równania Van der Pola dla warunków początkowych równomiernie rozłożonych w przestrzeni $[-2,2] \times [-2,2]$ w przedziale czasu $t \in [0, 40]$ z krokiem $h=0.1$. Zdecydowano się na zmodyfikowanie warunku stopu do postaci MSE $<$ 1e-5 ze względu na znaczne zwiększenie się zbioru uczącego a co za tym idzie znacznie wydłużenie uczenia się sieci.
 Osiągnięcie błędu średniokwadratowego poniżej 1e-5 udało się osiągnąć dla 25 funkcji bazowych dla funkcji $y(t)$ (błąd równy = 9.5037e-6) oraz 26 funkcji bazowych dla pochodnej $y'(t)$ (błąd równy = 7.9001e-6), czyli wykorzystując jedynie jedną funkcję bazową więcej dla każdej z części sieci. Należy jednak w tym miejscu przypomnieć, że warunkiem stopu było uzyskanie błędu średniokwadratowego 10-krotnie większego niż miało to miejsce w przypadku wcześniejszym. 
 
 W tabeli \ref{tab:rbf_tabela2_x1} zostały zebrane dane na temat wybranych funkcji RBF oraz błąd średniokwadratowy aproksymacji $y(t)$ po selekcji kolejnych funkcji RBF.
@@ -855,10 +855,10 @@ numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia     
 \begin{figure}[ht!]
 	\centering
 
-	\subfloat
+	\subfloat[y(t)]
 	{\includegraphics[width=0.5\textwidth]
 	{images/figure_signal2.png}}
-	\subfloat
+	\subfloat[y'(t)]
 	{\includegraphics[width=0.5\textwidth]
 	{images/figure_deriv2.png}}	
 	
@@ -867,15 +867,15 @@ numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia     
 	\label{img:err_initial2}
 \end{figure}
 
-Jak można zauważyć dla większości warunków początkowych sieć dobrze modeluje układ. Największa wartość błędu wynosiła odpowiednio 0.5292 dla $y(t)$ oraz 0.7508 dla $y'(t)$. W porównaniu do wartości maksymalnej wartości błędu dla sieci uczonej na podstawie danych z jednej trajektorii (maksymalny błąd mse dla $y(t)$ wynosił 13.6417 natomiast dla $y'(t)$ wynosił 40.6341) błąd średniokwadratowy zmalał kilkadziesiąt razy. Znacznie wzrosła też ilość warunków początkowych, dla których błąd MSE predykcji był mniejszy niż 0.01. Wartość ta wzrosła z 51 do 348 warunków początkowych.
+Jak można zauważyć dla większości warunków początkowych sieć dobrze modeluje układ. Największa wartość błędu wynosiła odpowiednio 0.5292 dla $y(t)$ oraz 0.7508 dla $y'(t)$. W porównaniu do wartości maksymalnej wartości błędu dla sieci uczonej na podstawie danych z jednej trajektorii (maksymalny błąd MSE dla $y(t)$ wynosił 13.6417 natomiast dla $y'(t)$ wynosił 40.6341) błąd średniokwadratowy zmalał kilkadziesiąt razy. Znacznie wzrosła też ilość warunków początkowych, dla których błąd MSE predykcji był mniejszy niż 0.01. Wartość ta wzrosła z 51 do 348 warunków początkowych.
 
 \clearpage
 \section{Podsumowanie oraz wnioski}
 
 Celem pracy była próba identyfikacji nieliniowych obiektów dynamicznych z wykorzystaniem metody GOFR. Cel udało się zrealizować identyfikując obiekt dynamiczny opisany równaniem Van der Pola. Posiadając dane tylko z jednej trajektorii sieć była wstanie dobrze modelować obiekt dla różnych warunków początkowych. Predykcja na 500 kroków w przód skutkowała błędem średniokwadratowym w wyznaczeniu $y(t)$ równym 1.9873e-4, oraz błędem wyznaczania $y'(t)$ równym 3.0130e-4. Następnie aby zwiększyć jakość odwzorowania modelu obiektu dla szerszego zakresu punktów początkowych zwiększono zbiór danych uczących do 80 trajektorii. Po ponowny wytrenowaniu sieci okazało się, że jakość odwzorowania modelu dla szerokiego zakresu warunków początkowych uległa znacznemu polepszeniu.
-Określając jako akceptowalną predykcje taką, dla której błąd mse < 0.01 dla $y(t)$ oraz $y'(t)$ jednocześnie, udało się uzyskać poprawną predykcję dla 348 na 440 warunków początkowych.
+Określając jako akceptowalną predykcje taką, dla której błąd MSE $<$ 0.01 dla $y(t)$ oraz $y'(t)$ jednocześnie, udało się uzyskać poprawną predykcję dla 348 na 440 warunków początkowych.
 
-Czas uczenia sieci uległ jednak znacznemu wydłużeniu a ilość funkcji bazowych uległa zwiększeniu pomimo ustalania jako warunku stopu uzyskania błędu mse dziesięciokrotnie mniejszego. Pomimo zwiększenia zbioru uczącego dla części warunków początkowych sieć nadal nie najlepiej odwzorowywała obiekt dynamiczny.  Wartości początkowe dla których błąd był większy od gwarantującego poprawną predykcję były zgrupowane. Dalszą poprawę wyników mogłoby przynieść zwiększenie zbioru uczącego bądź zmniejszenie wartości mse jako warunku stopu. Jednym z ograniczeń takiej identyfikacji jest modelowanie obiektu dla z góry określonego kroku (dla identyfikowanego obiektu h = 0.1). Rozwiązanie takiego problemu zostało jednak zaproponowane w pracy Yi-Jen Wanga i Chin-Teng Lina\cite{Wang}. Wykorzystane w tym celu zostało połączenie metody Runge-Kutty oraz radialnej sieci neuronowej. Sieć przedstawioną w pracy można wykorzystać w tej metodzie tak aby umożliwić swobodny dobór kroku metody.
+Czas uczenia sieci uległ jednak znacznemu wydłużeniu a ilość funkcji bazowych uległa zwiększeniu pomimo ustalania jako warunku stopu uzyskania błędu MSE dziesięciokrotnie mniejszego. Pomimo zwiększenia zbioru uczącego dla części warunków początkowych sieć nadal nie najlepiej odwzorowywała obiekt dynamiczny.  Wartości początkowe dla których błąd był większy od gwarantującego poprawną predykcję były zgrupowane. Dalszą poprawę wyników mogłoby przynieść zwiększenie zbioru uczącego bądź zmniejszenie wartości MSE jako warunku stopu. Jednym z ograniczeń zaproponowanej identyfikacji jest modelowanie obiektu dla z góry określonego kroku (dla identyfikowanego obiektu h = 0.1). Rozwiązanie takiego problemu zostało jednak zaproponowane w pracy Yi-Jen Wanga i Chin-Teng Lina\cite{Wang}. Wykorzystane w tym celu zostało połączenie metody Runge-Kutty oraz radialnej sieci neuronowej. Sieć przedstawioną w pracy można wykorzystać w tej metodzie tak aby umożliwić swobodny dobór kroku metody.
 
 W pracy ''Structure-unknown non-linear dynamic systems: identification through neural networks''\cite{Masri} została podjęta próba identyfikacji dynamiki obiektu opisanego równaniem Van der Pola. Zastosowano tam sieć jednokierunkową, trzywarstową oraz algorytm propagacji wstecznej błędu. Nie zostały tam zamieszczone konkretne dane liczbowe ale oceniając identyfikację obiektu na podstawie zamieszczonych tam wykresów można ocenić jakościowo, że zaproponowany w pracy dyplomowej sposób identyfikacji oparty o sieć neuronową i metodę GOFR zdecydowanie lepiej spełnił swoje zadanie. 
 
