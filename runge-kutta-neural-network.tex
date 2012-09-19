@@ -67,7 +67,7 @@ y^{n-1}(x_0) = y_{n-1}
 \end{equation}
 gdzie $y_0, y_1, \hdots, y_{n-1}$ są zadanymi liczbami.
 
-Stopień pochodnej w równaniu \eqref{wzor:rownanie_roz_N_stopnia} decyduje o rzędzie równania różniczkowego. Równanie różniczkowe pierwszego rzędu wyraża się zatem wzorem:
+Stopień pochodnej w równaniu \eqref{wzor:rownanie_roz_N_stopnia} określa rząd równania różniczkowego. Równanie różniczkowe pierwszego rzędu wyraża się zatem wzorem:
 \begin{equation}
 	\label{wzor:rownanie_roz_I_stopnia}
 	y' = f(x,y)
@@ -82,7 +82,7 @@ Metoda Eulera jest najprostszą metodą numeryczną rozwiązywania równań ró�
 \begin{equation}
 	y(x_0) = y_0	
 \end{equation}
-poszukujemy rozwiązania dla kolejnego momentu $x_1 = x_0 + h$, gdzie $h$ jest krokiem metody. W~tym celu możemy skorzystać z rozwinięcia szeregu Taylora w pobliżu punktu początkowego $x_0$:
+poszukujemy rozwiązania dla kolejnego momentu $x_1 = x_0 + h$, gdzie $h$ jest krokiem metody. W~tym celu możemy skorzystać z rozwinięcia w szereg Taylora w pobliżu punktu początkowego $x_0$:
 \begin{equation}
 	y(x_0 + h) = y(x_0) + hy'(x_0) + \frac{h^2}{2!}y''(x_0) + \hdots
 \end{equation}
@@ -97,54 +97,54 @@ Powtarzając tę czynność wielokrotnie otrzymamy wzór:
 określany jawną metodą Eulera.
 
 \subsection*{Metoda Rungego-Kutty}
-Kolejną metodą numerycznego rozwiązywania równań różniczkowych jest metoda \mbox{Rungego-Kutty}, która jest metodą wieloetapową. W każdym kroku konieczne jest obliczenie wartości funkcji $f$ dla różnych argumentów. Wśród metod Runge-Kutty można wyróżnić różne warianty tej metody w zależności od rzędu metody. Najprostszą z nich jest metoda Runge-Kutty rzędu II. Przyjmuje ona postać:
+Kolejną metodą numerycznego rozwiązywania równań różniczkowych jest metoda Rungego-Kutty, która jest metodą wieloetapową. W każdym kroku konieczne jest obliczenie wartości funkcji $f$ dla różnych argumentów. Wśród metod Rungego-Kutty można wyróżnić różne warianty tej metody w zależności od rzędu metody. Najprostszą z nich jest metoda Rungego-Kutty rzędu II. Przyjmuje ona postać:
 \begin{equation}
 	y_{i+1} = y_i + \frac{h}{2}(k_1 + k_2)
 \end{equation}
-gdzie
-$$\begin{array}{c}
+gdzie \\ \hspace*{0.8cm}
+$\begin{array}{l}
 	k_1 = f(t_i,y_i) \\
 	k_2 = f(t_i + h, y_i + hk_1)
-\end{array}$$
+\end{array}$ \\
 
 Najbardziej popularną jest metoda rzędu IV, która przyjmuje postać:
 \begin{equation}
 	y_{i+1} = y_i + \frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)
 \end{equation}
-gdzie
-$$\begin{array}{c}
+gdzie \\ \hspace*{0.8cm}
+$\begin{array}{c}
 	k_1 = f(t_i,y_i) \\
 	k_2 = f(t_i + \frac{h}{2}, y_i + \frac{h}{2}k_1) \\
 	k_3 = f(t_i + \frac{h}{2}, y_i + \frac{h}{2}k_2) \\
 	k_4 = f(t_i + h,y_i + hk_3) \\
-\end{array}$$
+\end{array}$ \\
 
 \subsection*{Równania różniczkowe zwyczajne wyższych rzędów}
-Równanie różniczkowe wyższych rzędów może zostać sprowadzone do układu równań różniczkowych rzędu pierwszego \cite{AK_RBG2002}. Mając dane równanie różniczkowego n-tego rzędu:
-$$y^{(n)}(t) = f(t,y(t),y'(t),\hdots,y^{(n-1)}(t)), \qquad a \leq t \leq b$$
-z warunkiem początkowym w postaci:
+Równanie różniczkowe wyższych rzędów może zostać sprowadzone do układu równań różniczkowych rzędu pierwszego \cite{AK_RBG2002}. Mając dane równanie różniczkowego n-tego rzędu: \\ \hspace*{0.8cm} 
+$y^{(n)}(t) = f(t,y(t),y'(t),\hdots,y^{(n-1)}(t)), \qquad a \leq t \leq b$ \\
+z warunkiem początkowym w postaci: \\ \hspace*{0.8cm}
 
-$$\begin{array}{c}
+$\begin{array}{l}
 y(a)       = \alpha_0,    \\
 y'(a)      = \alpha_1,    \\
 \vdots					  \\
 y^{n-1}(a) = \alpha_{n-1} \\
-\end{array}$$
+\end{array}$ \\
 
-oraz wprowadzając nowe zmienne:
-$$y_1(t) = y(t), y_2(t) = y'(t), \hdots, y_n(t) = y^{(n-1)}(t)$$
+oraz wprowadzając nowe zmienne: \\ \hspace*{0.8cm}
+$y_1(t) = y(t), y_2(t) = y'(t), \hdots, y_n(t) = y^{(n-1)}(t)$
 
-otrzymujemy układ równań różniczkowych pierwszego rzędu postaci:
-$$\begin{array}{l}
+otrzymujemy układ równań różniczkowych pierwszego rzędu postaci: \\ \hspace*{0.8cm}
+$\begin{array}{l}
 y'_1       = y_2   \\
 y'_2       = y_3   \\
 \vdots			   \\
 y'_{n-1} = y_n     \\
 y'_n = f(t,y_1,y_2,\hdots,y_n)
-\end{array}$$
+\end{array}$ \\
 
-z warunkami początkowymi postaci:
-$$y_1(a) = \alpha_0, y_2(a) = \alpha_1, \hdots, y_n(a) = \alpha_{n-1}$$
+z warunkami początkowymi postaci: \\ \hspace*{0.8cm}
+$y_1(a) = \alpha_0, y_2(a) = \alpha_1, \hdots, y_n(a) = \alpha_{n-1}$ 
 
 Dzięki takiemu zabiegowi możliwe jest rozwiązanie równania różniczkowego wyższego rzędu metodami służącymi do rozwiązywania równań różniczkowych rzędu pierwszego.
 
