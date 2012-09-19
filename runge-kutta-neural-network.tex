@@ -56,7 +56,7 @@ Równaniem różniczkowym zwyczajnym nazywamy równanie zawierające zmienną ni
 \end{equation}
 gdzie $F:R^{n+2} \rightarrow R$
 
-Warunek początkowy (Cauchy'ego) dla równania \ref{wzor:rownanie_roz_N_stopnia} określony jest poprzez: 
+Warunek początkowy (Cauchy'ego) dla równania \eqref{wzor:rownanie_roz_N_stopnia} określony jest poprzez: 
 \begin{equation}
 \begin{array}{c}
 y(x_0)       =  y_0,     \\
@@ -67,18 +67,18 @@ y^{n-1}(x_0) = y_{n-1}
 \end{equation}
 gdzie $y_0, y_1, \hdots, y_{n-1}$ są zadanymi liczbami.
 
-Stopień pochodnej w równaniu \ref{wzor:rownanie_roz_N_stopnia} decyduje o rzędzie równania różniczkowego. Równanie różniczkowe pierwszego rzędu wyraża się zatem wzorem:
+Stopień pochodnej w równaniu \eqref{wzor:rownanie_roz_N_stopnia} decyduje o rzędzie równania różniczkowego. Równanie różniczkowe pierwszego rzędu wyraża się zatem wzorem:
 \begin{equation}
 	\label{wzor:rownanie_roz_I_stopnia}
 	y' = f(x,y)
 \end{equation}
 
-Równanie \ref{wzor:rownanie_roz_I_stopnia} może zostać rozwiązane numerycznie na wiele sposobów. Można wyróżnić podział na metody jednokrokowe, które wymagają jedynie informacji z poprzedniego kroku (zatem warunek początkowy jest wystarczający do obliczenia równania różniczkowego dla kolejnego punktu) oraz metody wielokrokowe, w których rozwiązanie jest dokonowywane z wykorzystaniem znajomości kilku poprzednich kroków. Wśród metod jednokrokowych znajdują się m.in. metody Eulera oraz Rungego-Kutty.
+Równanie \eqref{wzor:rownanie_roz_I_stopnia} może zostać rozwiązane numerycznie na wiele sposobów. Można wyróżnić podział na metody jednokrokowe, które wymagają jedynie informacji z poprzedniego kroku (zatem warunek początkowy jest wystarczający do obliczenia równania różniczkowego dla kolejnego punktu) oraz metody wielokrokowe, w których rozwiązanie jest dokonowywane z wykorzystaniem znajomości kilku poprzednich kroków. Wśród metod jednokrokowych znajdują się m.in. metody Eulera oraz Rungego-Kutty.
 
 \subsection{Metody rozwiązywania równań różniczkowych}
 
 \subsection*{Metoda Eulera}
-Metoda Eulera jest najprostszą metodą numeryczną rozwiązywania równań różniczkowych. Mając dane równanie \ref{wzor:rownanie_roz_I_stopnia} oraz warunek początkowy postaci:
+Metoda Eulera jest najprostszą metodą numeryczną rozwiązywania równań różniczkowych. Mając dane równanie \eqref{wzor:rownanie_roz_I_stopnia} oraz warunek początkowy postaci:
 \begin{equation}
 	y(x_0) = y_0	
 \end{equation}
@@ -175,7 +175,7 @@ Sieć neuronową budują grupy połączonych ze sobą neuronów. Uproszczoną st
 \end{figure}
 
 \subsubsection*{Perceptron wielowarstwowy}
-Często wykorzystywanym typem sieci jest perceptron wielowarstwowy, którą stanowi jednokierunkowa wielowarstwowa sieć o neuronach typu sigmoidalnego (z sigmoidalną funkcją aktywacji)\cite{Osowski}. Funkcja aktywacji często przyjmuje postać $f(x) = \frac{1}{1 + exp(-\beta x)}$ określanej mianem funkcji unipolarnej, bądź też $f(x) = tgh(\beta x)$ określanej mianej funkcji bipolarnej.
+Często wykorzystywanym typem sieci jest perceptron wielowarstwowy, którą stanowi jednokierunkowa wielowarstwowa sieć o neuronach typu sigmoidalnego (z sigmoidalną funkcją aktywacji)\cite{Osowski}. Funkcja aktywacji często przyjmuje postać $f(x) = \frac{1}{1 + \exp(-\beta x)}$ określanej mianem funkcji unipolarnej, bądź też $f(x) = tgh(\beta x)$ określanej mianej funkcji bipolarnej.
  
 \subsubsection*{Sieć RBF}
 Sieć RBF (Radial Basis Function) jest sztuczną siecią neuronową o radialnych funkcjach bazowych. Sieć ta ma szerokie zastosowanie i jest wykorzystywana do szeregu problemów m.in: modelowania 3D, rozpoznawania mowy, identyfikacji systemów, modelowania parametrów urządzeń elektronicznych\cite{Bors}. Sieć taka składa się zazwyczaj z jednej warstwy ukrytej, gdzie funkcja aktywacji jest radialną funkcją bazową oraz warstwy wyjściowej w postaci neuronu liniowego. Radialna funkcja bazowa jest określona w sposób następujący\cite{Bartkowiak}
@@ -184,7 +184,7 @@ Sieć RBF (Radial Basis Function) jest sztuczną siecią neuronową o radialnych
 \end{equation}
 gdzie $r(x,c)$ jest odległością między punktami $r$ i $c$, a centrum $c$ jest ustalone i pełni rolę parametru funkcji. Jedną z bardziej popularnych radialnych funkcji bazowych jest funkcja Gaussa:
 \begin{equation}
-	G(r) = e^{\frac{-r^2}{2\sigma^2}}
+	G(r) = \exp(\frac{-r^2}{2\sigma^2})
 \end{equation}
 Często w sieciach RBF stosowane są również następujące funkcje bazowe\cite{Chen}: \\
 $\begin{array}{l}
@@ -206,10 +206,10 @@ $$H(w) = \begin{bmatrix}
 \vdots & & \vdots \\
 \frac{\partial^2 E}{\partial w_n \partial w_1} & \hdots & \frac{\partial^2 E}{\partial w_n \partial w_n}
 \end{bmatrix}$$
-$\nabla E$ jest wektorem pierwszych pochodnych - gradientem, natomiast $H(w)$ jest macierzą drugich pochodnych - hesjanem. W praktyce są używane co najwyżej 3 pierwsze elementy równania~\ref{wzor:metoda_gradientowa}. W metodzie gradientowej poszukuje się minimum funkcji celu poprzez taką aktualizację wektora kierunkowego $p$ oraz kroku $\eta$ dla punktu $w_{k+1} = w_k + \eta_k p_k$ aby prawdziwa była nierówność $E(w_{k+1}) < E(w_k)$.
+$\nabla E$ jest wektorem pierwszych pochodnych - gradientem, natomiast $H(w)$ jest macierzą drugich pochodnych - hesjanem. W praktyce są używane co najwyżej 3 pierwsze elementy równania~\eqref{wzor:metoda_gradientowa}. W metodzie gradientowej poszukuje się minimum funkcji celu poprzez taką aktualizację wektora kierunkowego $p$ oraz kroku $\eta$ dla punktu $w_{k+1} = w_k + \eta_k p_k$ aby prawdziwa była nierówność $E(w_{k+1}) < E(w_k)$.
 
 \subsubsection*{Algorytm największego spadku}
-Metoda największego spadku chociaż jest metodą wolno zbieżną to warto ją omówić ze względu na jej prostotę. Ograniczając się do liniowej aproksymacji funkcji celu opisanej równaniem \ref{wzor:metoda_gradientowa} zapisanej w postaci rozwinięcia szeregu Taylora otrzymujemy wzór:
+Metoda największego spadku chociaż jest metodą wolno zbieżną to warto ją omówić ze względu na jej prostotę. Ograniczając się do liniowej aproksymacji funkcji celu opisanej równaniem \eqref{wzor:metoda_gradientowa} zapisanej w postaci rozwinięcia szeregu Taylora otrzymujemy wzór:
 \begin{equation}
 	E(w_{k+1}) = E(w) + [(g(w)]^Tp
 \end{equation} 
@@ -235,12 +235,12 @@ Zakładając, że aktualnie jesteśmy w punkcie $w_{i}$ i chcemy przemieścić s
 	\label{wzor:blad_lm}
 	e(w_{i+1}) = e(w_{i}) + Z(w_{i+1} - w_{i})
 \end{equation}
-gdzie $Z \equiv \nabla e$. Po podstawieniu równania \ref{wzor:blad_lm} do równania \ref{wzor:mse} wzór na błąd średniokwadratowy może zostać zapisany jako:
+gdzie $Z \equiv \nabla e$. Po podstawieniu równania \eqref{wzor:blad_lm} do równania \eqref{wzor:mse} wzór na błąd średniokwadratowy może zostać zapisany jako:
 \begin{equation}
 	\label{wzor:mse2}
 	E = \frac{1}{2}[e(w_{i}) + Z(w_{i+1} - w_{i})]^2
 \end{equation}
-Chcą zminimalizować równanie \ref{wzor:mse2} ze względu na zmienną $w_{i+1}$ otrzymujemy wzór:
+Chcą zminimalizować równanie \eqref{wzor:mse2} ze względu na zmienną $w_{i+1}$ otrzymujemy wzór:
 \begin{equation}
 	w_{i+1} = w_{i} - (Z^TZ)^{-1}Z^Te(w_{i})
 \end{equation}
@@ -249,7 +249,7 @@ Jednak taki sposób obliczania $w_{i+1}$ może powodować, że krok $w_{i+1} - w
 	\label{wzor:mse_lm}
 	E = \frac{1}{2}(e(w_{i}) + Z(w_{i+1} - w_{i}))^2 + \lambda (w_{i+1} - w_{i})^2
 \end{equation}
-Chcą zminimalizować równanie \ref{wzor:mse_lm} otrzymujemy ostatecznie równanie opisujące sposób obliczania wag w kolejnych iteracjach dla algorytmu Levenberga-Marquardta:
+Chcą zminimalizować równanie \eqref{wzor:mse_lm} otrzymujemy ostatecznie równanie opisujące sposób obliczania wag w kolejnych iteracjach dla algorytmu Levenberga-Marquardta:
 \begin{equation}
 	w_{i+1} = w_{i} -(Z^TZ + \lambda I)^{-1}Z^Te(w_{i})
 \end{equation}
@@ -288,12 +288,12 @@ A = \begin{bmatrix}
 0      & 0      & 0      & 0      & 1     
 \end{bmatrix}
 \end{equation}
-Po procesie ortogonalizacji oraz wprowadzając nowe oznaczenie $b = Aw$ można zapisać nową postać równania \ref{wzor:ofr_rbf}:
+Po procesie ortogonalizacji oraz wprowadzając nowe oznaczenie $b = Aw$ można zapisać nową postać równania \eqref{wzor:ofr_rbf}:
 \begin{equation}
 	\label{wzor:ofr_rbf2}
 	d = QAw + e = Qb + e
 \end{equation}
-Rozwiązując równanie \ref{wzor:ofr_rbf2} metodą najmniejszych kwadratów otrzymujemy:
+Rozwiązując równanie \eqref{wzor:ofr_rbf2} metodą najmniejszych kwadratów otrzymujemy:
 \begin{equation}
 	b = (QQ^T)^{-1}Q^Td
 \end{equation}
@@ -356,7 +356,7 @@ Równanie Van der Pola to równanie różniczkowe wyrażone wzorem:
 
 Równanie Van der Pola aktualnie jest często brane pod uwagę jako podstawowy model procesu oscylacji w fizyce, elektronice, biologii, neurologii, socjologii i ekonomii\cite{Tsatsos}.
 
-Identyfikację systemu opisanego równaniem \ref{wzor:van_der_pol} (dla $\mu = 1$) oparto o sieć RBF i metodę GOFR selekcji funkcji bazowych. Strukturę zaproponowanej sieci przedstawia rysunek~\ref{fig:rbf}.
+Identyfikację systemu opisanego równaniem \eqref{wzor:van_der_pol} (dla $\mu = 1$) oparto o sieć RBF i metodę GOFR selekcji funkcji bazowych. Strukturę zaproponowanej sieci przedstawia rysunek~\ref{fig:rbf}.
 \begin{figure}[ht!]
 	\centering
 	
@@ -367,7 +367,7 @@ Identyfikację systemu opisanego równaniem \ref{wzor:van_der_pol} (dla $\mu = 1
 \end{figure}
 Wejście sieci stanowią $x_1 = y(t)$ oraz $x_2 = y'(t)$, czyli aktualny stan obiektu. Wyjściem sieci jest stan obiektu w kolejnym kroku. Jak można zauważyć sieć została podzielona na dwie do pewnego stopnia niezależne części - każde z wejść posiada oddzielny zestaw funkcji RBF. W~związku z tym każda z części sieci była uczona oddzielnie (dla tych samych danych uczących). 
 
-Zbiór danych uczących sieć neuronową wygenerowano rozwiązując równanie metodą Runge-Kutty IV rzędu dla warunków początkowych [$y(0)=0,y'(0)=2$], kroku metody $h=0.1$, w~przedziale $t \in [0,40]$. Równanie różniczkowe \ref{wzor:van_der_pol} drugiego rzędu zapisano w postaci układu dwóch równań różniczkowych pierwszego rzędu:
+Zbiór danych uczących sieć neuronową wygenerowano rozwiązując równanie metodą Runge-Kutty IV rzędu dla warunków początkowych [$y(0)=0,y'(0)=2$], kroku metody $h=0.1$, w~przedziale $t \in [0,40]$. Równanie różniczkowe \eqref{wzor:van_der_pol} drugiego rzędu zapisano w postaci układu dwóch równań różniczkowych pierwszego rzędu:
 \begin{equation}
 	\begin{array}{l}
     y'(t)  = y_1 \\
@@ -424,7 +424,7 @@ Generowanie biblioteki odbywało się poprzez wybór równomiernie rozłożonych
 	\label{img:rbf_centers}
 \end{figure}
 
-Następnie dokonano selekcji najbardziej istotnych funkcji z biblioteki wykorzystując metodę GOFR. Po selekcji każdej z funkcji dokonywana jest optymalizacja wybranej funkcji metodą Levenberga-Marquardta. Sieć neuronowa o funkcjach bazowych zdefiniowanych wzorem \ref{wzor:rbf_2d} realizuje funkcję:
+Następnie dokonano selekcji najbardziej istotnych funkcji z biblioteki wykorzystując metodę GOFR. Po selekcji każdej z funkcji dokonywana jest optymalizacja wybranej funkcji metodą Levenberga-Marquardta. Sieć neuronowa o funkcjach bazowych zdefiniowanych wzorem \eqref{wzor:rbf_2d} realizuje funkcję:
 \begin{equation}
 	\tilde{y} = \sum_{i=1}^N w_i f_i(x_1,x_2,c_1,c_2,\sigma_i)
 \end{equation}
@@ -448,7 +448,7 @@ Gradient $e$ wynosi zatem:
 \end{bmatrix}
 \end{equation}
 
-W przypadku zwiększania się błędu na zbiorze uczącym parametr $\lambda$ ze wzoru \ref{wzor:mse_lm} był zwiększany 10-krotnie, w przypadku zmniejszania się błędu parametr $\lambda$ był zmniejszany 10-krotnie. Warunek stopu został ustalony tak aby błąd średniokwadratowy dla każdego z wyjść sieci był mniejszy od 1e-6. 
+W przypadku zwiększania się błędu na zbiorze uczącym parametr $\lambda$ ze wzoru \eqref{wzor:mse_lm} był zwiększany 10-krotnie, w przypadku zmniejszania się błędu parametr $\lambda$ był zmniejszany 10-krotnie. Warunek stopu został ustalony tak aby błąd średniokwadratowy dla każdego z wyjść sieci był mniejszy od 1e-6. 
 
 
 
