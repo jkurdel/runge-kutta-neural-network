@@ -15,10 +15,9 @@
   <graph edgedefault="directed" id="G">
     <data key="d7"/>
     <node id="n0">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="30.0" width="94.71875" x="259.5986328125" y="136.0"/>
+          <y:Geometry height="30.0" width="94.71875" x="285.0986328125" y="161.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="47.353515625" x="23.6826171875" y="5.6494140625">selekcja</y:NodeLabel>
@@ -27,10 +26,9 @@
       </data>
     </node>
     <node id="n1">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="30.0" width="94.71875" x="383.5986328125" y="136.0"/>
+          <y:Geometry height="30.0" width="94.71875" x="409.0986328125" y="161.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="76.697265625" x="9.0107421875" y="5.6494140625">optymalizacja</y:NodeLabel>
@@ -39,10 +37,9 @@
       </data>
     </node>
     <node id="n2">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="30.0" width="94.71875" x="508.3173828125" y="136.0"/>
+          <y:Geometry height="30.0" width="94.71875" x="533.8173828125" y="161.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="84.71875" x="5.0" y="5.6494140625">ortogonalizacja</y:NodeLabel>
@@ -51,10 +48,9 @@
       </data>
     </node>
     <node id="n3">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="5.0" width="5.0" x="164.5" y="148.5"/>
+          <y:Geometry height="5.0" width="5.0" x="190.0" y="173.5"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="4.0" x="0.5" y="0.5"/>
@@ -63,10 +59,9 @@
       </data>
     </node>
     <node id="n4">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="5.0" width="5.0" x="663.5" y="148.5"/>
+          <y:Geometry height="5.0" width="5.0" x="689.0" y="173.5"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="4.0" x="0.5" y="0.5"/>
@@ -98,10 +93,10 @@
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="631.0" y="151.0"/>
-            <y:Point x="631.0" y="212.0"/>
-            <y:Point x="216.0" y="212.0"/>
-            <y:Point x="216.0" y="151.0"/>
+            <y:Point x="656.5" y="176.0"/>
+            <y:Point x="656.5" y="237.0"/>
+            <y:Point x="241.5" y="237.0"/>
+            <y:Point x="241.5" y="176.0"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>

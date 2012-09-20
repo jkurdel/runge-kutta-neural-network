@@ -153,32 +153,31 @@ Należy zaznaczyć, że wymienione metody rozwiązywania równań różniczkowyc
 \newpage
 \section{Sieci neuronowe} 
 
-Sieci neuronowe w dzisiejszych czasach mają bardzo szerokie zastosowanie. Wykorzystywane są m. in do zadań klasyfikacji, aproksymacji, predykcji, sterowania w wielu różnych dziedzinach życia. Definicja sieci neuronowej nie została dokładnie sprecyzowana ale sieci neuronowe można określić jako adaptacyjne metody tworzenia modeli nieliniowych na podstawie danych eksperymentalnych bądź też formalne modele statystyczne zbudowane na podstawie danych eksperymentalnych\cite{Jankowski}.
+Sztuczne sieci neuronowe mają bardzo szerokie zastosowanie. Wykorzystywane są m. in do zadań klasyfikacji, aproksymacji, predykcji, sterowania w wielu różnych dziedzinach życia. Definicja sieci neuronowej nie została dokładnie sprecyzowana, ale sieci neuronowe można określić jako adaptacyjne metody tworzenia modeli nieliniowych na podstawie danych eksperymentalnych, bądź też formalne modele statystyczne zbudowane na podstawie danych eksperymentalnych~\cite{Jankowski}.
  
 \subsection{Struktura sieci neuronowych}
-Podstawą budowy sieci neuronowych są neurony. Budowa pojedynczego neuronu jest przedstawiona na rysunku \ref{fig:neuron}. Neuron taki sumuje sygnał podany na jego wejścia $x_i$ z odpowiednimi wagami $w_i$, dając na wyjście wynik $y$ sumy przeprowadzonej przez funkcję aktywacji $f(x)$.
+Podstawą jednostką sieci neuronowych jest neuron. Budowa neuronu jest przedstawiona na rysunku \ref{fig:neuron}. Neuron taki sumuje sygnał podany na jego wejścia $x_i$ z odpowiednimi wagami $w_i$, dając na wyjście wynik $y$ sumy przeprowadzonej przez funkcję aktywacji $f(x)$.
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[scale=0.8]{images/single_neuron.png}
-	\caption{Budowa pojedynczego neuronu}
+	\caption{Postać neuronu}
 	\label{fig:neuron}
 \end{figure}
 
-Sieć neuronową budują grupy połączonych ze sobą neuronów. Uproszczoną strukturę sieci wielowarstwowej przedstawia rysunek \ref{fig:multilayer}. Pierwsza warstwa nosi nazwę warstwy wejściowej (\textit{Input}), ostatnia warstwa sieci nosi nazwę warstwy wyjściowej (\textit{Output}). Wszystkie pozostałe warstwy noszą nazwę warstw ukrytych (\textit{Hidden}).
+Sieć neuronową tworzą grupy połączonych ze sobą neuronów. Podstawową sieć neuronową stanowi perceptron wielowarstwowy przedstawiony na rysunku  \ref{fig:multilayer}. Pierwsza warstwa nosi nazwę warstwy wejściowej (\textit{Input}), ostatnia warstwa sieci nosi nazwę warstwy wyjściowej (\textit{Output}). Wszystkie pozostałe warstwy noszą nazwę warstw ukrytych (\textit{Hidden}).
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/560px-Artificial_neural_network.png}
-	\caption{Schemat budowy wielowarstwowej sieci neuronowej \\
+	\caption{Schemat budowy perceptronu wielowarstwowego \\
 	\footnotesize{\textit{źródło:} \url{http://commons.wikimedia.org/wiki/File:Artificial\_neural\_network.svg}} }
 	\label{fig:multilayer}
 \end{figure}
 
-\subsubsection*{Perceptron wielowarstwowy}
-Często wykorzystywanym typem sieci jest perceptron wielowarstwowy, którą stanowi jednokierunkowa wielowarstwowa sieć o neuronach typu sigmoidalnego (z sigmoidalną funkcją aktywacji)\cite{Osowski}. Funkcja aktywacji często przyjmuje postać $f(x) = \frac{1}{1 + \exp(-\beta x)}$ określanej mianem funkcji unipolarnej, bądź też $f(x) = tgh(\beta x)$ określanej mianej funkcji bipolarnej.
+Funkcja aktywacji często przyjmuje postać $f(x) = \frac{1}{1 + \exp(-\beta x)}$ określanej mianem funkcji unipolarnej, bądź też $f(x) = tgh(\beta x)$ określanej mianej funkcji bipolarnej.
  
 \subsubsection*{Sieć RBF}
-Sieć RBF (Radial Basis Function) jest sztuczną siecią neuronową o radialnych funkcjach bazowych. Sieć ta ma szerokie zastosowanie i jest wykorzystywana do szeregu problemów m.in: modelowania 3D, rozpoznawania mowy, identyfikacji systemów, modelowania parametrów urządzeń elektronicznych\cite{Bors}. Sieć taka składa się zazwyczaj z jednej warstwy ukrytej, gdzie funkcja aktywacji jest radialną funkcją bazową oraz warstwy wyjściowej w postaci neuronu liniowego. Radialna funkcja bazowa jest określona w sposób następujący\cite{Bartkowiak}
+Sieć RBF (Radial Basis Function) jest sztuczną siecią neuronową o radialnych funkcjach bazowych. Sieć ta ma szerokie zastosowanie i jest wykorzystywana m.in. do modelowania 3D, rozpoznawania mowy, identyfikacji systemów, modelowania parametrów urządzeń elektronicznych\cite{Bors}. Sieć taka składa się zazwyczaj z jednej warstwy ukrytej, gdzie funkcja aktywacji jest radialną funkcją bazową oraz warstwy wyjściowej w postaci neuronu liniowego. Radialna funkcja bazowa jest określona w sposób następujący~\cite{Bartkowiak}
 \begin{equation}
 	G(x,c) = G(r(x,c))
 \end{equation}
@@ -223,7 +222,7 @@ Aby była spełniona nierówność $E(w_{k+1}) < E(w_k)$ wystarczy spełnić war
 \end{figure}
 
 \subsubsection*{Algorytm Levenberga-Marquardta}
-Podczas gdy wcześniej nie została określona konkretna funkcji celu, tak w przypadku algorytmu Levenberga-Marquardta funkcją celu jest błąd średniokwadratowy (sum-of squares error, Mean Squared Error, MSE)\cite{Bishop}
+Podczas gdy wcześniej nie została określona konkretna funkcji celu, tak w przypadku algorytmu Levenberga-Marquardta funkcją celu jest błąd średniokwadratowy (MSE)\cite{Bishop}
 \begin{equation}
 	\label{wzor:mse}
 	E = \frac{1}{2} \sum_{n=1}^N(e_n)^2 = \frac{1}{2} \sum_{n=1}^N(y_n - \tilde{y_n})^2
@@ -258,10 +257,10 @@ gdzie $I$ jest macierzą jednostkową. Wartość $\lambda$ zmienia się w trakci
 
 
 \newpage
-\section{Selekcja funkcji bazowych oparta o metodę GOFR}
+\section{Selekcja funkcji bazowych z wykorzystaniem metody GOFR}
 W przypadku sieci RBF problem może stanowić wybór odpowiednich funkcji bazowych oraz odpowiedniej ich ilości. Zbyt mała ilość funkcji nie pozwoli na wystarczające zminimalizowanie błędu sieci na zbiorze uczącym. Z kolei zbyt duża ilość funkcji może doprowadzić do problemu nadmiernego dopasowania a co za tym idzie sieć traci zdolność do generalizacji. Jedną z metod rozwiązania tego problemu jest zastosowanie metody GOFR opartej o metodę OLS (Orthogonal Least Square). 
 
-\subsection{Selekcja oparta o ortogonalizację oraz metodę najmniejszych kwadratów}
+\subsection{Selekcja z wykorzystaniem ortogonalizacji oraz metody najmniejszych kwadratów}
 Jedną z metod selekcji najbardziej znaczących funkcji bazowych jest metoda oparta o metodę najmniejszych kwadratów oraz ortogonalizację (OLS)\cite{Chen}. Metoda ta umożliwia określenie wkładu każdej funkcji bazowej i wybranie tych najbardziej istotnych. Mając dany wektor wag sieci $w = [w_0, w_1, \hdots, w_K]^T$ oraz wektor danych uczących $d = [d_1, d_2, \hdots, d_p]^T$ można zapisać macierz G w postaci:
 \begin{equation}
 G = \begin{bmatrix}
@@ -278,7 +277,7 @@ Dla takich oznaczeń, dla sieci RBF można zapisać następujące równanie:
 \label{wzor:ofr_rbf}
 d = Gw + e\end
 {equation}
-gdzie $e$ jest błędem niedopasowania sieci. Ortogonalizacja macierzy G pozwala na określenie osobno wpływu każdej funkcji $g_i$ na wartość części pożądanej energii zdefiniowanej jako $(Gw)^2$ \cite{Osowski}. Dzięki temu możliwa jest selekcja najbardziej istotnych funkcji bazowych oraz znaczne ograniczenie ilości funkcji tworzących sieć. Sama ortogonalizacja może zostać dokonana różnymi metodami z czego często stosowaną jest metoda Grama-Schmidta, gdzie w procesie ortogonalizacji macierzy $G$ powstaje macierz ortogonalna $Q$ oraz macierz górnotrójkątna $A$.
+gdzie $e$ jest błędem aproksymacji. Ortogonalizacja macierzy G pozwala na określenie osobno wpływu każdej funkcji $g_i$ na wartość części pożądanej energii zdefiniowanej jako $(Gw)^2$ \cite{Osowski}. Dzięki temu możliwa jest selekcja najbardziej istotnych funkcji bazowych oraz znaczne ograniczenie ilości funkcji tworzących sieć. Sama ortogonalizacja może zostać dokonana różnymi metodami np. metodą Grama-Schmidta, gdzie w procesie ortogonalizacji macierzy $G$ powstaje macierz ortogonalna $Q$ oraz macierz górnotrójkątna $A$.
 \begin{equation}G = QA\end{equation}
 \begin{equation}
 A = \begin{bmatrix}
@@ -331,18 +330,26 @@ Graficzna reprezentacja procesu ortogonalizacji dla dwóch pierwszych kroków pr
 
 Funkcje wybiera się spośród wcześniej wygenerowanej biblioteki funkcji. Metoda ta zapewnia wybór najbardziej optymalnego zbioru funkcji z biblioteki. Jednak aby wybór ten był optymalny konieczne jest wygenerowanie odpowiedniej biblioteki, która może zawierać znaczną ilość funkcji bazowych przez co proces uczenia się sieci może stać się nieefektywny. Rozwiązaniem w tym przypadku jest zastosowanie metody GOFR
 
-\subsection{Selekcja oparta o uogólnioną regresję postępującą z ortogonalizacją (GOFR)}
-Metoda GOFR oparta jest na metodzie OLS\cite{Duboisa}. Modyfikację w stosunku do metody OLS stanowi optymalizacja dokonywana na etapie selekcji każdej funkcji bazowej. Optymalizacja ta polega na minimalizacji błędu sieci na zbiorze uczącym (np. zdefiniowanego jako MSE), poprzez odpowiedni dobór parametrów każdej wybranej funkcji. Optymalizacja taka może zostać przeprowadzona np. jedną z metod gradientowych.
+\subsection{Selekcja metodą uogólnionej regresji postępującej z ortogonalizacją (GOFR)}
+Metoda GOFR oparta jest na metodzie OLS\cite{Duboisa}. Modyfikację w stosunku do metody OLS stanowi optymalizacja dokonywana na etapie selekcji każdej funkcji bazowej. Optymalizacja ta polega na minimalizacji błędu sieci na zbiorze uczącym (np. zdefiniowanego jako MSE), poprzez odpowiedni dobór parametrów każdej wybranej funkcji. Optymalizacja taka może zostać przeprowadzona metodą gradientową.
 
-Porównanie obu metod przedstawia schemat z rysunku \ref{ofr_and_gofr}. Linią przerywaną zaznaczony jest krok specyficzny dla metody GOFR. Optymalizacja pozwala na zmniejszenie ilości funkcji tworzących bibliotekę. Dzieje się tak dzięki temu, że po wyborze odpowiedniej funkcji algorytm zmodyfikuje parametry wybranej funkcji tak aby zminimalizować błąd. W przypadku algorytmu opartego o OLS parametry funkcji były stałe, a ilość funkcji tworzących bibliotekę musiała być duża w celu zapewnienia odpowiednio wysokiego prawdopodobieństwa wyboru optymalnych funkcji bazowych.
+Porównanie obu metod przedstawia schemat z rysunku \ref{img:ofr_and_gofr}. Linią przerywaną na rysunku \ref{img:gofr} zaznaczony jest krok specyficzny dla metody GOFR. Optymalizacja pozwala na zmniejszenie ilości funkcji tworzących bibliotekę. Dzieje się tak dzięki temu, że po wyborze odpowiedniej funkcji algorytm zmodyfikuje parametry wybranej funkcji tak aby zminimalizować błąd. W przypadku algorytmu opartego o OLS parametry funkcji były stałe, a ilość funkcji tworzących bibliotekę musiała być duża w celu zapewnienia odpowiednio wysokiego prawdopodobieństwa wyboru optymalnych funkcji bazowych.
 
 \begin{figure}[ht!]
 	\centering
-	
-	\includegraphics[scale=0.7]{images/ofr_and_gofr.png}
-	\caption{Schemat algorytmu OFR oraz GOFR}
-	\label{ofr_and_gofr}	
 
+	\subfloat[OFR]
+	{\includegraphics[width=0.8\textwidth]
+	{images/ofr.png}
+	\label{img:ofr}}
+	
+	\subfloat[GOFR]
+	{\includegraphics[width=0.8\textwidth]
+	{images/gofr.png}
+	\label{img:gofr}}
+	
+	\caption{Porównanie metod OFR oraz GOFR}
+	\label{img:ofr_and_gofr}
 \end{figure}
 
 \clearpage
