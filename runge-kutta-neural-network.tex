@@ -353,17 +353,17 @@ Porównanie obu metod przedstawia schemat z rysunku \ref{img:ofr_and_gofr}. Lini
 \end{figure}
 
 \clearpage
-\section{Identyfikacja systemu opisanego równaniem \mbox{Van der Pola}}
+\section{Identyfikacja obiektu opisanego równaniem \mbox{Van der Pola}}
 
-Równanie Van der Pola to równanie różniczkowe wyrażone wzorem:
+Równanie różniczkowe Van der Pola jest określone jako:
 \begin{equation}
 	\label{wzor:van_der_pol}
 	y''(t) - \mu(1 - y^2(t))y'(t) + y(t) = 0
 \end{equation}
 
-Równanie Van der Pola aktualnie jest często brane pod uwagę jako podstawowy model procesu oscylacji w fizyce, elektronice, biologii, neurologii, socjologii i ekonomii\cite{Tsatsos}.
+Jest to podstawowy model procesu oscylacji w fizyce, elektronice, biologii, neurologii, socjologii i ekonomii\cite{Tsatsos}.
 
-Identyfikację systemu opisanego równaniem \eqref{wzor:van_der_pol} (dla $\mu = 1$) oparto o sieć RBF i metodę GOFR selekcji funkcji bazowych. Strukturę zaproponowanej sieci przedstawia rysunek~\ref{fig:rbf}.
+Identyfikację systemu opisanego równaniem \eqref{wzor:van_der_pol} (dla $\mu = 1$) przeprowadzono z użyciem sieci RBF i metody GOFR selekcji funkcji bazowych. Strukturę zaproponowanej sieci przedstawia rysunek~\ref{fig:rbf}.
 \begin{figure}[ht!]
 	\centering
 	
@@ -372,9 +372,9 @@ Identyfikację systemu opisanego równaniem \eqref{wzor:van_der_pol} (dla $\mu =
 	\label{fig:rbf}	
 
 \end{figure}
-Wejście sieci stanowią $x_1 = y(t)$ oraz $x_2 = y'(t)$, czyli aktualny stan obiektu. Wyjściem sieci jest stan obiektu w kolejnym kroku. Jak można zauważyć sieć została podzielona na dwie do pewnego stopnia niezależne części - każde z wejść posiada oddzielny zestaw funkcji RBF. W~związku z tym każda z części sieci była uczona oddzielnie (dla tych samych danych uczących). 
+Wejście sieci stanowią $x_1 = y(t)$ oraz $x_2 = y'(t)$, czyli aktualny stan obiektu. Wyjściem sieci jest stan obiektu w kolejnym kroku. Jak można zauważyć sieć została podzielona na dwie do pewnego stopnia niezależne części - każde z wejść posiada oddzielny zbiór funkcji RBF. W~związku z tym każda z części sieci była uczona oddzielnie (dla tych samych danych uczących). 
 
-Zbiór danych uczących sieć neuronową wygenerowano rozwiązując równanie metodą Runge-Kutty IV rzędu dla warunków początkowych [$y(0)=0,y'(0)=2$], kroku metody $h=0.1$, w~przedziale $t \in [0,40]$. Równanie różniczkowe \eqref{wzor:van_der_pol} drugiego rzędu zapisano w postaci układu dwóch równań różniczkowych pierwszego rzędu:
+Zbiór danych uczących sieć neuronową wygenerowano rozwiązując równanie metodą Rungego-Kutty czwartego rzędu dla warunków początkowych [$y(0)=0,y'(0)=2$], kroku metody $h=0.1$, w~przedziale $t \in [0,50]$. Równanie różniczkowe \eqref{wzor:van_der_pol} drugiego rzędu zapisano w postaci układu dwóch równań różniczkowych pierwszego rzędu:
 \begin{equation}
 	\begin{array}{l}
     y'(t)  = y_1 \\
@@ -382,7 +382,7 @@ Zbiór danych uczących sieć neuronową wygenerowano rozwiązując równanie me
     \end{array}
 \end{equation}
 
-Powstała w wyniku rozwiązania równania Van der Pola trajektoria, wykres funkcji $y(t)$ oraz jej pierwszej pochodnej $y'(t)$ przedstawione są odpowiednio na rysunkach \ref{img:traj}, \ref{img:func} oraz \ref{img:first_deriv}. Dane powstałe w wyniku rozwiązania równania zostały użyte jako zbiór danych uczących.
+Powstała w wyniku rozwiązania równania Van der Pola trajektoria, wykres funkcji $y(t)$ oraz jej pierwszej pochodnej $y'(t)$ przedstawione są odpowiednio na rysunkach \ref{img:traj}, \ref{img:func} oraz \ref{img:first_deriv}. Dane powstałe w wyniku rozwiązania równania zostały użyte jako zbiór danych uczących (po odrzuceniu danych z przedziału $t \in [0,10]$ w celu pominięcia stanów nieustalonych).
 
 \begin{figure}[ht!]
 	\centering
@@ -401,7 +401,7 @@ Powstała w wyniku rozwiązania równania Van der Pola trajektoria, wykres funkc
 	{images/first_deriv.png}
 	\label{img:first_deriv}}
 	
-	\caption{Wykresy powstałe w wyniku rozwiązania równania różniczkowego Van der Pola dla warunków początkowych [$y(0)=0,y'(0)=2$]}
+	\caption{Rozwiązanie równania różniczkowego Van der Pola dla warunków początkowych [$y(0)=0,y'(0)=2$]}
 \end{figure}
 
 Kolejnym etapem było stworzenie odpowiedniej biblioteki funkcji RBF. W tym celu najpierw wygenerowano bibliotekę 115 funkcji RBF postaci:
@@ -417,17 +417,17 @@ Generowanie biblioteki odbywało się poprzez wybór równomiernie rozłożonych
 \begin{figure}[ht!]
 	\centering	
 	
-	\subfloat
+	\subfloat[poziom 1]
 	{\includegraphics[width=0.33\textwidth]
 	{images/centers1.png}}
-	\subfloat
+	\subfloat[poziom 2]
 	{\includegraphics[width=0.33\textwidth]
 	{images/centers2.png}}
-	\subfloat
+	\subfloat[poziom 3]
 	{\includegraphics[width=0.33\textwidth]
 	{images/centers3.png}}
 
-	\caption{Centra wygenerowanych funkcji RBF}
+	\caption{Centra wygenerowanych funkcji RBF dla 3 poziomów}
 	\label{img:rbf_centers}
 \end{figure}
 
@@ -455,7 +455,7 @@ Gradient $e$ wynosi zatem:
 \end{bmatrix}
 \end{equation}
 
-W przypadku zwiększania się błędu na zbiorze uczącym parametr $\lambda$ ze wzoru \eqref{wzor:mse_lm} był zwiększany 10-krotnie, w przypadku zmniejszania się błędu parametr $\lambda$ był zmniejszany 10-krotnie. Warunek stopu został ustalony tak aby błąd średniokwadratowy dla każdego z wyjść sieci był mniejszy od 1e-6. 
+W przypadku zwiększania się błędu na zbiorze uczącym parametr $\lambda$ ze wzoru \eqref{wzor:mse_lm} był zwiększany 10-krotnie, w przypadku zmniejszania się błędu parametr $\lambda$ był zmniejszany 10-krotnie. Warunek stopu został ustalony tak aby błąd średniokwadratowy dla każdego z wyjść sieci był mniejszy od $1e^{-6}$. 
 
 
 
