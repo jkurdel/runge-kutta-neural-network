@@ -47,6 +47,8 @@ function [selected_rbfs, W, E_k, A_k, Q_k, B_k, centers, sigmas, G] =  gofr(X, y
         % ------ Levenberg-Marquardt -----
         Theta = [W(k); sigmas(selected_rbfs(k)); centers(1, selected_rbfs(k)); centers(2, selected_rbfs(k))];
 
+%         Theta_old = lsqnonlin(@rbf_mse,Theta,[],[],optimset('Algorithm','levenberg-marquardt','MaxFunEvals',100),X,y-y_rbf);
+
         y_rbf = 0;
         for j = 1:k
             y_rbf = y_rbf + W(j) * gaussian_2D(X, sigmas(selected_rbfs(j)), centers(:,selected_rbfs(j))');
