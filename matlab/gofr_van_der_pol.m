@@ -1,48 +1,47 @@
 % Neural network with radial basis functions (RBF) approximating 
-% Van der Pol equation using Orthogonal Generalized Orthogonal Forward 
-% Regression (OFR)
+% Van der Pol equation using Generalized Orthogonal Forward Regression (GOFR)
 
 close all;
 clear all;
 clc;
 
-single_trajectory = true; % switch between training based on one trajectory or many trajectories
+short_trajectory = false; % switch between training based on short trajectory (t = [0; 50]) or long trajectory (t = [0;500])
 
-t_end = 40;         % time end of trajectory (always starts from time = 0)
+t_end = 50;         % time end of trajectory (always starts from time = 0)
 t_step = 0.1;       % time step
 
 x1 = 0;
 x2 = 2;
-if (single_trajectory)
+if (short_trajectory)
 else
-    x1 = -2:0.5:2;      
-    x2 = x1;
+    t_end = 500;
 end
 
-X = [];
-y1 = [];
-y2 = [];
-for i = x1
-    for j = x2
-        if (i == 0 && j == 0)
-            continue;
-        end
-        [t Y] = rk_van_der_pol(t_end, t_step, [i j]);
-        X = [X; Y(1:end-1,:)];
-        y1 = [y1; Y(2:end,1)];
-        y2 = [y2; Y(2:end,2)];
-    end
-end
+X = []; y1 = []; y2 = [];
+
+[t Y] = rk_van_der_pol(t_end, t_step, [x1 x2]);
+Y = Y(101:end,:);
+X = [X; Y(1:end-1,:)];
+y1 = [y1; Y(2:end,1)];
+y2 = [y2; Y(2:end,2)];
+
+
+% plot(0:t_step:length(y1)*t_step-t_step, y1);
+% title('y(t) of Van der Pol equation');
+% pause;
+% plot(0:t_step:length(y2)*t_step-t_step, y2);
+% title('y''(t) of Van der Pol equation');
+% pause;
+% plot(y1, y2);
+% title('Van der Pol equation');
+
 
 N = 3; % change number of library division (number of RBFs)
 MAX_RBFS = 30; % change number of maximum possible selected RBFs
 
 err = zeros(MAX_RBFS,2);
 stop_condition = 1e-6;
-if (single_trajectory)
-else
-    stop_condition = 1e-5;
-end
+
 
 % Training y(t) of Van der Pol equation
 for K1 = 1:MAX_RBFS
@@ -94,7 +93,7 @@ for K2 = 1:MAX_RBFS
 end
 
 % ----- function approximation by RBF neural network -----
-if (single_trajectory)
+if (short_trajectory)
     figure(1)
     plot(0:t_step:length(y1)*t_step-t_step, y1, 'r', 0:t_step:length(y_rbf1)*t_step-t_step, y_rbf1, 'b');
     title({'y(t) of Van der Pol equation'; sprintf('Iteration nr = %d', K1)});
@@ -102,7 +101,7 @@ if (single_trajectory)
 
     figure(2)
     plot(0:t_step:length(y2)*t_step-t_step, y2, 'r', 0:t_step:length(y_rbf2)*t_step-t_step, y_rbf2, 'b');
-    title({'''y(t) of Van der Pol equation'; sprintf('Iteration nr = %d', K1)});
+    title({'y''(t) of Van der Pol equation'; sprintf('Iteration nr = %d', K1)});
     legend('desired','approximated');
     
     figure(3)
@@ -116,11 +115,12 @@ end
 P = 100;        % prediction steps
 y_rbf1 = zeros(1,P);
 y_rbf2 = zeros(1,P);
-y_rbf1(1) = 0;
-y_rbf2(1) = 2;
-[t Y] = rk_van_der_pol(P*0.1-0.1, 0.1, [y_rbf1(1) y_rbf2(1)]);
+[t Y] = rk_van_der_pol(P*0.1-0.1 + 10, 0.1, [0 2]);
+Y = Y(101:end,:);
 y1 = Y(:,1);
 y2 = Y(:,2);
+y_rbf1(1) = y1(1);
+y_rbf2(1) = y2(1);
 
 for j = 2:P
     for i = 1:K1
@@ -132,71 +132,92 @@ for j = 2:P
     end    
 end
 
-if (single_trajectory)
-    figure(4)
-    plot(0:t_step:length(y1)*t_step-t_step, y1, 'r', 0:t_step:length(y_rbf1)*t_step-t_step, y_rbf1, 'b');
-    title({'y(t) of Van der Pol equation'; sprintf('Number of RBFs = %d', K1)});
-    legend('desired','predicted');
+figure(4)
+plot(0:t_step:length(y1)*t_step-t_step, y1, 'r', 0:t_step:length(y_rbf1)*t_step-t_step, y_rbf1, 'b');
+title({'y(t) of Van der Pol equation'; sprintf('Number of RBFs = %d', K1)});
+legend('desired','predicted');
 
-    mse1_100 = sum((y_rbf1(1:length(y1))' - y1).^2) / length(y1);
+mse1_100 = sum((y_rbf1(1:length(y1))' - y1).^2) / length(y1);
 
-    figure(5)
-    plot(0:t_step:length(y2)*t_step-t_step, y2, 'r', 0:t_step:length(y_rbf2)*t_step-t_step, y_rbf2, 'b');
-    title({'y''(t) of Van der Pol equation'; sprintf('Number of RBFs = %d', K2)});
-    legend('desired','predicted');
+figure(5)
+plot(0:t_step:length(y2)*t_step-t_step, y2, 'r', 0:t_step:length(y_rbf2)*t_step-t_step, y_rbf2, 'b');
+title({'y''(t) of Van der Pol equation'; sprintf('Number of RBFs = %d', K2)});
+legend('desired','predicted');
 
-    mse2_100 = sum((y_rbf2(1:length(y2))' - y2).^2) / length(y2);
+mse2_100 = sum((y_rbf2(1:length(y2))' - y2).^2) / length(y2);
 
-    figure(6)
-    plot(0:t_step:length(y1)*t_step-t_step,(y_rbf1(1:length(y1))' - y1),'r');
-    title('y(t) of Van der Pol equation prediction error');
+figure(6)
+plot(0:t_step:length(y1)*t_step-t_step,(y_rbf1(1:length(y1))' - y1),'r');
+title('y(t) of Van der Pol equation prediction error');
 
-    figure(7)
-    plot(0:t_step:length(y2)*t_step-t_step,(y_rbf2(1:length(y2))' - y2),'r');
-    title('y''(t) of Van der Pol equation prediction error');
+figure(7)
+plot(0:t_step:length(y2)*t_step-t_step,(y_rbf2(1:length(y2))' - y2),'r');
+title('y''(t) of Van der Pol equation prediction error');
 
-    % ----- function predictioin by RBF neural network -----
-    P = 500;        % prediction steps
-    y_rbf1 = zeros(1,P);
-    y_rbf2 = zeros(1,P);
-    y_rbf1(1) = 0;
-    y_rbf2(1) = 2;
-    [t Y] = rk_van_der_pol(P*0.1-0.1, 0.1, [y_rbf1(1) y_rbf2(1)]);
-    y1 = Y(:,1);
-    y2 = Y(:,2);
+figure(15)
+plot(y1, y2, 'r', y_rbf1, y_rbf2, 'b');
+title('Van der Pol equation');
+legend('desired','predicted');
 
+% ----- function predictioin by RBF neural network -----
+P = 500;        % prediction steps
+y_rbf1 = zeros(1,P);
+y_rbf2 = zeros(1,P);
+[t Y] = rk_van_der_pol(P*0.1-0.1 + 10, 0.1, [0 2]);
+Y = Y(101:end,:);
+y1 = Y(:,1);
+y2 = Y(:,2);
+y_rbf1(1) = y1(1);
+y_rbf2(1) = y2(1);
 
-    for j = 2:P
-        for i = 1:K1
-            y_rbf1(j) = y_rbf1(j) + W1(i) * gaussian_2D([y_rbf1(j-1) y_rbf2(j-1)], sigmas1(selected_rbfs1(i)), centers1(:,selected_rbfs1(i))');
-        end
-
-        for i = 1:K2
-            y_rbf2(j) = y_rbf2(j) + W2(i) * gaussian_2D([y_rbf1(j-1) y_rbf2(j-1)], sigmas2(selected_rbfs2(i)), centers2(:,selected_rbfs2(i))');        
-        end    
+for j = 2:P
+    for i = 1:K1
+        y_rbf1(j) = y_rbf1(j) + W1(i) * gaussian_2D([y_rbf1(j-1) y_rbf2(j-1)], sigmas1(selected_rbfs1(i)), centers1(:,selected_rbfs1(i))');
     end
 
-    if (single_trajectory)
-        figure(8)
-        plot(0:t_step:length(y1)*t_step-t_step, y1, 'r', 0:t_step:length(y_rbf1)*t_step-t_step, y_rbf1, 'b');
-        title({'y(t) of Van der Pol equation'; sprintf('Number of RBFs = %d', K1)});
-        legend('desired','predicted');
-
-        mse1_500 = sum((y_rbf1(1:length(y1))' - y1).^2) / length(y1);
-
-        figure(9)
-        plot(0:t_step:length(y2)*t_step-t_step, y2, 'r', 0:t_step:length(y_rbf2)*t_step-t_step, y_rbf2, 'b');
-        title({'y''(t) of Van der Pol equation'; sprintf('Number of RBFs = %d', K2)});
-        legend('desired','predicted');
-
-        mse2_500 = sum((y_rbf2(1:length(y2))' - y2).^2) / length(y2);
-
-        figure(10)
-        plot(0:t_step:length(y1)*t_step-t_step,(y_rbf1(1:length(y1))' - y1),'r');
-        title('y(t) of Van der Pol equation prediction error');
-
-        figure(11)
-        plot(0:t_step:length(y2)*t_step-t_step,(y_rbf2(1:length(y2))' - y2),'r');
-        title('y''(t) of Van der Pol equation prediction error');
-    end
+    for i = 1:K2
+        y_rbf2(j) = y_rbf2(j) + W2(i) * gaussian_2D([y_rbf1(j-1) y_rbf2(j-1)], sigmas2(selected_rbfs2(i)), centers2(:,selected_rbfs2(i))');        
+    end    
 end
+
+figure(8)
+plot(0:t_step:length(y1)*t_step-t_step, y1, 'r', 0:t_step:length(y_rbf1)*t_step-t_step, y_rbf1, 'b');
+title({'y(t) of Van der Pol equation'; sprintf('Number of RBFs = %d', K1)});
+legend('desired','predicted');
+
+mse1_500 = sum((y_rbf1(1:length(y1))' - y1).^2) / length(y1);
+
+figure(9)
+plot(0:t_step:length(y2)*t_step-t_step, y2, 'r', 0:t_step:length(y_rbf2)*t_step-t_step, y_rbf2, 'b');
+title({'y''(t) of Van der Pol equation'; sprintf('Number of RBFs = %d', K2)});
+legend('desired','predicted');
+
+mse2_500 = sum((y_rbf2(1:length(y2))' - y2).^2) / length(y2);
+
+figure(10)
+plot(0:t_step:length(y1)*t_step-t_step,(y_rbf1(1:length(y1))' - y1),'r');
+title('y(t) of Van der Pol equation prediction error');
+
+figure(11)
+plot(0:t_step:length(y2)*t_step-t_step,(y_rbf2(1:length(y2))' - y2),'r');
+title('y''(t) of Van der Pol equation prediction error');
+
+figure(16)
+plot(y1, y2, 'r', y_rbf1, y_rbf2, 'b');
+title('Van der Pol equation');
+legend('desired','predicted');
+
+% table1 = [[1:K1]' selected_rbfs1(1:K1)' centers1(:,selected_rbfs1(1:K1))' sigmas1(selected_rbfs1(1:K1))' E_k1' err(1:K1,1)];
+% table2 = [[1:K2]' selected_rbfs2(1:K2)' centers2(:,selected_rbfs2(1:K2))' sigmas2(selected_rbfs2(1:K2))' E_k2' err(1:K2,2)];
+% energy1 = [table1(:,6); zeros(K2-K1,1)];
+% energy2 = [table2(:,6)];
+% energy = [energy1 energy2];
+% bar(energy);
+% title('Selected RBF''s energy');
+% xlabel('selected RBF')
+% ylabel('energy');
+% legend('y(t)','y''(t)');
+
+% semilogy(1:K1,err(1:K1,1),'b', 1:K2,err(1:K2,2),'r', [1 25],[1e-006 1e-006],'g')
+% title('approximation error')
+% legend('y(t)', 'y''(t)')

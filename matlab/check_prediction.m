@@ -28,15 +28,13 @@ for x1 = -2:0.2:2
     P = 100;        % prediction steps
     y_rbf1 = zeros(1,P);
     y_rbf2 = zeros(1,P);
-    y_rbf1(1) = x1;
-    y_rbf2(1) = x2;
-    [t Y] = rk_van_der_pol(P*0.1-0.1, 0.1, [y_rbf1(1) y_rbf2(1)]);
+    [t Y] = rk_van_der_pol(P*0.1-0.1 + 10, 0.1, [x1 x2]);
+    Y = Y(101:end,:);
     y1 = Y(:,1);
     y2 = Y(:,2);
-
     y_rbf1(1) = y1(1);
     y_rbf2(1) = y2(1);
-
+    
     for j = 2:P
         for i = 1:K1
             y_rbf1(j) = y_rbf1(j) + W1(i) * gaussian_2D([y_rbf1(j-1) y_rbf2(j-1)], sigmas1(selected_rbfs1(i)), centers1(:,selected_rbfs1(i))');
