@@ -25,11 +25,11 @@ The aim of this thesis is to identify nonlinear dynamical objects by the General
 \pagestyle{plain}
 
 \section{Cel pracy}
-	W dzisiejszych czasach częstą koniecznością jest tworzenie modeli matematycznych rzeczywistych obiektów. Model matematyczny obiektu opisuje związek między sygnałem podawanym na wejście (sterowaniem) oraz sygnałem wyjściowym. Modelowanie takie wykorzystuje się pracując nad silnikami, robotami przemysłowymi, klimatyzacją, systemami hamulcowymi\cite{Isermann}. Oprócz szerokiego spektrum dziedzin, w których ma zastosowanie tworzenie modeli, istnieje szereg różnych metod ich tworzenia na postawie danych doświadczalnych, czyli metod identyfikacji obiektów.
+	Model matematyczny obiektu opisuje związek między sygnałem podawanym na wejście (sterowaniem) oraz sygnałem wyjściowym. Modelowanie takie wykorzystuje się pracując nad silnikami, robotami przemysłowymi, klimatyzacją, systemami hamulcowymi\cite{Isermann}. Oprócz szerokiego spektrum dziedzin, w których ma zastosowanie tworzenie modeli, istnieje szereg różnych metod ich tworzenia na postawie danych doświadczalnych, czyli metod identyfikacji obiektów.
 	
-	Wśród metod identyfikacji można spotkać się metodą charakterystyk czasowych, w której badane są stany przejściowe po podaniu na wejście obiektu określonego wymuszenia, np.~odpowiedzi na skok jednostkowy. Inna metodą jest metoda charakterystyk częstotliwościowych, gdzie na wejście podaje się sygnał sinusoidalny o zadanej amplitudzie i częstotliwości, a~badany jest sygnał wyjściowy - jego amplituda oraz przesunięcie fazowe względem sygnału wejściowego\cite{Czemplik}.
+	Podstawą metod identyfikacji jest wykorzystanie charakterystyk czasowych bądź charakterystyk częstotliwościowych w celu znalezienia zależności między wejściem a wyjściem obiektu\cite{Czemplik}.
 	
-	W pracy zdecydowano się na inną metodę identyfikacji dynamiki obiektu - wykorzystano w tym celu sieć neuronową. Można spotkać się z wieloma przykładami zastosowania sieci neuronowych w zadaniu identyfikacji dynamiki jednak struktura oraz algorytmy trenowania takiej sieci  mogą znacznie się różnić. W pracy zostanie przedstawiona metoda uogólnionej regresji postępującej z ortogonalizacją (Generalized Orthogonal Forward Regressoin - GOFR) oraz jej wykorzystanie do identyfikacji nieliniowego obiektu dynamicznego opisanego równaniem różniczkowym Van der Pola. Następnie zostanie dokonana ocena jakości modelowania z wykorzystaniem zaproponowanego rozwiązania. Równanie Van der Pola ma zastosowanie między innymi w dziedzinie układów elektronicznych\cite{Palczewski}. Należy zaznaczyć, że zaproponowany algorytm może mieć zastosowanie również do obiektów opisanych innymi równaniami różniczkowymi.  
+	W pracy zdecydowano się na inną metodę identyfikacji dynamiki obiektu - wykorzystano w tym celu sieć neuronową. Można spotkać się z wieloma przykładami zastosowania sieci neuronowych w zadaniu identyfikacji obiektu dynamicznego, jednak struktura oraz algorytmy trenowania takiej sieci  mogą znacznie się różnić. W pracy zostanie przedstawiona metoda uogólnionej regresji postępującej z ortogonalizacją (Generalized Orthogonal Forward Regression - GOFR) oraz jej wykorzystanie do identyfikacji nieliniowego obiektu dynamicznego opisanego równaniem różniczkowym Van der Pola. Następnie zostanie dokonana ocena jakości modelowania z wykorzystaniem zaproponowanego rozwiązania. W tym celu zostanie opracowany program implementujący przedstawioną metodę wraz z przykładem jej wykorzystania. Równanie Van der Pola ma zastosowanie między innymi w dziedzinie układów elektronicznych\cite{Palczewski}. Należy zaznaczyć, że zaproponowany algorytm może mieć zastosowanie również do obiektów opisanych innymi równaniami różniczkowymi.  
 
 \newpage
 \section{Dynamika obiektów}
@@ -363,7 +363,7 @@ Równanie różniczkowe Van der Pola jest określone jako:
 
 Jest to podstawowy model procesu oscylacji w fizyce, elektronice, biologii, neurologii, socjologii i ekonomii\cite{Tsatsos}.
 
-Identyfikację systemu opisanego równaniem \eqref{wzor:van_der_pol} (dla $\mu = 1$) przeprowadzono z użyciem sieci RBF i metody GOFR selekcji funkcji bazowych. Strukturę zaproponowanej sieci przedstawia rysunek~\ref{fig:rbf}.
+Identyfikację obiektu opisanego równaniem \eqref{wzor:van_der_pol} (dla $\mu = 1$) przeprowadzono z użyciem sieci RBF i metody GOFR selekcji funkcji bazowych. Strukturę zaproponowanej sieci przedstawia rysunek~\ref{fig:rbf}.
 \begin{figure}[ht!]
 	\centering
 	
@@ -590,6 +590,7 @@ number & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia    
 \label{tab:rbf_tabela_x1}
 \end{table}
 
+\clearpage
 W tabeli \ref{tab:rbf_tabela_x2} zostały zebrane dane na temat wybranych funkcji RBF oraz błąd średniokwadratowy aproksymacji pochodnej $y'(t)$ równania Van der Pola po selekcji kolejnych funkcji RBF.
 
 \begin{table}[ht!]
@@ -673,7 +674,7 @@ Po etapie trenowania sieci RBF sprawdzono jakość predykcji. Predykcja na 100 k
 	\label{img:predicted}
 \end{figure}
 
-Trudno jest jednak dokładniej określić jakość predykcji na podstawie rysunku \ref{img:predicted} ze względu na nieznaczne różnice w wartości zadanej oraz wartości przewidywanej przez sieć w wyniku czego sygnał zadany oraz przewidywany pokrywają się. Aby można było dokładnie określić odstępstwo wartości przewidywanej od wartości rzeczywistej na rysunku \ref{img:err100_x} został przedstawiony błąd predykcji w kolejnych krokach. Wartość bezwzględna błędu wyznaczenia $y(t)$ nie przekracza wartości 0.09. Maksymalny błąd wyznaczenia $y'(t)$ jest nieznacznie większy i~nie przekracza wartości 0.16. Na tej podstawie można stwierdzić, że dla 100 kroków w przód sieć spełnia swoje zadanie. 
+Trudno jest jednak dokładniej określić jakość predykcji na podstawie rysunku \ref{img:predicted} ze względu na nieznaczne różnice w wartości zadanej oraz wartości przewidywanej przez sieć w wyniku czego sygnał zadany oraz przewidywany pokrywają się. Aby można było dokładnie określić odstępstwo wartości przewidywanej od wartości rzeczywistej na rysunku \ref{img:err100_x} został przedstawiony błąd predykcji w kolejnych krokach. Wartość bezwzględna błędu wyznaczenia $y(t)$ nie przekracza wartości 0.09, natomiast maksymalny błąd wyznaczenia $y'(t)$ nie przekracza wartości 0.16. Na tej podstawie można stwierdzić, że dla 100 kroków w przód sieć spełnia swoje zadanie. 
 
 \begin{figure}[ht!]
 	\centering
@@ -745,10 +746,11 @@ Do tej pory badana była jedynie predykcja dla tych samych warunków początkowy
 	\label{img:err_initial}
 \end{figure}
 
-Sieć dobrze modeluje obiekt dla większości warunków początkowych. Ustalając akceptowalność predykcji, dla której błąd MSE był mniejszy niż 0.01, sieć była w stanie poprawnie modelować obiekt dla \textbf{51 z 440} warunków początkowych. Stworzony model zatem jest odpowiedni dla właściwego zbioru warunków początkowych. Aby sieć neuronowa była w stanie modelować równanie w szerszym zakresie warunków początkowym zwiększono wielkość zbioru uczącego. W tym celu rozwiązano równanie Van der Pola dla tych samych warunków początkowych co poprzednio w przedziale dziesięciokrotnie dłuższym $t \in [0,500]$.
+Sieć dobrze modeluje obiekt dla większości warunków początkowych. Ustalając akceptowalność predykcji, dla której błąd MSE był mniejszy niż 0.01, sieć była w stanie poprawnie modelować obiekt dla 402 z 440 warunków początkowych. Stworzony model zatem jest odpowiedni dla właściwego zbioru warunków początkowych. Aby sieć neuronowa była w stanie modelować równanie w szerszym zakresie warunków początkowych zwiększono wielkość zbioru uczącego. W tym celu rozwiązano równanie Van der Pola dla tych samych warunków początkowych co poprzednio w przedziale dziesięciokrotnie dłuższym $t \in [0,500]$.
 
 Osiągnięcie błędu średniokwadratowego poniżej $1e^{-6}$ udało się osiągnąć dla 15 funkcji bazowych dla funkcji $y(t)$ (błąd równy $9.8312e^{-7}$) oraz 26 funkcji bazowych dla pochodnej $y'(t)$ (błąd równy = $6.5825e^{-7}$).
 
+\clearpage
 W tabeli \ref{tab:rbf_tabela2_x1} zostały zebrane dane na temat wybranych funkcji RBF oraz błąd średniokwadratowy aproksymacji $y(t)$ po selekcji kolejnych funkcji RBF.
 
 \begin{table}[ht!]
@@ -779,7 +781,7 @@ numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia     
 \label{tab:rbf_tabela2_x1}
 \end{table}
 
-
+\clearpage
 W tabeli \ref{tab:rbf_tabela2_x2} zostały zebrane dane na temat wybranych funkcji RBF oraz błąd średniokwadratowy aproksymacji $y'(t)$ po selekcji kolejnych funkcji RBF.
 
 \begin{table}[ht!]
@@ -840,19 +842,21 @@ numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia     
 	\label{img:err_initial2}
 \end{figure}
 
-Zakładając akceptowalność predykcji na takim samym poziomie jak poprzednio (MSE < 0.01) sieć dobrze modeluje układ dla wszystkich warunków początkowych. Największa wartość błędu wynosiła odpowiednio $1.8703e^{-4}$ dla $y(t)$ oraz  $3.3520e^{-4}$ dla $y'(t)$. W porównaniu do wartości maksymalnej wartości błędu dla sieci uczonej na podstawie danych z trajektorii w przedziale $t \in [0,50]$ \textbf{(maksymalny błąd MSE dla $y(t)$ wynosił 13.6417 natomiast dla $y'(t)$ wynosił 40.6341) błąd średniokwadratowy zmalał kilkadziesiąt razy.}
+Zakładając akceptowalność predykcji na takim samym poziomie jak poprzednio (MSE $<$ 0.01) sieć dobrze modeluje układ dla wszystkich warunków początkowych. Największa wartość błędu wynosiła odpowiednio $1.8703e^{-4}$ dla $y(t)$ oraz  $3.3520e^{-4}$ dla $y'(t)$. W porównaniu do wartości maksymalnej wartości błędu dla sieci uczonej na podstawie danych z trajektorii w przedziale $t \in [0,50]$ (maksymalny błąd MSE dla $y(t)$ wynosił $2.3169e^{-2}$, natomiast dla $y'(t)$ wynosił $3.2620e^{-2}$) błąd średniokwadratowy zmalał ponad kilkadziesiąt krotnie.
 
 \clearpage
 \section{Podsumowanie oraz wnioski}
 
-Celem pracy była próba identyfikacji nieliniowych obiektów dynamicznych z wykorzystaniem metody GOFR. Cel udało się zrealizować na przykładzie obiektu dynamicznego opisanego równaniem Van der Pola. Posiadając dane tylko z jednej trajektorii sieć była w stanie dobrze modelować obiekt dla różnych warunków początkowych. Predykcja na 100 kroków w przód skutkowała błędem średniokwadratowym aproksymacji $y(t)$ równym \textbf{1.9873e-4} oraz błędem aproksymacji $y'(t)$ równym \textbf{3.0130e-4}. Następnie zwiększono wielkość zbioru danych uczących 10-krotnie. Po ponownym wytrenowaniu sieci okazało się, że jakość aproksymacji modelu dla uległa znacznemu polepszeniu.
+Celem pracy była próba identyfikacji nieliniowych obiektów dynamicznych z wykorzystaniem metody GOFR. Cel udało się zrealizować na przykładzie obiektu dynamicznego opisanego równaniem Van der Pola. Posiadając dane tylko z jednej trajektorii sieć była w stanie dobrze modelować obiekt dla różnych warunków początkowych. Predykcja na 100 kroków w przód skutkowała błędem średniokwadratowym aproksymacji $y(t)$ równym $1.6318e^{-3}$ oraz błędem aproksymacji $y'(t)$ równym $2.4210e^{-3}$. Następnie zwiększono wielkość zbioru danych uczących 10-krotnie. Po ponownym wytrenowaniu sieci okazało się, że jakość aproksymacji modelu dla uległa znacznemu polepszeniu.
 Określając jako akceptowalną predykcje taką, dla której błąd MSE $<$ 0.01 dla $y(t)$ oraz $y'(t)$ jednocześnie, udało się uzyskać poprawną predykcję dla wszystkich warunków początkowych.
 
-Czas uczenia sieci uległ jednak znacznemu wydłużeniu, a liczba funkcji bazowych zwiększyła się nieznacznie z 40 do 41. Jednym z ograniczeń zaproponowanej metody identyfikacji jest modelowanie obiektu dla z góry określonego kroku (dla identyfikowanego obiektu h = 0.1). Rozwiązanie takiego problemu zostało jednak zaproponowane w pracy Yi-Jen Wanga i Chin-Teng Lina\cite{Wang}. Wykorzystane w tym celu zostało połączenie metody Runge-Kutty oraz radialnej sieci neuronowej. Sieć przedstawioną w pracy można wykorzystać w tej metodzie tak aby umożliwić swobodny dobór kroku metody.
+Czas uczenia sieci uległ jednak znacznemu wydłużeniu. Liczba funkcji bazowych zwiększyła się nieznacznie z 40 do 41. Jednym z ograniczeń zaproponowanej metody identyfikacji jest modelowanie obiektu dla z góry określonego kroku (dla identyfikowanego obiektu h = 0.1). Rozwiązanie takiego problemu zostało jednak zaproponowane w pracy Yi-Jen Wanga i Chin-Teng Lina\cite{Wang}. Wykorzystane w tym celu zostało połączenie metody Runge-Kutty oraz radialnej sieci neuronowej. Sieć przedstawioną w pracy można wykorzystać w tej metodzie tak aby umożliwić swobodny dobór kroku metody.
 
-W pracy \cite{Masri} została podjęta próba identyfikacji dynamiki obiektu opisanego równaniem Van der Pola. Oceniając jakościowo identyfikację obiektu z wykorzystaniem perceptronu wielowarstwowego zaproponowana metoda pozwoliła uzyskać lepsze wyniki \textbf{Do poprawy}. 
+W pracy \cite{Masri} została podjęta próba identyfikacji dynamiki obiektu opisanego równaniem Van der Pola z wykorzystaniem perceptronu wielowarstwowego. Oceniając jakościowo identyfikację obiektu z wykorzystaniem perceptronu wielowarstwowego można stwierdzić, że zaproponowana w pracy dyplomowej metoda pozwoliła uzyskać lepsze wyniki.
 
 Przedstawiona w pracy metoda sprawdziła się w identyfikacji dynamiki obiektu nieliniowego opisanego równaniem Van der Pola. W dalszych pracach można wykorzystać metodę GOFR do identyfikacji innych nieliniowych obiektów dynamicznych oraz zastosować ją w połączeniu z metodą Runge-Kutty\cite{Wang}.
+
+Program został zaimplementowany z użyciem języka programowania MATLAB. Listingi kodu źródłowego zostały zamieszone w Dodatku A.
 
 % -------------------------- bibliografia ----------------------------
 \clearpage
@@ -878,7 +882,7 @@ Zasady i przykłady konstrukcji modeli dynamicznych obiektów automatyki, WNT, W
 
 \bibitem{Osowski}Osowski S., Sieci neuronowe do przetwarzania informacji, Oficyna Wydawnicza Politechniki Warszawskiej,  Warszawa 2006
 
-\bibitem{Duboisa} R. Duboisa, B. Queneta, Y. Faisandierb, G. Dreyfusa, Building meaningful representations for nonlinear modeling of 1d- and 2d-signals: applications to biomedical signals, Neurocomputing 69 (2006), p. 2180–2192
+\bibitem{Duboisa} R. Dubois, B. Quenet, Y. Faisandier, G. Dreyfus, Building meaningful representations for nonlinear modeling of 1d- and 2d-signals: applications to biomedical signals, Neurocomputing 69 (2006), p. 2180–2192
 
 \bibitem{Gutenbaum} J. Gutenbaum, Modelowanie systemów, Akademicka Oficyna Wydawnicza EXIT, Warszawa 2003
 
@@ -889,9 +893,9 @@ Politechnika Warszawska, Warszawa 2011
 
 \bibitem{AK_RBG2002} A. Kharab, R. B. Guenther, An introduction to numerical methods : A MATLAB Approach, Chapman \& Hall, New York 2002
 
-\bibitem{Kosinski} R. A. Kosiński, "Sztuczne sieci neuronowe – dynamika nieliniowa i chaos, wyd. 3 uakt., WNT, Warszawa 2007
+\bibitem{Kosinski} R. A. Kosiński, Sztuczne sieci neuronowe – dynamika nieliniowa i chaos, wyd. 3 uakt., WNT, Warszawa 2007
 
-\bibitem{Masri} S F Masrit, A. G. Chassiakosl, T. K. Caughey, Structure-unknown non-linear dynamic systems: identification through neural networks, Smart Materials ans Structures 1 (1992), 45-56
+\bibitem{Masri} S. F. Masri, A. G. Chassiakos, T. K. Caughey, Structure-unknown non-linear dynamic systems: identification through neural networks, Smart Materials ans Structures 1 (1992), 45-56
 
 \bibitem{Palczewski} Palczewski A., Równania różniczkowe zwyczajne
 Teoria i metody numeryczne z wykorzystaniem komputerowego systemu obliczeń symbolicznych. Wyd. 2, WNT, Warszawa 2004
@@ -1138,50 +1142,49 @@ end
 
 \begin{lstlisting}
 % Neural network with radial basis functions (RBF) approximating 
-% Van der Pol equation using Orthogonal Generalized Orthogonal Forward 
-% Regression (OFR)
+% Van der Pol equation using Generalized Orthogonal Forward Regression (GOFR)
 
 close all;
 clear all;
 clc;
 
-single_trajectory = true; % switch between training based on one trajectory or many trajectories
+short_trajectory = false; % switch between training based on short trajectory (t = [0; 50]) or long trajectory (t = [0;500])
 
-t_end = 40;         % time end of trajectory (always starts from time = 0)
+t_end = 50;         % time end of trajectory (always starts from time = 0)
 t_step = 0.1;       % time step
 
 x1 = 0;
 x2 = 2;
-if (single_trajectory)
+if (short_trajectory)
 else
-    x1 = -2:0.5:2;      
-    x2 = x1;
+    t_end = 500;
 end
 
-X = [];
-y1 = [];
-y2 = [];
-for i = x1
-    for j = x2
-        if (i == 0 && j == 0)
-            continue;
-        end
-        [t Y] = rk_van_der_pol(t_end, t_step, [i j]);
-        X = [X; Y(1:end-1,:)];
-        y1 = [y1; Y(2:end,1)];
-        y2 = [y2; Y(2:end,2)];
-    end
-end
+X = []; y1 = []; y2 = [];
+
+[t Y] = rk_van_der_pol(t_end, t_step, [x1 x2]);
+Y = Y(101:end,:);
+X = [X; Y(1:end-1,:)];
+y1 = [y1; Y(2:end,1)];
+y2 = [y2; Y(2:end,2)];
+
+
+% plot(0:t_step:length(y1)*t_step-t_step, y1);
+% title('y(t) of Van der Pol equation');
+% pause;
+% plot(0:t_step:length(y2)*t_step-t_step, y2);
+% title('y''(t) of Van der Pol equation');
+% pause;
+% plot(y1, y2);
+% title('Van der Pol equation');
+
 
 N = 3; % change number of library division (number of RBFs)
 MAX_RBFS = 30; % change number of maximum possible selected RBFs
 
 err = zeros(MAX_RBFS,2);
 stop_condition = 1e-6;
-if (single_trajectory)
-else
-    stop_condition = 1e-5;
-end
+
 
 % Training y(t) of Van der Pol equation
 for K1 = 1:MAX_RBFS
@@ -1229,6 +1232,26 @@ for K2 = 1:MAX_RBFS
     if (err(K2,2) < stop_condition)
         break;
     end
+
+end
+
+% ----- function approximation by RBF neural network -----
+if (short_trajectory)
+    figure(1)
+    plot(0:t_step:length(y1)*t_step-t_step, y1, 'r', 0:t_step:length(y_rbf1)*t_step-t_step, y_rbf1, 'b');
+    title({'y(t) of Van der Pol equation'; sprintf('Iteration nr = %d', K1)});
+    legend('desired','approximated');
+
+    figure(2)
+    plot(0:t_step:length(y2)*t_step-t_step, y2, 'r', 0:t_step:length(y_rbf2)*t_step-t_step, y_rbf2, 'b');
+    title({'y''(t) of Van der Pol equation'; sprintf('Iteration nr = %d', K1)});
+    legend('desired','approximated');
+    
+    figure(3)
+    hold on;
+    plot(y1, y2, 'r', y_rbf1, y_rbf2, 'b');
+    title('Van der Pol equation');
+    legend('desired','approximated');
 end
 
 \end{lstlisting}
