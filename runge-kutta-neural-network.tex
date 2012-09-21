@@ -465,7 +465,7 @@ W przypadku zwiększania się błędu na zbiorze uczącym parametr $\lambda$ ze 
 \clearpage
 \section{Wyniki identyfikacji obiektu opisanego równaniem Van der Pola}
 
-Osiągnięcie błędu średniokwadratowego poniżej 1e-6 udało się osiągnąć dla 24 funkcji bazowych dla $y(t)$ (błąd równy = 6.8925e-7) oraz 25 funkcji bazowych dla $y'(t)$ (błąd równy = 7.2683e-7). Na rysunkach \ref{fig:signal_approx_a}, \ref{fig:signal_approx_b} oraz rysunkach \ref{fig:deriv_approx_a}, \ref{fig:deriv_approx_b} zostały przedstawione odpowiednio: aproksymacja funkcji $y(t)$ oraz aproksymacja pierwszej pochodnej $y'(t)$ równania Van der Pola  dla pierwszych sześciu iteracji. Jak można zauważyć kształt funkcji $y(t)$ oraz pochodnej $y'(t)$ jest dokładnie odwzorowany już po selekcji kilku pierwszych funkcji. Dzieje się tak ze względu na to, że algorytm selekcji funkcji bazowych GOFR wybiera funkcje wnoszące największy wkład energii w kolejnych iteracjach. Kolejne wybierane funkcje mają coraz mniejsze znaczenie w odwzorowywaniu obiektu opisanego równaniem Van der Pola.
+Błąd średniokwadratowy aproksymacji poniżej $1e^{-6}$ udało się osiągnąć dla 18 funkcji bazowych dla $y(t)$ (błąd równy $9.6426e^{-7}$) oraz 22 funkcji bazowych dla $y'(t)$ (błąd równy $5.7016e^{-7}$). Na rysunkach \ref{fig:signal_approx_a}, \ref{fig:signal_approx_b} oraz rysunkach \ref{fig:deriv_approx_a}, \ref{fig:deriv_approx_b} zostały przedstawione odpowiednio: aproksymacja funkcji $y(t)$ oraz aproksymacja pierwszej pochodnej $y'(t)$ równania Van der Pola  dla pierwszych sześciu iteracji. Jak można zauważyć kształt funkcji $y(t)$ oraz pochodnej $y'(t)$ jest dokładnie odwzorowany już po selekcji kilku pierwszych funkcji, ponieważ algorytm selekcji funkcji bazowych GOFR wybiera funkcje wnoszące największy wkład energii w kolejnych iteracjach. Kolejne wybierane funkcje mają coraz mniejsze znaczenie w odwzorowywaniu obiektu opisanego równaniem Van der Pola.
 
 \begin{figure}[ht!]
 	\centering
@@ -564,32 +564,25 @@ W tabeli \ref{tab:rbf_tabela_x1} zostały zebrane dane na temat wybranych funkcj
 
 \begin{tabular}{ | c| c| c| c| c| c| c| }
 \hline
-number & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE \\ \hline    
-	
- 1 &  32  &  2.9948  &  0.7222  &  1.5295  &  4.7410e-1 & 1.5872e+0 \\
- 2 &   2  & -5.8209  & -1.0474  &  2.6805  &  4.9905e-1 & 8.1038e-2 \\
- 3 &   8  &  7.0671  &  1.4665  &  3.8568  &  1.5418e-2 & 3.4504e-2 \\
- 4 &  52  & -2.2270  &  3.0342  &  0.7155  &  5.3306e-3 & 1.8416e-2 \\
- 5 &  15  & -1.0761  & -3.1178  &  1.0496  &  4.5295e-3 & 4.7450e-3 \\
- 6 &  60  & -1.3884  &  2.1498  &  0.5889  &  7.8749e-4 & 2.3682e-3 \\
- 7 & 103  &  2.0854  &  0.7488  &  0.6221  &  4.1060e-4 & 1.1290e-3 \\
- 8 &  47  & -1.9902  & -0.6401  &  0.5865  &  1.0880e-4 & 8.0058e-4 \\
- 9 & 106  &  1.9631  &  3.4429  &  0.4688  &  1.1553e-4 & 4.5188e-4 \\
-10 &  20  &  0.6923  & -3.9854  &  1.3350  &  4.7597e-5 & 3.0823e-4 \\
-11 &  68  & -0.4170  &  1.0838  &  0.6116  &  3.8596e-5 & 1.9174e-4 \\
-12 & 109  &  2.7940  & -1.5663  &  0.5293  &  1.5792e-5 & 1.4408e-4 \\
-13 &  62  & -0.7083  & -2.5993  &  0.5065  &  8.2334e-6 & 1.1923e-4 \\
-14 &  79  &  0.5131  &  2.2032  &  0.2673  &  1.8315e-5 & 6.3952e-5 \\
-15 &   5  & -0.0016  &  0.0540  &  2.3580  &  4.6821e-6 & 4.9821e-5 \\
-16 &   4  &  0.0067  & -2.7505  &  2.3463  &  5.5652e-6 & 3.3024e-5 \\
-17 &  92  &  1.4041  & -0.7927  &  0.5950  &  4.2814e-6 & 2.0102e-5 \\
-18 &   6  & -0.0072  &  2.7806  &  2.3611  &  1.4043e-6 & 1.5864e-5 \\
-19 &  14  & -2.7163  &  2.7149  &  1.1521  &  1.0246e-6 & 1.2771e-5 \\
-20 & 102  &  1.9456  &  0.0229  &  0.5151  &  2.3885e-6 & 5.5625e-6 \\
-21 &  94  &  1.3554  &  0.6871  &  0.5818  &  4.3525e-7 & 4.2489e-6 \\
-22 & 115  &  2.9594  &  2.8968  &  0.5772  &  5.1100e-7 & 2.7066e-6 \\
-23 &  28  &  1.3478  &  1.3509  &  1.1561  &  4.2283e-7 & 1.4304e-6 \\
-24 &  35  & -2.7401  & -2.7393  &  0.5862  &  2.4558e-7 & 6.8925e-7 \\
+number & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE \\ \hline    	
+  1 &  12  & -3.1502 &  -0.7340 &   1.5679  &  5.0151e-1 & 1.4482e+0 \\
+  2 &   8  &  5.4297 &   0.9768 &   2.5525  &  4.6984e-1 & 8.3239e-2 \\
+  3 &   2  & -7.7564 &  -1.6021 &   4.0418  &  1.6007e-2 & 3.6734e-2 \\
+  4 &  98  &  2.2350 &  -3.0617 &   0.7123  &  6.0461e-3 & 1.9169e-2 \\
+  5 &  29  &  1.0708 &   3.0705 &   1.0373  &  4.9545e-3 & 4.7753e-3 \\
+  6 &   7  &  1.7366 &  -1.5238 &   1.9569  &  9.6330e-4 & 1.9766e-3 \\
+  7 &   9  &  3.8691 &   3.7103 &   2.7734  &  4.2187e-4 & 7.5101e-4 \\
+  8 &  92  &  1.1831 &  -0.3315 &   0.6019  &  1.3156e-4 & 3.6880e-4 \\
+  9 &  10  & -3.2937 &  -2.9518 &   1.0999  &  8.6588e-5 & 1.1725e-4 \\
+ 10 &  94  &  1.4036 &   0.7138 &   0.6245  &  2.5108e-5 & 4.4300e-5 \\
+ 11 &  41  & -2.4064 &   1.1162 &   0.4944  &  4.6381e-6 & 3.0825e-5 \\
+ 12 &  87  &  0.7798 &   1.8971 &   0.4901  &  3.6228e-6 & 2.0300e-5 \\
+ 13 &  74  & -0.0576 &  -0.6049 &   0.5650  &  1.4344e-6 & 1.6133e-5 \\
+ 14 & 102  &  1.9120 &   0.0648 &   0.4207  &  2.1460e-6 & 9.8983e-6 \\
+ 15 &  33  &  2.6636 &   1.3395 &   1.1488  &  1.6053e-6 & 5.2345e-6 \\
+ 16 &  62  & -0.6188 &  -2.9390 &   0.5726  &  8.3324e-7 & 2.8137e-6 \\
+ 17 &  28  &  1.3729 &   1.3721 &   1.1716  &  4.7268e-7 & 1.4405e-6 \\
+ 18 &  73  &  0.0010 &  -1.3687 &   0.5821  &  1.6391e-7 & 9.6426e-7 \\
     \hline
 \end{tabular}
 
@@ -605,33 +598,31 @@ W tabeli \ref{tab:rbf_tabela_x2} zostały zebrane dane na temat wybranych funkcj
 \begin{tabular}{ |c| c| c| c| c| c| c| }
 \hline
 numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE    \\ \hline    
-    1 &  20 &   1.1446 &  -5.7343  &  2.0595 &   4.9501e-1 & 9.4653e-1 \\
-    2 &  24 &  -0.5846 &   5.1218  &  2.1860 &   4.8488e-1 & 3.7690e-2 \\
-    3 &  71 &   0.3756 &  -3.5358  &  0.8221 &   1.1585e-2 & 1.5975e-2 \\
-    4 &  55 &  -1.3838 &  -1.3455  &  0.5934 &   4.5029e-3 & 7.5351e-3 \\
-    5 & 105 &   2.6435 &   2.2556  &  0.6908 &   1.9649e-3 & 3.8522e-3 \\
-    6 &  18 &  -1.7286 &   1.9662  &  0.9173 &   9.8872e-4 & 1.9989e-3 \\
-    7 &  31 &   2.7142 &  -1.5228  &  1.1111 &   4.3126e-4 & 1.1906e-3 \\
-    8 &  35 &  -2.4433 &  -2.8083  &  0.4078 &   1.8653e-4 & 8.4097e-4 \\
-    9 &  34 &   2.4846 &   2.5536  &  1.0744 &   1.3652e-4 & 5.8508e-4 \\
-   10 &   4 &  -0.0373 &  -2.1985  &  2.0320 &   8.6977e-5 & 4.2205e-4 \\
-   11 &  51 &  -2.0368 &   2.1029  &  0.5648 &   1.0665e-4 & 2.2215e-4 \\
-   12 &  44 &  -2.3244 &  -3.0361  &  0.5831 &   4.1302e-5 & 1.4473e-4 \\
-   13 &  87 &   0.6683 &   2.1058  &  0.5772 &   2.7287e-5 & 9.3585e-5 \\
-   14 & 108 &   2.5990 &  -1.9039  &  0.5283 &   1.8039e-5 & 5.9773e-5 \\
-   15 &   5 &  -0.0008 &   0.0006  &  2.3321 &   1.0989e-5 & 3.9175e-5 \\
-   16 &  66 &  -0.8763 &   0.2859  &  0.5596 &   4.5942e-6 & 3.0564e-5 \\
-   17 &  56 &  -1.2921 &  -0.5707  &  0.4300 &   4.8491e-6 & 2.1475e-5 \\
-   18 & 112 &   2.9438 &   0.5975  &  0.4572 &   3.6241e-6 & 1.4682e-5 \\
-   19 &  54 &  -1.3559 &  -2.0394  &  0.5777 &   2.9742e-6 & 9.1075e-6 \\
-   20 &  97 &   1.6974 &   3.4300  &  0.7467 &   1.8032e-6 & 5.7277e-6 \\
-   21 &  86 &   0.7040 &   1.3515  &  0.5634 &   8.1315e-7 & 4.2035e-6 \\
-   22 &  63 &  -0.6910 &  -2.0473  &  0.5768 &   6.0731e-7 & 3.0652e-6 \\
-   23 &  39 &  -3.3163 &   0.0390  &  0.6737 &   3.4036e-7 & 2.4273e-6 \\
-   24 & 111 &   2.3400 &   0.0310  &  0.4559 &   7.2918e-7 & 1.0605e-6 \\
-   25 &  53 &  -1.3701 &  -2.7398  &  0.5851 &   1.7802e-7 & 7.2683e-7 \\
+  1 &  20 &   1.1473 &  -5.6855 &   2.0429 &   4.8617e-1 & 9.7778e-1 \\
+  2 &  24 &  -0.6236 &   5.0850 &   2.1712 &   4.9394e-1 & 3.7858e-2 \\
+  3 &  71 &   0.4130 &  -3.5541 &   0.8247 &   1.1341e-2 & 1.6276e-2 \\
+  4 &  55 &  -1.4537 &  -1.3821 &   0.6111 &   4.7182e-3 & 7.2976e-3 \\
+  5 & 105 &   2.8269 &   2.3932 &   0.7227 &   1.9348e-3 & 3.6158e-3 \\
+  6 &  87 &   0.4346 &   2.4643 &   0.6928 &   9.1685e-4 & 1.8711e-3 \\
+  7 &  31 &   2.7266 &  -1.5028 &   1.1935 &   5.1995e-4 & 8.8168e-4 \\
+  8 &  35 &  -2.4119 &  -2.8131 &   0.4002 &   1.8068e-4 & 5.3787e-4 \\
+  9 &  37 &  -3.3579 &  -1.5420 &   0.7055 &   8.9776e-5 & 3.6703e-4 \\
+ 10 &  62 &  -0.6019 &  -3.3353 &   0.4221 &   7.6543e-5 & 2.2138e-4 \\
+ 11 &  72 &  -0.0935 &  -1.9366 &   0.5978 &   2.3326e-5 & 1.7699e-4 \\
+ 12 &  34 &   2.2537 &   2.2456 &   1.0270 &   1.7366e-5 & 1.4394e-4 \\
+ 13 & 108 &   2.8131 &  -2.1200 &   0.5804 &   1.4160e-5 & 1.1700e-4 \\
+ 14 &  79 &   0.1034 &   2.5772 &   0.5442 &   2.3422e-5 & 7.2429e-5 \\
+ 15 &  46 &  -1.9263 &  -1.3252 &   0.5768 &   1.3428e-5 & 4.6876e-5 \\
+ 16 &  39 &  -3.6409 &   0.1476 &   0.7214 &   1.4115e-5 & 2.0016e-5 \\
+ 17 &   8 &   2.7340 &   0.0049 &   2.3398 &   4.4721e-6 & 1.1506e-5 \\
+ 18 &  73 &  -0.0732 &  -1.2943 &   0.5814 &   1.3090e-6 & 9.0150e-6 \\
+ 19 &  19 &  -1.5287 &   2.9209 &   1.1738 &   5.0646e-7 & 8.0513e-6 \\
+ 20 &  38 &  -2.8697 &  -0.7094 &   0.5993 &   2.7376e-7 & 7.5303e-6 \\
+ 21 &  44 &  -2.2676 &  -2.9283 &   0.5973 &   8.8402e-7 & 5.8481e-6 \\
+ 22 &  98 &   2.0550 &  -2.7400 &   0.5853 &   2.7736e-6 & 5.7016e-7 \\
     \hline
 \end{tabular}
+
 
 \caption{Wybrane funkcje RBF dla y'(t)}
 \label{tab:rbf_tabela_x2}
@@ -639,13 +630,13 @@ numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia     
 
 \clearpage
 
-Błąd średniokwadratowy w funkcji wybranych funkcji RBF przedstawia rysunek \ref{img:prediction_error} natomiast rysunek \ref{img:energy} przedstawia energię jaką wnosi każda kolejna wybrana funkcja. Jak można zauważyć główny wpływ na wartość błędu oraz energii mają dwie pierwsze wybrane funkcje. Wraz z wyborem kolejnych funkcji, błąd oraz energia wnoszona przez wybraną funkcję spadają w przybliżeniu logarytmicznie. Zieloną linią na wykresie \ref{img:prediction_error} została oznaczona wartość MSE, która jest warunkiem stopu uczenia sieci.
+Błąd średniokwadratowy w funkcji wybranych funkcji RBF przedstawia rysunek \ref{img:prediction_error} natomiast rysunek \ref{img:energy} przedstawia energię jaką wnosi każda kolejna wybrana funkcja. Jak można zauważyć główny wpływ na wartość błędu oraz energii mają dwie pierwsze wybrane funkcje. Wraz z wyborem kolejnych funkcji, błąd oraz energia wnoszona przez wybraną funkcję spadają w przybliżeniu logarytmicznie. Zieloną linią na wykresie \ref{img:prediction_error} została oznaczona wartość MSE, która jest warunkiem zakończenia uczenia sieci.
 
 \begin{figure}[ht!]
 	\centering
 
 	{\includegraphics[width=\textwidth]
-	{images/prediction_error.png}}
+	{images/approximation_error.png}}
 
 	\caption{Błąd MSE w funkcji wybranych funkcji RBF}
 	\label{img:prediction_error}
@@ -662,7 +653,7 @@ Błąd średniokwadratowy w funkcji wybranych funkcji RBF przedstawia rysunek \r
 	\label{img:energy}
 \end{figure}
 
-Po etapie trenowania sieci RBF sprawdzono zdolność tej sieci do predykcji. Predykcja na 100 kroków do przodu została przedstawiona na rysunku~\ref{img:predicted}. Jak można zauważyć sieć dobrze modeluje obiekt opisany równaniem Van der Pola. Błąd średniokwadratowy dla wyznaczania $y(t)$ wyniósł  5.6108e-5, natomiast błąd predykcji wyznaczania $y'(t)$ wyniósł 9.4761e-5.
+Po etapie trenowania sieci RBF sprawdzono jakość predykcji. Predykcja na 100 kroków do przodu została przedstawiona na rysunku~\ref{img:predicted}. Jak można zauważyć sieć dobrze modeluje obiekt opisany równaniem Van der Pola. Błąd średniokwadratowy dla wyznaczania $y(t)$ wyniósł  $1.6318e^{-3}$, natomiast błąd predykcji wyznaczania $y'(t)$ wyniósł $2.4210e^{-3}$.
 
 \begin{figure}[ht!]
 	\centering
@@ -682,7 +673,7 @@ Po etapie trenowania sieci RBF sprawdzono zdolność tej sieci do predykcji. Pre
 	\label{img:predicted}
 \end{figure}
 
-Trudno jest jednak dokładniej określić jakość predykcji na podstawie rysunku \ref{img:predicted} ze względu na nieznaczne różnice w wartości zadanej oraz wartości przewidywanej przez sieć w wyniku czego sygnał zadany oraz przewidywany pokrywają się. Aby można było dokładnie określić odstępstwo wartości przewidywanej od wartości rzeczywistej na rysunku \ref{img:err100_x} został przedstawiony błąd predykcji w kolejnych krokach. Wartość bezwzględna błędu wyznaczenia $y(t)$ nie przekracza wartości 0.02. Maksymalny błąd wyznaczenia $y'(t)$ jest nieznacznie większy i~nie przekracza wartości 0.03. Na tej podstawie można stwierdzić, że dla 100 kroków w przód sieć spełnia swoje zadanie. 
+Trudno jest jednak dokładniej określić jakość predykcji na podstawie rysunku \ref{img:predicted} ze względu na nieznaczne różnice w wartości zadanej oraz wartości przewidywanej przez sieć w wyniku czego sygnał zadany oraz przewidywany pokrywają się. Aby można było dokładnie określić odstępstwo wartości przewidywanej od wartości rzeczywistej na rysunku \ref{img:err100_x} został przedstawiony błąd predykcji w kolejnych krokach. Wartość bezwzględna błędu wyznaczenia $y(t)$ nie przekracza wartości 0.09. Maksymalny błąd wyznaczenia $y'(t)$ jest nieznacznie większy i~nie przekracza wartości 0.16. Na tej podstawie można stwierdzić, że dla 100 kroków w przód sieć spełnia swoje zadanie. 
 
 \begin{figure}[ht!]
 	\centering
@@ -700,7 +691,7 @@ Trudno jest jednak dokładniej określić jakość predykcji na podstawie rysunk
 \end{figure}
 
 
-Następnie zdecydowano się na sprawdzenie jakości predykcji w 5-krotnie dłuższym przedziale czasu $t \in [0, 50]$. Na rysunku \ref{img:predicted2} został przedstawiany sygnał rzeczywisty oraz przewidywany. Jak można zauważyć jakość predykcji jest nadal dobra, ale podobnie jak wcześniej trudno jest określić dokładnie błąd między wartością przewidywaną a rzeczywistą. Nieznaczną rozbieżność można zauważyć na wykresie trajektorii. Błąd średniokwadratowy dla wyznaczania $y(t)$ wyniósł  1.9873e-4, natomiast błąd wyznaczania $y'(t)$ wyniósł 3.0130e-4, czyli kilkukrotnie wzrósł w stosunku do błędu dla 5-kronie krótszego okresu predykcji.
+Następnie zdecydowano się na sprawdzenie jakości predykcji w 5-krotnie dłuższym przedziale czasu $t \in [0, 50]$. Na rysunku \ref{img:predicted2} został przedstawiany sygnał rzeczywisty oraz przewidywany. Jak można zauważyć wraz z oddalaniem się od punktu początkowego charakterystyki zadana oraz przewidywana rozbiegają się. Błąd średniokwadratowy dla wyznaczania $y(t)$ wyniósł  0.0754, natomiast błąd wyznaczania $y'(t)$ wyniósł 0.1187, czyli kilkukrotnie wzrósł w stosunku do błędu dla 5-kronie krótszego okresu predykcji.
 
 \begin{figure}[ht!]
 	\centering
@@ -720,7 +711,7 @@ Następnie zdecydowano się na sprawdzenie jakości predykcji w 5-krotnie dłuż
 	\label{img:predicted2}
 \end{figure}
 
-Aby dokładniej określić jakość predykcji w przedziale czasu $t \in [0, 50]$ ponownie skorzystano z wykresu błędu predykcji dla kolejnych kroków. Jak można zauważyć wraz z oddalaniem się od punktu początkowego błąd predykcji rośnie. Dzieje się tak ze względu na akumulację błędu. Należy zaznaczyć jednak, że odchylenie od wartości zadanej dla 500 kroków dla $y(t)$ nie przekracza wartości 0.04, natomiast dla $y'(t)$ nie przekracza wartości 0.07 co pozwala stwierdzić, że nawet dla tak długiego okresu czasu sieć spełnia swoje zadanie.
+Aby dokładniej określić jakość predykcji w przedziale czasu $t \in [0, 50]$ ponownie skorzystano z wykresu błędu predykcji dla kolejnych kroków. Jak można zauważyć wraz z oddalaniem się od punktu początkowego błąd predykcji rośnie. Dzieje się tak ze względu na akumulację błędu. Po 500 krokach różnice wartości zadanej i przewidywanej są już znaczne co wyklucza możliwość właściwej predykcji dla tak długiego okresu czasu.
 
 \begin{figure}[ht!]
 	\centering
@@ -754,25 +745,9 @@ Do tej pory badana była jedynie predykcja dla tych samych warunków początkowy
 	\label{img:err_initial}
 \end{figure}
 
-Jak można zauważyć sieć dobrze modeluje obiekt nie tylko dla wcześniej wybranego warunku początkowego, ale również dla warunków początkowych położonych w pobliżu trajektorii powstałej w wyniku rozwiązania równania Van der Pola z warunkiem początkowym jaki został wybrany w celu stworzenia zbioru uczącego. Rysunek \ref{img:err_initial} może być mylący ze względu na skalę barw jaka została użyta dla określenia błędu pochodnej - zakres błędu dla różnych warunków początkowych jest zdecydowanie większy dla $y'(t)$ niż dla $y(t)$ (maksymalny błąd MSE dla $y(t)$ wynosi 13.6417 natomiast dla $y'(t)$ wynosi 40.6341). Po analizie okazało się, że istnieje 16 (na 440) warunków początkowych, dla których błąd średniokwadratowy jest większy od 10. Z tego względu dla lepszego zobrazowania rozkładu błędu zastąpiono wszystkie 16 wartości błędu większe od 10 błędem = 10 i ponownie wykreślono rozkład błędu MSE $y'(t)$ w zależności od warunków początkowych. Przedstawiony jest on na rysunku \ref{img:err_initial_new}.
+Sieć dobrze modeluje obiekt dla większości warunków początkowych. Ustalając akceptowalność predykcji, dla której błąd MSE był mniejszy niż 0.01, sieć była w stanie poprawnie modelować obiekt dla \textbf{51 z 440} warunków początkowych. Stworzony model zatem jest odpowiedni dla właściwego zbioru warunków początkowych. Aby sieć neuronowa była w stanie modelować równanie w szerszym zakresie warunków początkowym zwiększono wielkość zbioru uczącego. W tym celu rozwiązano równanie Van der Pola dla tych samych warunków początkowych co poprzednio w przedziale dziesięciokrotnie dłuższym $t \in [0,500]$.
 
-\begin{figure}[ht!]
-	\centering
-
-	\subfloat[y(t)]
-	{\includegraphics[width=0.5\textwidth]
-	{images/figure_signal.png}}
-	\subfloat[y'(t)]
-	{\includegraphics[width=0.5\textwidth]
-	{images/figure_deriv_new.png}}	
-	
-
-	\caption{Błąd predykcji w zależności od warunków początkowych dla $t \in [0,10]$ po odrzuceniu wartości skrajnych błedu MSE dla $y'(t)$}
-	\label{img:err_initial_new}
-\end{figure}
-
-Po odrzuceniu skrajnych wartości wykres rozkładu błędu $y'(t)$ znacznie bardziej przypomina wykres rozkładu błędu $y(t)$. Dla większości warunków początkowych sieć jednak nie jest w stanie dobrze modelować obiektu. Ustalając akceptowalność predykcji, dla której błąd MSE był mniejszy niż 0.01, sieć była w stanie poprawnie modelować obiekt dla 51 z 440 warunków początkowych. Stworzony model zatem jest odpowiedni jedynie dla określonego zbioru warunków początkowych, co może być akceptowalne jeśli jesteśmy w stanie założyć, że modelowany obiekt będzie działał jedynie dla takich warunków początkowych. Aby sieć neuronowa była w stanie modelować równanie w szerszym zakresie warunków początkowym potrzebne są kolejne dane. W tym celu wygenerowano 80 trajektorii powstałych w wyniku rozwiązania równania Van der Pola dla warunków początkowych równomiernie rozłożonych w przestrzeni $[-2,2] \times [-2,2]$ w przedziale czasu $t \in [0, 40]$ z krokiem $h=0.1$. Zdecydowano się na zmodyfikowanie warunku stopu do postaci MSE $<$ 1e-5 ze względu na znaczne zwiększenie się zbioru uczącego, a co za tym idzie znacznie wydłużenie uczenia się sieci.
-Osiągnięcie błędu średniokwadratowego poniżej 1e-5 udało się osiągnąć dla 25 funkcji bazowych dla funkcji $y(t)$ (błąd równy = 9.5037e-6) oraz 26 funkcji bazowych dla pochodnej $y'(t)$ (błąd równy = 7.9001e-6), czyli wykorzystując jedynie jedną funkcję bazową więcej dla każdej z części sieci. Należy jednak w tym miejscu przypomnieć, że warunkiem stopu było uzyskanie błędu średniokwadratowego 10-krotnie większego niż miało to miejsce w przypadku wcześniejszym. 
+Osiągnięcie błędu średniokwadratowego poniżej $1e^{-6}$ udało się osiągnąć dla 15 funkcji bazowych dla funkcji $y(t)$ (błąd równy $9.8312e^{-7}$) oraz 26 funkcji bazowych dla pochodnej $y'(t)$ (błąd równy = $6.5825e^{-7}$).
 
 W tabeli \ref{tab:rbf_tabela2_x1} zostały zebrane dane na temat wybranych funkcji RBF oraz błąd średniokwadratowy aproksymacji $y(t)$ po selekcji kolejnych funkcji RBF.
 
@@ -782,31 +757,22 @@ W tabeli \ref{tab:rbf_tabela2_x1} zostały zebrane dane na temat wybranych funkc
 \begin{tabular}{ |c| c| c| c| c| c| c| }
 \hline
 numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE    \\ \hline    
-    1 &  12 &  -4.8953 &  -0.9105 &   2.0586  &  4.7050e-1 & 1.5515e+0 \\
-    2 &   8 &   5.4193 &   0.9971 &   2.5798  &  5.0360e-1 & 7.5903e-2 \\
-    3 &   2 &  -4.6034 &  -0.8540 &   3.0277  &  1.4313e-2 & 3.3965e-2 \\
-    4 &   5 &   0.0222 &  -0.2106 &   3.2317  &  9.8758e-3 & 5.0279e-3 \\
-    5 &  97 &   2.0527 &   3.4549 &   0.7361  &  1.0031e-3 & 2.0888e-3 \\
-    6 &  77 &   0.1850 &   1.2900 &   0.6728  &  3.6159e-4 & 1.0293e-3 \\
-    7 &  84 &   0.8268 &  -0.0171 &   0.6789  &  9.3702e-5 & 7.5471e-4 \\
-    8 & 103 &   2.0429 &   0.6027 &   0.5178  &  8.7412e-5 & 4.9858e-4 \\
-    9 &  53 &  -1.4953 &  -3.9012 &   0.6884  &  5.9932e-5 & 3.2298e-4 \\
-   10 &  56 &  -1.5088 &  -0.7513 &   0.6456  &  4.0396e-5 & 2.0461e-4 \\
-   11 &  60 &  -1.6142 &   2.5627 &   0.6911  &  2.5830e-5 & 1.2893e-4 \\
-   12 & 108 &   3.2889 &  -1.8451 &   0.4369  &  8.0323e-6 & 1.0539e-4 \\
-   13 &  57 &  -1.7669 &   0.1593 &   0.3909  &  6.2747e-6 & 8.7008e-5 \\
-   14 &  69 &  -0.7720 &   2.5602 &   0.7003  &  4.4067e-6 & 7.4096e-5 \\
-   15 &  11 &  -2.7698 &  -1.4594 &   1.1633  &  3.9520e-6 & 6.2516e-5 \\
-   16 &  27 &   1.5564 &   0.1463 &   1.2159  &  3.2820e-6 & 5.2899e-5 \\
-   17 &  30 &   3.2537 &  -3.1569 &   1.1834  &  3.6829e-6 & 4.2108e-5 \\
-   18 &  88 &   0.7869 &   3.5360 &   0.4310  &  4.5237e-6 & 2.8853e-5 \\
-   19 & 105 &   2.6917 &   2.6612 &   0.5780  &  1.8611e-6 & 2.3400e-5 \\
-   20 &  40 &  -3.9490 &   1.0595 &   0.7024  &  1.0632e-6 & 2.0285e-5 \\
-   21 & 109 &   3.3322 &  -1.6728 &   0.6157  &  6.1811e-7 & 1.8474e-5 \\
-   22 &  38 &  -4.0090 &  -0.9720 &   0.7012  &  7.5296e-7 & 1.6267e-5 \\
-   23 &  36 &  -3.8224 &  -2.8683 &   0.7438  &  1.0858e-6 & 1.3086e-5 \\
-   24 &  65 &  -0.8844 &  -0.9351 &   0.6755  &  6.7549e-7 & 1.1107e-5 \\
-   25 &  58 &  -1.5267 &   0.4323 &   0.5790  &  5.4706e-7 & 9.5037e-6 \\    \hline
+    1 &  32 &   3.0688  &  0.7251  &  1.5408  &  4.7435e-1 & 1.5650e+0 \\
+    2 &   2 &  -5.8240  & -1.0400  &  2.6736  &  4.9778e-1 & 8.3000e-2 \\
+    3 &   8 &   8.7131  &  1.7688  &  4.2841  &  1.5672e-2 & 3.6341e-2 \\
+    4 &  52 &  -2.2450  &  3.0386  &  0.7082  &  5.8876e-3 & 1.8812e-2 \\
+    5 &  15 &  -1.0732  & -3.0634  &  1.0248  &  4.7462e-3 & 4.6817e-3 \\
+    6 &   3 &  -1.8519  &  1.6768  &  2.0134  &  9.2030e-4 & 1.9418e-3 \\
+    7 &   1 &  -3.3016  & -3.1929  &  2.5308  &  4.4272e-4 & 6.2367e-4 \\
+    8 & 101 &   2.3115  & -0.8549  &  0.6729  &  1.2278e-4 & 2.5812e-4 \\
+    9 &  40 &  -2.6310  &  0.6152  &  0.4777  &  4.4630e-5 & 1.2524e-4 \\
+   10 &  10 &  -3.2870  & -3.2361  &  1.3004  &  3.0012e-5 & 3.5891e-5 \\
+   11 &  97 &   1.2062  &  2.4778  &  0.4767  &  6.6179e-6 & 1.6187e-5 \\
+   12 &  89 &   1.3713  & -2.8097  &  0.5886  &  3.8504e-6 & 4.7238e-6 \\
+   13 &  85 &   0.7152  &  0.7106  &  0.5556  &  9.1151e-7 & 2.0100e-6 \\
+   14 &  34 &   3.2081  &  3.0810  &  1.2494  &  1.8630e-7 & 1.4554e-6 \\
+   15 &  74 &   0.0057  & -0.6810  &  0.5077  &  1.5862e-7 & 9.8312e-7 \\
+\hline
 \end{tabular}
 
 \caption{Wybrane funkcje RBF dla y(t)}
@@ -822,32 +788,32 @@ W tabeli \ref{tab:rbf_tabela2_x2} zostały zebrane dane na temat wybranych funkc
 \begin{tabular}{ |c| c| c| c| c| c| c| }
 \hline
 numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia      & błąd MSE    \\ \hline    
-    1 &  24 &  -1.1250  &  5.6516  &  2.0361  &  4.7516e-1 & 9.8511e-1   \\
-    2 &  20 &   0.5488  & -4.9698  &  2.1518  &  5.0392e-1 & 3.9276e-2   \\
-    3 &  78 &  -0.3925  &  3.5349  &  0.8580  &  1.2219e-2 & 1.6341e-2   \\
-    4 & 104 &   1.8566  &  1.5269  &  0.6389  &  4.4165e-3 & 8.0511e-3   \\
-    5 &  55 &  -2.6142  & -2.2752  &  0.7069  &  1.9361e-3 & 4.4172e-3   \\
-    6 &  26 &   1.6316  & -1.7819  &  0.9866  &  1.0335e-3 & 2.4773e-3   \\
-    7 &  13 &  -2.6461  &  0.9889  &  1.0006  &  3.2912e-4 & 1.8596e-3   \\
-    8 &  71 &   0.4828  & -3.7540  &  0.7487  &  2.0188e-4 & 1.4807e-3   \\
-    9 &  86 &   0.7849  &  1.5639  &  0.7424  &  1.9636e-4 & 1.1121e-3   \\
-   10 & 115 &   2.9828  &  3.1229  &  0.5308  &  8.5215e-5 & 9.5215e-4   \\
-   11 &  67 &  -0.6655  &  0.4598  &  0.6018  &  1.2760e-4 & 7.1264e-4   \\
-   12 & 112 &   2.5479  &  0.7001  &  0.3633  &  7.6301e-5 & 5.6943e-4   \\
-   13 & 105 &   2.8729  &  2.8243  &  0.7434  &  7.0644e-5 & 4.3683e-4   \\
-   14 &  16 &  -1.4468  & -1.5020  &  1.1100  &  3.6943e-5 & 3.6749e-4   \\
-   15 &  51 &  -2.5600  &  2.5033  &  0.6451  &  3.9223e-5 & 2.9387e-4   \\
-   16 &  95 &   1.7201  &  1.7280  &  0.6390  &  2.2062e-5 & 2.5246e-4   \\
-   17 & 109 &   2.9319  & -1.0482  &  0.4542  &  1.8539e-5 & 2.1767e-4   \\
-   18 &  44 &  -2.0737  & -2.9877  &  0.4729  &  1.4993e-5 & 1.8953e-4   \\
-   19 &   6 &  -0.0106  &  3.5027  &  2.6365  &  1.3682e-5 & 1.6385e-4   \\
-   20 &   5 &   0.0097  &  0.0031  &  2.6574  &  2.0389e-5 & 1.2558e-4   \\
-   21 &  32 &   3.3282  & -0.0031  &  1.2907  &  2.1197e-5 & 8.5791e-5   \\
-   22 &  25 &   2.0450  & -3.8439  &  1.3209  &  1.6687e-5 & 5.4470e-5   \\
-   23 &  50 &  -2.7665  &  1.9171  &  0.7318  &  1.5010e-5 & 2.6296e-5   \\
-   24 &  97 &   2.0519  &  4.1067  &  0.7983  &  4.8446e-6 & 1.7203e-5   \\
-   25 &  63 &  -0.8497  & -2.6336  &  0.6773  &  3.5100e-6 & 1.0615e-5   \\
-   26 &  83 &   0.7341  & -0.7148  &  0.6868  &  1.4466e-6 & 7.9001e-6   \\
+  1 &  20  &  1.0045 &  -5.3066  &  1.9706 &   4.7630e-1 & 9.8356e-1  \\
+  2 &  24  & -0.6017 &   5.1099  &  2.1817 &   5.0336e-1 & 3.8203e-2  \\
+  3 &  71  &  0.4205 &  -3.4722  &  0.8295 &   1.1804e-2 & 1.6034e-2  \\
+  4 &  55  & -1.3286 &  -1.3163  &  0.5824 &   4.1755e-3 & 8.1916e-3  \\
+  5 & 105  &  2.8304 &   2.3903  &  0.7111 &   2.0601e-3 & 4.3224e-3  \\
+  6 &  18  & -1.7754 &   2.0452  &  0.8914 &   1.0196e-3 & 2.4076e-3  \\
+  7 &  31  &  2.9322 &  -1.5813  &  1.0904 &   6.3660e-4 & 1.2120e-3  \\
+  8 &  35  & -2.4503 &  -2.8244  &  0.4318 &   2.1830e-4 & 8.0199e-4  \\
+  9 &  34  &  3.4515 &   3.3322  &  1.2735 &   1.4452e-4 & 5.3057e-4  \\
+ 10 &  51  & -2.0114 &   1.9973  &  0.5857 &   7.2852e-5 & 3.9375e-4  \\
+ 11 &   4  &  0.0131 &  -2.5200  &  2.2110 &   7.9188e-5 & 2.4502e-4  \\
+ 12 &  52  & -2.1064 &   2.8180  &  0.5952 &   3.1678e-5 & 1.8553e-4  \\
+ 13 &  44  & -2.2926 &  -2.9826  &  0.6061 &   4.9411e-5 & 9.2731e-5  \\
+ 14 &  95  &  1.3808 &   1.3767  &  0.5865 &   1.4960e-5 & 6.4635e-5  \\
+ 15 & 108  &  2.6828 &  -1.9563  &  0.5559 &   1.4746e-5 & 3.6940e-5  \\
+ 16 &  59  & -1.2458 &   1.2003  &  0.6075 &   1.2079e-5 & 1.4255e-5  \\
+ 17 &   5  & -0.0010 &  -0.0005  &  2.3399 &   1.2461e-6 & 1.1914e-5  \\
+ 18 &  37  & -2.6619 &  -1.3051  &  0.5671 &   9.9185e-7 & 1.0052e-5  \\
+ 19 &  57  & -1.4292 &   0.0738  &  0.5893 &   1.1842e-6 & 7.8277e-6  \\
+ 20 &  46  & -2.0750 &  -1.3772  &  0.5875 &   1.9370e-6 & 4.1898e-6  \\
+ 21 &  16  & -1.3775 &  -1.3752  &  1.1747 &   7.4375e-7 & 2.7930e-6  \\
+ 22 &  85  &  0.6860 &   0.6869  &  0.5887 &   5.5876e-7 & 1.7435e-6  \\
+ 23 &  87  &  0.6914 &   2.0588  &  0.5738 &   1.8307e-7 & 1.3997e-6  \\
+ 24 &  38  & -2.6860 &  -0.6726  &  0.5734 &   9.5668e-8 & 1.2200e-6  \\
+ 25 &  30  &  2.7394 &  -2.7394  &  1.1720 &   1.1646e-7 & 1.0013e-6  \\
+ 26 &  83  &  0.6805 &  -0.6899  &  0.5908 &   1.8267e-7 & 6.5825e-7  \\
    \hline
 \end{tabular}
 
@@ -856,7 +822,7 @@ numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia     
 \end{table}
 
 \clearpage
- Następnie dokonano sprawdzenia czy sieć po zwiększeniu zbioru uczącego jest w stanie dobrze modelować układ dla różnych warunków początkowych. Wykres obrazujący jakość predykcji w zależności od warunków początkowych przedstawia rysunek \ref{img:err_initial2}.
+ Następnie sprawdzono czy sieć po zwiększeniu zbioru uczącego jest w stanie lepiej modelować układ dla różnych warunków początkowych. Wykres obrazujący jakość predykcji w zależności od warunków początkowych przedstawia rysunek \ref{img:err_initial2}.
 
 
 \begin{figure}[ht!]
@@ -874,19 +840,19 @@ numer & indeks RBF & centrum 1 & centrum 2 & szerokość $\sigma$ & energia     
 	\label{img:err_initial2}
 \end{figure}
 
-Jak można zauważyć dla większości warunków początkowych sieć dobrze modeluje układ. Największa wartość błędu wynosiła odpowiednio 0.5292 dla $y(t)$ oraz 0.7508 dla $y'(t)$. W porównaniu do wartości maksymalnej wartości błędu dla sieci uczonej na podstawie danych z~jednej trajektorii (maksymalny błąd MSE dla $y(t)$ wynosił 13.6417 natomiast dla $y'(t)$ wynosił 40.6341) błąd średniokwadratowy zmalał kilkadziesiąt razy. Znacznie wzrosła też ilość warunków początkowych, dla których błąd MSE predykcji był mniejszy niż 0.01. Wartość ta wzrosła z 51 do 348 warunków początkowych.
+Zakładając akceptowalność predykcji na takim samym poziomie jak poprzednio (MSE < 0.01) sieć dobrze modeluje układ dla wszystkich warunków początkowych. Największa wartość błędu wynosiła odpowiednio $1.8703e^{-4}$ dla $y(t)$ oraz  $3.3520e^{-4}$ dla $y'(t)$. W porównaniu do wartości maksymalnej wartości błędu dla sieci uczonej na podstawie danych z trajektorii w przedziale $t \in [0,50]$ \textbf{(maksymalny błąd MSE dla $y(t)$ wynosił 13.6417 natomiast dla $y'(t)$ wynosił 40.6341) błąd średniokwadratowy zmalał kilkadziesiąt razy.}
 
 \clearpage
 \section{Podsumowanie oraz wnioski}
 
-Celem pracy była próba identyfikacji nieliniowych obiektów dynamicznych z wykorzystaniem metody GOFR. Cel udało się zrealizować identyfikując obiekt dynamiczny opisany równaniem Van der Pola. Posiadając dane tylko z jednej trajektorii sieć była w stanie dobrze modelować obiekt dla różnych warunków początkowych. Predykcja na 500 kroków w przód skutkowała błędem średniokwadratowym w wyznaczeniu $y(t)$ równym 1.9873e-4 oraz błędem wyznaczania $y'(t)$ równym 3.0130e-4. Następnie aby zwiększyć jakość odwzorowania modelu obiektu dla szerszego zakresu punktów początkowych zwiększono zbiór danych uczących do 80 trajektorii. Po ponownym wytrenowaniu sieci okazało się, że jakość odwzorowania modelu dla szerokiego zakresu warunków początkowych uległa znacznemu polepszeniu.
-Określając jako akceptowalną predykcje taką, dla której błąd MSE $<$ 0.01 dla $y(t)$ oraz $y'(t)$ jednocześnie, udało się uzyskać poprawną predykcję dla 348 na 440 warunków początkowych.
+Celem pracy była próba identyfikacji nieliniowych obiektów dynamicznych z wykorzystaniem metody GOFR. Cel udało się zrealizować na przykładzie obiektu dynamicznego opisanego równaniem Van der Pola. Posiadając dane tylko z jednej trajektorii sieć była w stanie dobrze modelować obiekt dla różnych warunków początkowych. Predykcja na 100 kroków w przód skutkowała błędem średniokwadratowym aproksymacji $y(t)$ równym \textbf{1.9873e-4} oraz błędem aproksymacji $y'(t)$ równym \textbf{3.0130e-4}. Następnie zwiększono wielkość zbioru danych uczących 10-krotnie. Po ponownym wytrenowaniu sieci okazało się, że jakość aproksymacji modelu dla uległa znacznemu polepszeniu.
+Określając jako akceptowalną predykcje taką, dla której błąd MSE $<$ 0.01 dla $y(t)$ oraz $y'(t)$ jednocześnie, udało się uzyskać poprawną predykcję dla wszystkich warunków początkowych.
 
-Czas uczenia sieci uległ jednak znacznemu wydłużeniu, a ilość funkcji bazowych uległa zwiększeniu pomimo ustalania jako warunku stopu uzyskania błędu MSE dziesięciokrotnie mniejszego. Pomimo zwiększenia zbioru uczącego dla części warunków początkowych sieć nadal nie najlepiej odwzorowywała obiekt dynamiczny.  Wartości początkowe dla których błąd był większy od gwarantującego poprawną predykcję były zgrupowane. Dalszą poprawę wyników mogłoby przynieść zwiększenie zbioru uczącego bądź zmniejszenie wartości MSE jako warunku stopu. Jednym z ograniczeń zaproponowanej identyfikacji jest modelowanie obiektu dla z góry określonego kroku (dla identyfikowanego obiektu h = 0.1). Rozwiązanie takiego problemu zostało jednak zaproponowane w pracy Yi-Jen Wanga i Chin-Teng Lina\cite{Wang}. Wykorzystane w tym celu zostało połączenie metody Runge-Kutty oraz radialnej sieci neuronowej. Sieć przedstawioną w pracy można wykorzystać w tej metodzie tak aby umożliwić swobodny dobór kroku metody.
+Czas uczenia sieci uległ jednak znacznemu wydłużeniu, a liczba funkcji bazowych zwiększyła się nieznacznie z 40 do 41. Jednym z ograniczeń zaproponowanej metody identyfikacji jest modelowanie obiektu dla z góry określonego kroku (dla identyfikowanego obiektu h = 0.1). Rozwiązanie takiego problemu zostało jednak zaproponowane w pracy Yi-Jen Wanga i Chin-Teng Lina\cite{Wang}. Wykorzystane w tym celu zostało połączenie metody Runge-Kutty oraz radialnej sieci neuronowej. Sieć przedstawioną w pracy można wykorzystać w tej metodzie tak aby umożliwić swobodny dobór kroku metody.
 
-W pracy ''Structure-unknown non-linear dynamic systems: identification through neural networks''\cite{Masri} została podjęta próba identyfikacji dynamiki obiektu opisanego równaniem Van der Pola. Zastosowano tam sieć jednokierunkową, trzywarstową oraz algorytm propagacji wstecznej błędu. Nie zostały tam zamieszczone konkretne dane liczbowe, ale oceniając identyfikację obiektu na podstawie zamieszczonych tam wykresów można ocenić jakościowo, że zaproponowany w pracy dyplomowej sposób identyfikacji oparty o sieć neuronową i metodę GOFR zdecydowanie lepiej spełnił swoje zadanie. 
+W pracy \cite{Masri} została podjęta próba identyfikacji dynamiki obiektu opisanego równaniem Van der Pola. Oceniając jakościowo identyfikację obiektu z wykorzystaniem perceptronu wielowarstwowego zaproponowana metoda pozwoliła uzyskać lepsze wyniki \textbf{Do poprawy}. 
 
-Przedstawiona w pracy metoda sprawdziła się w identyfikacji dynamiki obiektu nieliniowego opisanego równaniem Van der Pola. W dalszych pracach można wykorzystać metodę GOFR do identyfikacji innych nieliniowych obiektów dynamicznych oraz zastosować ją w połączeniu z metodą Runge-Kutty.
+Przedstawiona w pracy metoda sprawdziła się w identyfikacji dynamiki obiektu nieliniowego opisanego równaniem Van der Pola. W dalszych pracach można wykorzystać metodę GOFR do identyfikacji innych nieliniowych obiektów dynamicznych oraz zastosować ją w połączeniu z metodą Runge-Kutty\cite{Wang}.
 
 % -------------------------- bibliografia ----------------------------
 \clearpage
